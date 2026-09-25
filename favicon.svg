@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Brutalist Drop Shadow -->
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="#141414" />
+  <!-- Main Yellow Face -->
+  <rect x="4" y="4" width="52" height="52" rx="14" fill="#ffc72e" stroke="#141414" stroke-width="4" />
+  <!-- Studio 'b' Lettermark -->
+  <path d="M22 16 H28 V27 C30 24 33 23 37 23 C44 23 48 28 48 36 C48 44 43 49 36 49 C32 49 29 47 27 44 V48 H22 Z M28 36 C28 41 31 44 35 44 C39 44 42 41 42 36 C42 31 39 28 35 28 C31 28 28 31 28 36 Z" fill="#141414" />
+  <!-- Orange Accent Spark -->
+  <circle cx="45" cy="18" r="4" fill="#ff4d00" stroke="#141414" stroke-width="2" />
+</svg>

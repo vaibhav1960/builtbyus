@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — Page Not Found | Builtbyus</title>
+  <meta name="description" content="The page you are looking for does not exist. Return to Builtbyus homepage." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Google Fonts: Archivo & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#faf3e5',
+            paper: '#fffcf5',
+            ink: '#141414',
+            orange: '#ff4d00',
+            yellow: '#ffc72e',
+          },
+          fontFamily: {
+            display: ['Archivo', 'Arial Black', 'sans-serif'],
+            body: ['Space Grotesk', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --color-cream: #faf3e5;
+      --color-paper: #fffcf5;
+      --color-ink: #141414;
+      --color-orange: #ff4d00;
+      --color-yellow: #ffc72e;
+    }
+    body {
+      background-color: var(--color-cream);
+      color: var(--color-ink);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .dot-grid {
+      background-image: radial-gradient(rgba(20, 20, 20, 0.14) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-cream text-ink antialiased flex flex-col justify-between selection:bg-yellow selection:text-ink dot-grid">
+
+  <!-- Minimal Header -->
+  <header class="border-b-2 border-ink bg-paper px-4 py-4 sm:px-8">
+    <div class="mx-auto flex max-w-5xl items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="grid size-10 place-items-center rounded-xl border-2 border-ink bg-yellow font-display font-black text-ink shadow-[2px_2px_0_0_#141414] transition-transform group-hover:-rotate-3">
+          b
+        </div>
+        <span class="font-display text-xl font-black tracking-tight text-ink">Builtbyus</span>
+      </a>
+      <a href="/" class="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-yellow px-5 py-2 font-display text-xs font-bold text-ink shadow-[3px_3px_0_0_#141414] transition-transform hover:-translate-y-0.5 sm:text-sm">
+        HOME
+      </a>
+    </div>
+  </header>
+
+  <!-- 404 Hero Stage -->
+  <main class="flex flex-1 items-center justify-center px-4 py-16">
+    <div class="relative w-full max-w-2xl border-2 border-ink bg-paper p-8 sm:p-14 rounded-3xl shadow-[8px_8px_0_0_#141414] text-center">
+      
+      <!-- Top Badge -->
+      <span class="inline-block rounded-full border-2 border-ink bg-orange px-4 py-1 font-display text-xs font-black uppercase tracking-widest text-cream shadow-[2px_2px_0_0_#141414]">
+        DETOUR • 404 ERROR
+      </span>
+
+      <!-- Big Bold 404 Headline -->
+      <h1 class="mt-6 font-display text-6xl sm:text-8xl font-black tracking-tighter text-ink leading-none">
+        4<span class="text-orange">0</span>4
+      </h1>
+
+      <h2 class="mt-4 font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-ink">
+        PAGE NOT FOUND OR UNBUILT
+      </h2>
+
+      <p class="mx-auto mt-3 max-w-md text-sm sm:text-base font-medium text-ink/80">
+        You wandered into unbuilt territory! The URL you're trying to reach might have been moved, renamed, or never created.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="/" class="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-8 py-3.5 font-display text-sm font-bold text-cream shadow-[4px_4px_0_0_#ff4d00] transition-transform hover:-translate-y-0.5">
+          ← BACK TO HOMEPAGE
+        </a>
+        <a href="/#work" class="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-yellow px-7 py-3.5 font-display text-sm font-bold text-ink shadow-[3px_3px_0_0_#141414] transition-transform hover:-translate-y-0.5">
+          EXPLORE OUR WORK
+        </a>
+      </div>
+
+      <!-- Quick Directory -->
+      <div class="mt-10 border-t-2 border-ink/20 pt-6">
+        <p class="text-xs font-bold uppercase tracking-wider text-ink/60">Quick Navigation</p>
+        <div class="mt-2 flex flex-wrap justify-center gap-4 text-xs font-bold text-ink">
+          <a href="/#services" class="hover:text-orange underline underline-offset-2">Services</a>
+          <a href="/#why-us" class="hover:text-orange underline underline-offset-2">Why Us</a>
+          <a href="/#about" class="hover:text-orange underline underline-offset-2">About</a>
+          <a href="/privacy.html" class="hover:text-orange underline underline-offset-2">Privacy</a>
+          <a href="/terms.html" class="hover:text-orange underline underline-offset-2">Terms</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t-2 border-ink bg-ink py-6 text-cream text-center text-xs font-bold">
+    <p>© 2026 Builtbyus Studio. Built with real craft, not awards.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Builtbyus — Logos, Websites &amp; AI Automation Studio</title>
+  <meta name="description" content="Logos, websites and AI automation — made for real businesses, not for design awards. Builtbyus crafts high-converting digital products, brand identities, and intelligent workflows." />
+  <meta name="keywords" content="Builtbyus, logo design, website development, AI automation, branding studio, ecommerce websites, WhatsApp bots, lead generation" />
+  <meta name="author" content="Builtbyus Studio" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://builtbyus.dev/" />
+  <meta name="theme-color" content="#faf3e5" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://builtbyus.dev/" />
+  <meta property="og:site_name" content="Builtbyus Studio" />
+  <meta property="og:title" content="Builtbyus — Logos, Websites &amp; AI Automation Studio" />
+  <meta property="og:description" content="Logos, websites and AI automation — made for real businesses, not for design awards." />
+  <meta property="og:image" content="https://builtbyus.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://builtbyus.dev/" />
+  <meta name="twitter:title" content="Builtbyus — Logos, Websites &amp; AI Automation Studio" />
+  <meta name="twitter:description" content="Logos, websites and AI automation — made for real businesses, not for design awards." />
+  <meta name="twitter:image" content="https://builtbyus.dev/og-image.png" />
+
+  <!-- Google Fonts: Archivo & Space Grotesk Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#faf3e5',
+            paper: '#fffcf5',
+            ink: '#141414',
+            orange: '#ff4d00',
+            yellow: '#ffc72e',
+          },
+          fontFamily: {
+            display: ['Archivo', 'Arial Black', 'sans-serif'],
+            body: ['Space Grotesk', 'Arial', 'sans-serif'],
+            sans: ['Space Grotesk', 'Arial', 'sans-serif'],
+          },
+          borderRadius: {
+            '2xl': '1rem',
+            '3xl': '1.5rem',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP 3 CDN & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    .flip-perspective {
+      perspective: 1000px;
+      -webkit-perspective: 1000px;
+    }
+    .char-flip {
+      display: inline-block;
+      white-space: pre;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, opacity;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      line-height: inherit;
+      vertical-align: top;
+    }
+
+    /* Scroll Split Card 3D styles */
+    .split-card-item {
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .split-card-front {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
+      will-change: transform;
+    }
+    .split-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      will-change: transform;
+    }
+    :root {
+      --color-cream: #faf3e5;
+      --color-paper: #fffcf5;
+      --color-ink: #141414;
+      --color-orange: #ff4d00;
+      --color-yellow: #ffc72e;
+      --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z' fill='%23141414' stroke='%23fffcf5' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3;
+      --cursor-point: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z' fill='%23ff4d00' stroke='%23141414' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3;
+    }
+
+    @media (pointer: fine) {
+      body {
+        cursor: var(--cursor-arrow), default;
+      }
+      a, button, [role="button"], label {
+        cursor: var(--cursor-point), pointer;
+      }
+    }
+
+    body {
+      background-color: var(--color-cream);
+      color: var(--color-ink);
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      overflow-x: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    ::selection {
+      background: var(--color-orange);
+      color: var(--color-cream);
+    }
+
+    .font-display {
+      font-family: 'Archivo', 'Arial Black', sans-serif;
+    }
+
+    .dot-grid {
+      background-image: radial-gradient(rgba(20, 20, 20, 0.14) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
+
+    .text-outline {
+      -webkit-text-stroke: 2.5px var(--color-ink);
+      color: transparent;
+    }
+    @media (max-width: 640px) {
+      .text-outline {
+        -webkit-text-stroke: 1.5px var(--color-ink);
+      }
+    }
+
+    /* Keyframe Animations */
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 24s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes rot {
+      to { transform: rotate(360deg); }
+    }
+    .animate-rot {
+      animation: rot 14s linear infinite;
+    }
+
+    /* Counter-clockwise rotating golden border line */
+    @keyframes rotAntiClockwise {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+    .golden-beam {
+      position: absolute;
+      inset: -200%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg 210deg,
+        rgba(255, 199, 46, 0.25) 250deg,
+        rgba(255, 215, 0, 0.8) 290deg,
+        #ffd700 325deg,
+        #fff9b8 350deg,
+        transparent 360deg
+      );
+      animation: rotAntiClockwise 3s linear infinite;
+    }
+
+    .no-scrollbar {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Diagonal stripe texture for scratch card */
+    .bg-stripes-orange {
+      background-color: #ff4d00;
+      background-image: repeating-linear-gradient(
+        45deg,
+        #ff4d00,
+        #ff4d00 18px,
+        #ff5e17 18px,
+        #ff5e17 36px
+      );
+    }
+
+    /* Detached / Floating Navbar Animation */
+    #mainHeader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      border-bottom: 2px solid var(--color-ink);
+      border-top: 0px solid transparent;
+      border-left: 0px solid transparent;
+      border-right: 0px solid transparent;
+      border-radius: 0;
+      box-shadow: 0 0 0 0 transparent;
+      background-color: rgba(250, 243, 229, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.3s ease;
+    }
+
+    #mainHeader.nav-detached {
+      top: 0.75rem;
+      width: calc(100% - 1.5rem);
+      max-width: 1140px;
+      border: 2px solid var(--color-ink);
+      border-radius: 1.25rem;
+      box-shadow: 5px 5px 0px 0px var(--color-ink);
+      background-color: rgba(250, 243, 229, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    @media (min-width: 640px) {
+      #mainHeader.nav-detached {
+        top: 1rem;
+        width: calc(100% - 3rem);
+        border-radius: 9999px;
+      }
+    }
+
+    #mainNav {
+      transition: height 0.3s ease, padding 0.3s ease;
+    }
+
+    #mainHeader.nav-detached #mainNav {
+      height: 3.75rem;
+    }
+
+    html {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    #pageWrapper {
+      width: 100%;
+      min-height: 100vh;
+    }
+    .capsule-hidden-init {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #mainHeader.nav-detached.menu-open {
+      border-radius: 1.25rem !important;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen">
+
+  <!-- ================= NAVBAR ================= -->
+  <header id="mainHeader">
+    <nav id="mainNav" class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-7">
+      <a href="/" class="flex items-center gap-2.5" aria-label="Builtbyus Homepage">
+        <img src="/logo.png" alt="Builtbyus Studio - Logo &amp; Web Design Agency" width="40" height="40" decoding="async" class="size-10 rounded-xl border-2 border-ink bg-paper object-contain p-0.5 shadow-[2px_2px_0_0_#141414]" />
+        <span class="font-display text-xl font-black tracking-tight">Builtby<span class="text-orange">us</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden items-center gap-8 md:flex">
+        <a href="#services" class="font-display text-sm font-bold tracking-wide transition-colors hover:text-orange">SERVICES</a>
+        <a href="#work" class="font-display text-sm font-bold tracking-wide transition-colors hover:text-orange">WORK</a>
+        <a href="#process" class="font-display text-sm font-bold tracking-wide transition-colors hover:text-orange">WHY US</a>
+        <a href="#about" class="font-display text-sm font-bold tracking-wide transition-colors hover:text-orange">ABOUT</a>
+        <a href="#contact" class="font-display text-sm font-bold tracking-wide transition-colors hover:text-orange">CAREERS</a>
+        <button onclick="openModal()" class="relative group inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden font-display text-sm font-bold transition-transform hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_15px_rgba(255,215,0,0.25)]">
+          <span class="golden-beam pointer-events-none"></span>
+          <span class="relative z-10 flex items-center justify-center rounded-full bg-ink px-5 py-2.5 text-cream transition-colors group-hover:bg-orange">
+            START A PROJECT
+          </span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button onclick="toggleMobileMenu()" class="grid size-10 place-items-center rounded-lg border-2 border-ink md:hidden" aria-label="Toggle menu">
+        <div class="flex w-5 flex-col gap-1.5">
+          <span class="h-0.5 w-full bg-ink"></span>
+          <span class="h-0.5 w-full bg-ink"></span>
+          <span class="h-0.5 w-full bg-ink"></span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden border-t-2 border-ink bg-cream px-6 py-6 md:hidden">
+      <div class="flex flex-col gap-4 font-display font-bold">
+        <a href="#services" onclick="toggleMobileMenu()" class="text-base hover:text-orange">SERVICES</a>
+        <a href="#work" onclick="toggleMobileMenu()" class="text-base hover:text-orange">WORK</a>
+        <a href="#process" onclick="toggleMobileMenu()" class="text-base hover:text-orange">WHY US</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-base hover:text-orange">ABOUT</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-base hover:text-orange">CAREERS</a>
+        <button onclick="openModal(); toggleMobileMenu();" class="relative group mt-2 flex w-full items-center justify-center p-[2px] rounded-full overflow-hidden font-display text-sm font-bold shadow-[0_0_15px_rgba(255,215,0,0.25)]">
+          <span class="golden-beam pointer-events-none"></span>
+          <span class="relative z-10 flex w-full items-center justify-center rounded-full bg-ink py-3 text-center text-sm font-bold text-cream">
+            START A PROJECT
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+ 
+  <div id="pageWrapper" class="relative w-full min-h-screen">
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section id="top" class="dot-grid relative flex min-h-[72svh] flex-col justify-center overflow-visible pt-20 md:min-h-svh md:pt-32">
+      
+      <!-- DRAGGABLE STICKER 1: AI BOTS (Top-left near headline) -->
+      <div id="sticker-bots" class="draggable-sticker capsule-hidden-init absolute z-30 cursor-grab touch-none select-none active:cursor-grabbing left-[3%] sm:left-[4%] top-[11%] sm:top-[13%]" style="transform: rotate(-12deg);">
+        <div class="flex items-center rounded-full border-2 border-ink bg-ink px-4 py-2 font-display text-sm font-black tracking-tight text-cream shadow-[4px_4px_0_0_#141414] transition-shadow hover:shadow-[6px_6px_0_0_#141414] sm:px-6 sm:py-3 sm:text-base sm:shadow-[5px_5px_0_0_#141414]">
+          AI BOTS
+        </div>
+      </div>
+
+      <!-- DRAGGABLE STICKER 2: LOGOS (Top-right below navbar) -->
+      <div id="sticker-logos" class="draggable-sticker capsule-hidden-init absolute z-30 cursor-grab touch-none select-none active:cursor-grabbing right-[12%] sm:right-[15%] top-[10%] sm:top-[12%]" style="transform: rotate(14deg);">
+        <div class="flex items-center rounded-full border-2 border-ink bg-yellow px-4 py-2 font-display text-sm font-black tracking-tight text-ink shadow-[4px_4px_0_0_#141414] transition-shadow hover:shadow-[6px_6px_0_0_#141414] sm:px-6 sm:py-3 sm:text-base sm:shadow-[5px_5px_0_0_#141414]">
+          LOGOS
+        </div>
+      </div>
+
+      <!-- DRAGGABLE STICKER 3: WEBSITES (Bottom-center right next to SEE OUR WORK) -->
+      <div id="sticker-websites" class="draggable-sticker capsule-hidden-init absolute z-30 cursor-grab touch-none select-none active:cursor-grabbing right-[24%] sm:right-[28%] md:right-[32%] bottom-[16%] sm:bottom-[18%] md:bottom-[21%]" style="transform: rotate(-8deg);">
+        <div class="flex items-center rounded-full border-2 border-ink bg-orange px-4 py-2 font-display text-sm font-black tracking-tight text-cream shadow-[4px_4px_0_0_#141414] transition-shadow hover:shadow-[6px_6px_0_0_#141414] sm:px-6 sm:py-3 sm:text-base sm:shadow-[5px_5px_0_0_#141414]">
+          WEBSITES
+        </div>
+      </div>
+
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
+        
+        <!-- Giant Brutalist 3D Flipping Headline -->
+        <div id="flipContainer" class="flip-perspective relative block w-full select-none cursor-pointer" role="button" tabindex="0" aria-label="Toggle headline punchline">
+          <div class="grid grid-cols-1 grid-rows-1">
+            <!-- First Punchline: YOU BRING THE IDEA. WE BUILD THE DAMN THING. -->
+            <div id="flipLayer0" class="col-start-1 row-start-1 w-full" style="transform-origin: left top;">
+              <h1 class="font-display text-[clamp(2.1rem,6.8vw,5.8rem)] font-black uppercase leading-[0.92] tracking-tight">
+                <span class="block">YOU BRING THE IDEA.</span>
+                <span class="block">
+                  <span class="text-outline">WE BUILD </span><span class="text-orange">THE DAMN</span>
+                </span>
+                <span class="block text-orange">THING.</span>
+              </h1>
+            </div>
+
+            <!-- Second Punchline: BUILT BY US. REMEMBERED BY THEM. -->
+            <div id="flipLayer1" class="col-start-1 row-start-1 w-full pointer-events-none" style="transform-origin: left top;">
+              <h1 class="font-display text-[clamp(2.1rem,6.8vw,5.8rem)] font-black uppercase leading-[0.92] tracking-tight">
+                <span class="block">BUILT BY US.</span>
+                <span class="block">
+                  <span class="text-outline">REMEMBERED </span><span class="text-orange">BY THEM.</span>
+                </span>
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Hero Controls & Rotating Stamp -->
+        <div class="mt-4 flex flex-col gap-8 sm:mt-8 sm:flex-row sm:items-end sm:justify-between">
+          <div class="max-w-xl">
+            <p class="text-sm font-medium leading-relaxed sm:text-lg">
+              Logos, websites and AI automation — made for real businesses, not for design awards.
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-3 sm:mt-7">
+              <button onclick="openModal()" class="relative group inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden font-display text-xs font-bold text-cream shadow-[5px_5px_0_0_#ff4d00] transition-transform hover:-translate-y-0.5 sm:text-base">
+                <span class="golden-beam pointer-events-none"></span>
+                <span class="relative z-10 flex items-center justify-center rounded-full bg-ink px-6 py-3 sm:px-7 sm:py-3.5 text-cream transition-colors group-hover:bg-ink/90">
+                  START A PROJECT
+                </span>
+              </button>
+              <a href="#work" class="rounded-full border-2 border-ink bg-paper px-6 py-3 font-display text-xs font-bold transition-colors hover:bg-yellow sm:px-7 sm:py-3.5 sm:text-base">
+                SEE OUR WORK
+              </a>
+            </div>
+          </div>
+
+          <!-- Rotating Circular Stamp Badge -->
+          <div class="hidden shrink-0 sm:block">
+            <div class="relative grid size-28 place-items-center sm:size-32">
+              <svg viewBox="0 0 120 120" class="absolute inset-0 animate-rot size-full">
+                <defs>
+                  <path id="badge-circle" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"></path>
+                </defs>
+                <text class="fill-ink font-display text-[12px] font-bold tracking-[0.18em]">
+                  <textPath href="#badge-circle">DESIGN • BUILD • AUTOMATE • REPEAT •</textPath>
+                </text>
+              </svg>
+              <!-- Center Orange Circle with Asterisk -->
+              <span class="grid size-12 place-items-center rounded-full bg-orange shadow-sm">
+                <svg viewBox="0 0 64 64" class="size-6 text-cream" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round">
+                  <line x1="32" y1="10" x2="32" y2="54"></line>
+                  <line x1="12.9" y1="21" x2="51.1" y2="43"></line>
+                  <line x1="12.9" y1="43" x2="51.1" y2="21"></line>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Draggable Helper Notice -->
+        <p class="mt-6 font-display text-[0.6rem] font-bold tracking-[0.2em] text-ink/50 sm:mt-10 sm:text-xs">
+          PSST. — THE STICKERS ARE DRAGGABLE
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= HORIZONTAL TICKER MARQUEE ================= -->
+    <div class="overflow-hidden border-y-2 border-ink bg-orange py-4">
+      <div class="animate-marquee items-center gap-8 pr-8">
+        <!-- Sequence 1 -->
+        <div class="flex items-center gap-8" aria-hidden="false">
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            LOGO DESIGN
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            WEBSITES
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            AI AUTOMATION
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            BRANDING
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            E-COMMERCE
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            WHATSAPP BOTS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+        </div>
+        <!-- Duplicate Sequence for infinite loop -->
+        <div class="flex items-center gap-8" aria-hidden="true">
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            LOGO DESIGN
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            WEBSITES
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            AI AUTOMATION
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            BRANDING
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            E-COMMERCE
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            WHATSAPP BOTS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= WHAT WE DO: SCROLL SPLIT CARD SECTION ================= -->
+    <section id="services" class="relative w-full">
+      
+      <!-- Scroll Track: 260vh height gives ~1600px of comfortable, readable scroll progress -->
+      <div id="splitCardTrack" class="relative w-full" style="height: 260vh;">
+        
+        <!-- Pinned Viewport: Pinned cleanly below the floating navbar with comfortable breathing room -->
+        <div id="splitCardPin" class="flex h-screen w-full flex-col items-center justify-center overflow-visible px-4 pt-20 pb-8 sm:px-6">
+          
+          <!-- Section Title Header above the cards -->
+          <div id="splitCardHeader" class="mb-3 sm:mb-5 text-center select-none">
+            <p class="font-display text-[0.7rem] sm:text-xs font-black tracking-[0.25em] text-orange uppercase">THREE THINGS. DONE RIGHT.</p>
+            <h2 class="mt-0.5 font-display text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-ink">
+              WHAT WE DO
+            </h2>
+          </div>
+
+          <!-- Cards 3D Stage with proper perspective depth -->
+          <div id="splitCardsStage" class="relative mx-auto flex h-[310px] sm:h-[340px] md:h-[360px] w-full max-w-4xl lg:max-w-5xl [transform-style:preserve-3d]" style="perspective: 1200px; -webkit-perspective: 1200px;">
+            
+            <!-- CARD 0: Left Segment (Flips to 01 Logo & Branding) -->
+            <div id="splitCard0" class="split-card-item relative h-full flex-1 [transform-style:preserve-3d] will-change-transform z-10">
+              
+              <!-- Front Side: Orange Segment 1/3 (Continuous Text Canvas) -->
+              <div class="split-card-front absolute inset-0 overflow-hidden border-2 border-ink z-20 transition-shadow">
+                <div class="split-card-canvas absolute inset-0 h-full w-[300%] bg-orange bg-stripes-orange select-none" style="left: 0%;">
+                  <div class="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center">
+                    <span class="rounded-full border-2 border-ink bg-yellow px-3.5 py-1 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-ink shadow-[2px_2px_0_0_#141414] uppercase">
+                      WHAT WE DO
+                    </span>
+                    <h3 class="mt-2.5 sm:mt-3.5 font-display text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-cream">
+                      SCROLL TO REVEAL
+                    </h3>
+                    <p class="mt-2 sm:mt-2.5 flex items-center gap-1.5 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-cream/90 uppercase">
+                      <span>↓</span> KEEP SCROLLING TO UNLOCK <span>↓</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Side: 01 LOGO & BRANDING -->
+              <div class="split-card-back absolute inset-0 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-ink bg-yellow p-4 sm:p-5 md:p-6 text-ink shadow-[6px_6px_0_0_#141414] z-10">
+                <div>
+                  <span class="font-display text-2xl sm:text-3xl font-black text-orange">01</span>
+                  <h3 class="mt-1.5 sm:mt-2 font-display text-base sm:text-lg md:text-xl font-black tracking-tight text-ink">LOGO &amp; BRANDING</h3>
+                  <p class="mt-0.5 text-[0.7rem] sm:text-xs font-medium text-ink/80">A mark people remember.</p>
+                </div>
+                <ul class="mt-2.5 flex flex-col gap-1.5 border-t-2 border-ink/20 pt-2.5 sm:pt-3">
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>LOGO SUITES
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>BRAND KITS
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>SOCIAL IDENTITY
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- CARD 1: Middle Segment (Flips to 02 Websites) -->
+            <div id="splitCard1" class="split-card-item relative h-full flex-1 [transform-style:preserve-3d] will-change-transform z-20">
+              
+              <!-- Front Side: Orange Segment 2/3 (Continuous Text Canvas) -->
+              <div class="split-card-front absolute inset-0 overflow-hidden border-2 border-ink z-20 transition-shadow">
+                <div class="split-card-canvas absolute inset-0 h-full w-[300%] bg-orange bg-stripes-orange select-none" style="left: -100%;">
+                  <div class="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center">
+                    <span class="rounded-full border-2 border-ink bg-yellow px-3.5 py-1 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-ink shadow-[2px_2px_0_0_#141414] uppercase">
+                      WHAT WE DO
+                    </span>
+                    <h3 class="mt-2.5 sm:mt-3.5 font-display text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-cream">
+                      SCROLL TO REVEAL
+                    </h3>
+                    <p class="mt-2 sm:mt-2.5 flex items-center gap-1.5 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-cream/90 uppercase">
+                      <span>↓</span> KEEP SCROLLING TO UNLOCK <span>↓</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Side: 02 WEBSITES -->
+              <div class="split-card-back absolute inset-0 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-ink bg-paper p-4 sm:p-5 md:p-6 text-ink shadow-[6px_6px_0_0_#141414] z-10">
+                <div>
+                  <span class="font-display text-2xl sm:text-3xl font-black text-orange">02</span>
+                  <h3 class="mt-1.5 sm:mt-2 font-display text-base sm:text-lg md:text-xl font-black tracking-tight text-ink">WEBSITES</h3>
+                  <p class="mt-0.5 text-[0.7rem] sm:text-xs font-medium text-ink/80">Fast, modern, made to convert.</p>
+                </div>
+                <ul class="mt-2.5 flex flex-col gap-1.5 border-t-2 border-ink/20 pt-2.5 sm:pt-3">
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>E-COMMERCE STORES
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>LANDING PAGES
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>ADMIN DASHBOARDS
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- CARD 2: Right Segment (Flips to 03 AI Automation) -->
+            <div id="splitCard2" class="split-card-item relative h-full flex-1 [transform-style:preserve-3d] will-change-transform z-30">
+              
+              <!-- Front Side: Orange Segment 3/3 (Continuous Text Canvas) -->
+              <div class="split-card-front absolute inset-0 overflow-hidden border-2 border-ink z-20 transition-shadow">
+                <div class="split-card-canvas absolute inset-0 h-full w-[300%] bg-orange bg-stripes-orange select-none" style="left: -200%;">
+                  <div class="flex h-full w-full flex-col items-center justify-center p-4 sm:p-6 text-center">
+                    <span class="rounded-full border-2 border-ink bg-yellow px-3.5 py-1 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-ink shadow-[2px_2px_0_0_#141414] uppercase">
+                      WHAT WE DO
+                    </span>
+                    <h3 class="mt-2.5 sm:mt-3.5 font-display text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-cream">
+                      SCROLL TO REVEAL
+                    </h3>
+                    <p class="mt-2 sm:mt-2.5 flex items-center gap-1.5 font-display text-[0.65rem] sm:text-xs font-black tracking-widest text-cream/90 uppercase">
+                      <span>↓</span> KEEP SCROLLING TO UNLOCK <span>↓</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Side: 03 AI AUTOMATION -->
+              <div class="split-card-back absolute inset-0 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-ink bg-ink p-4 sm:p-5 md:p-6 text-cream shadow-[6px_6px_0_0_#141414] z-10">
+                <div>
+                  <span class="font-display text-2xl sm:text-3xl font-black text-orange">03</span>
+                  <h3 class="mt-1.5 sm:mt-2 font-display text-base sm:text-lg md:text-xl font-black tracking-tight text-cream">AI AUTOMATION</h3>
+                  <p class="mt-0.5 text-[0.7rem] sm:text-xs font-medium text-cream/80">Robots for the boring stuff.</p>
+                </div>
+                <ul class="mt-2.5 flex flex-col gap-1.5 border-t-2 border-cream/20 pt-2.5 sm:pt-3">
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>WHATSAPP BOTS
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>LEAD CAPTURE
+                  </li>
+                  <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>WORKFLOW AUTOMATION
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom Status Indicator -->
+          <div id="splitCardStatus" class="mt-3.5 sm:mt-5 text-center select-none">
+            <span class="font-display text-[0.65rem] sm:text-xs font-bold tracking-widest text-ink/50 uppercase">
+              • DESIGN • BUILD • AUTOMATE •
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATS TICKER ================= -->
+    <section class="border-b-2 border-ink bg-yellow">
+      <div class="mx-auto grid max-w-7xl grid-cols-3 divide-x-2 divide-ink border-x-2 border-ink">
+        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">50+</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">HAPPY CLIENTS</p>
+        </div>
+        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">100+</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">PROJECTS SHIPPED</p>
+        </div>
+        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">&lt; 2H</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">RESPONSE TIME</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SELECTED WORK ================= -->
+    <section id="work" class="scroll-mt-20 border-b-2 border-ink bg-paper">
+      <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="font-display text-sm font-bold tracking-[0.2em] text-orange">SELECTED WORK</p>
+            <h2 class="mt-3 font-display text-4xl font-black uppercase tracking-tight sm:text-6xl">Built by us. Backed by results.</h2>
+          </div>
+          <p class="max-w-xs text-sm font-medium text-ink/60">A few of the brands we design, build and automate for.</p>
+        </div>
+
+        <!-- 2-Column Grid (4 Projects) -->
+        <div class="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+          
+          <!-- Project 1: SOLE -->
+          <a href="https://shoes3dbuiltbyus.netlify.app/" target="_blank" rel="noopener noreferrer" class="group block overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_0_#141414] transition-all hover:-translate-y-1 sm:rounded-3xl sm:shadow-[7px_7px_0_0_#141414]">
+            <div class="relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-ink text-cream">
+              <span class="font-display text-[3.25rem] font-black tracking-tighter opacity-90 sm:text-[6rem]">SOLE</span>
+              <img src="/work/sole.png" alt="Sole Footwear - 3D Interactive Shoe Experience &amp; E-Commerce Showcase" width="1024" height="459" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute right-2 top-2 rounded-full border-2 border-ink bg-cream px-2 py-0.5 font-display text-[0.55rem] font-bold tracking-[0.1em] text-ink sm:right-4 sm:top-4 sm:px-3 sm:py-1 sm:text-[0.65rem]">3D E-COMMERCE</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 border-t-2 border-ink bg-cream px-4 py-3 sm:px-6 sm:py-5">
+              <h3 class="truncate font-display text-sm font-black tracking-tight sm:text-xl lg:text-2xl">SOLE.</h3>
+              <span class="grid size-7 shrink-0 place-items-center rounded-full border-2 border-ink transition-colors group-hover:bg-orange group-hover:text-cream sm:size-10">
+                <svg viewBox="0 0 24 24" class="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:size-4" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Project 2: JMC Home Interior Design -->
+          <a href="https://exquisite-selkie-fb88da.netlify.app/" target="_blank" rel="noopener noreferrer" class="group block overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_0_#141414] transition-all hover:-translate-y-1 sm:rounded-3xl sm:shadow-[7px_7px_0_0_#141414]">
+            <div class="relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-paper text-ink">
+              <span class="font-display text-[3.25rem] font-black tracking-tighter opacity-90 sm:text-[6rem]">JMC</span>
+              <img src="/work/jmc-interiors.png" alt="JMC Home Interior Design - Bespoke Architecture &amp; Living Portfolio" width="1024" height="459" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute right-2 top-2 rounded-full border-2 border-ink bg-cream px-2 py-0.5 font-display text-[0.55rem] font-bold tracking-[0.1em] text-ink sm:right-4 sm:top-4 sm:px-3 sm:py-1 sm:text-[0.65rem]">INTERIOR DESIGN</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 border-t-2 border-ink bg-cream px-4 py-3 sm:px-6 sm:py-5">
+              <h3 class="truncate font-display text-sm font-black tracking-tight sm:text-xl lg:text-2xl">JMC INTERIOR DESIGN</h3>
+              <span class="grid size-7 shrink-0 place-items-center rounded-full border-2 border-ink transition-colors group-hover:bg-orange group-hover:text-cream sm:size-10">
+                <svg viewBox="0 0 24 24" class="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:size-4" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Project 3: Woody Tales -->
+          <a href="https://www.woodytales.in/" target="_blank" rel="noopener noreferrer" class="group block overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_0_#141414] transition-all hover:-translate-y-1 sm:rounded-3xl sm:shadow-[7px_7px_0_0_#141414]">
+            <div class="relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-ink text-yellow">
+              <span class="font-display text-[3.25rem] font-black tracking-tighter opacity-90 sm:text-[6rem]">WT</span>
+              <img src="/work/woody-tales.jpg" alt="Woody Tales - Handcrafted Bespoke Wooden Furniture Brand" width="1600" height="950" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute right-2 top-2 rounded-full border-2 border-ink bg-cream px-2 py-0.5 font-display text-[0.55rem] font-bold tracking-[0.1em] text-ink sm:right-4 sm:top-4 sm:px-3 sm:py-1 sm:text-[0.65rem]">E-COMMERCE</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 border-t-2 border-ink bg-cream px-4 py-3 sm:px-6 sm:py-5">
+              <h3 class="truncate font-display text-sm font-black tracking-tight sm:text-xl lg:text-2xl">WOODY TALES</h3>
+              <span class="grid size-7 shrink-0 place-items-center rounded-full border-2 border-ink transition-colors group-hover:bg-orange group-hover:text-cream sm:size-10">
+                <svg viewBox="0 0 24 24" class="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:size-4" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Project 4: Pashupati Jewellers -->
+          <a href="https://pashupati.co/" target="_blank" rel="noopener noreferrer" class="group block overflow-hidden rounded-xl border-2 border-ink shadow-[4px_4px_0_0_#141414] transition-all hover:-translate-y-1 sm:rounded-3xl sm:shadow-[7px_7px_0_0_#141414]">
+            <div class="relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-orange text-cream">
+              <span class="font-display text-[3.25rem] font-black tracking-tighter opacity-90 sm:text-[6rem]">PJ</span>
+              <img src="/work/pashupati.jpg" alt="Pashupati Jewellers - Luxury Traditional &amp; Contemporary Jewelry E-Commerce" width="1280" height="673" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span class="absolute right-2 top-2 rounded-full border-2 border-ink bg-cream px-2 py-0.5 font-display text-[0.55rem] font-bold tracking-[0.1em] text-ink sm:right-4 sm:top-4 sm:px-3 sm:py-1 sm:text-[0.65rem]">E-COMMERCE</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 border-t-2 border-ink bg-cream px-4 py-3 sm:px-6 sm:py-5">
+              <h3 class="truncate font-display text-sm font-black tracking-tight sm:text-xl lg:text-2xl">PASHUPATI JEWELLERS</h3>
+              <span class="grid size-7 shrink-0 place-items-center rounded-full border-2 border-ink transition-colors group-hover:bg-orange group-hover:text-cream sm:size-10">
+                <svg viewBox="0 0 24 24" class="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:size-4" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- See all projects CTA -->
+        <div class="mt-10 text-center">
+          <a href="#contact" class="group inline-flex items-center gap-2 rounded-full border-2 border-ink bg-cream px-6 py-3 font-display text-xs font-black tracking-[0.14em] shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 sm:px-8 sm:text-sm">
+            SEE ALL 14+ PROJECTS <span class="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS / PROCESS ================= -->
+    <section id="process" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-28">
+      <div>
+        <p class="font-display text-sm font-bold tracking-[0.2em] text-orange">HOW IT WORKS</p>
+        <h2 class="mt-3 font-display text-4xl font-black uppercase tracking-tight sm:text-6xl">Clarity in. Product out.</h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        <!-- Step 1 -->
+        <div class="flex h-full gap-5 rounded-3xl border-2 border-ink bg-paper p-7 shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-1">
+          <span class="grid size-12 shrink-0 place-items-center rounded-full bg-orange font-display text-base font-black text-cream sm:size-14 sm:text-lg">01</span>
+          <div>
+            <h3 class="font-display text-xl font-black uppercase tracking-tight sm:text-2xl">DISCOVER</h3>
+            <p class="mt-1 font-display text-xs font-bold uppercase tracking-wider text-orange">Understand the problem.</p>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-ink/70">Tell us what you&#x27;re building. We dig into your business, audience, goals and requirements before touching the pixels.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex h-full gap-5 rounded-3xl border-2 border-ink bg-paper p-7 shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-1">
+          <span class="grid size-12 shrink-0 place-items-center rounded-full bg-orange font-display text-base font-black text-cream sm:size-14 sm:text-lg">02</span>
+          <div>
+            <h3 class="font-display text-xl font-black uppercase tracking-tight sm:text-2xl">BUILD</h3>
+            <p class="mt-1 font-display text-xs font-bold uppercase tracking-wider text-orange">Turn the idea into something real.</p>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-ink/70">Strategy, design, code, AI and automation — our team brings everything together and keeps you in the loop along the way.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex h-full gap-5 rounded-3xl border-2 border-ink bg-paper p-7 shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-1">
+          <span class="grid size-12 shrink-0 place-items-center rounded-full bg-orange font-display text-base font-black text-cream sm:size-14 sm:text-lg">03</span>
+          <div>
+            <h3 class="font-display text-xl font-black uppercase tracking-tight sm:text-2xl">LAUNCH</h3>
+            <p class="mt-1 font-display text-xs font-bold uppercase tracking-wider text-orange">Put it in the wild.</p>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-ink/70">We test, polish, deploy and hand everything over properly — then stick around when you need us next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THREE SUSPECTS / FOUNDERS ================= -->
+    <section id="about" class="border-t-2 border-ink bg-paper">
+      <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="font-display text-sm font-bold tracking-[0.2em] text-orange">THREE SUSPECTS</p>
+            <h2 class="mt-2 font-display text-3xl font-black uppercase tracking-tight sm:text-5xl">The people behind the madness</h2>
+          </div>
+          <button onclick="openModal()" class="group hidden items-center gap-2 rounded-full border-2 border-ink bg-cream px-5 py-2.5 font-display text-xs font-bold transition-colors hover:bg-yellow sm:inline-flex">
+            WORK WITH US
+            <svg viewBox="0 0 24 24" class="size-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 12h14M13 6l6 6-6 6"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          <!-- Founder 1: Dimple Suru -->
+          <article class="flex h-full flex-col justify-between gap-4 rounded-2xl border-2 border-ink bg-cream p-4 shadow-[4px_4px_0_0_#141414] sm:gap-5 sm:rounded-3xl sm:p-5 sm:shadow-[5px_5px_0_0_#141414]">
+            <div>
+              <span class="font-display text-[11px] font-bold text-orange tracking-widest uppercase">FRONTEND &amp; UI/UX</span>
+              <h3 class="mt-1 font-display text-lg font-black leading-tight tracking-tight sm:text-xl">DIMPLE SURU</h3>
+              <p class="mt-2 text-xs font-medium leading-relaxed text-ink/70 sm:text-sm">Crafting intuitive interfaces, bold visual systems, and seamless digital experiences that make brands impossible to ignore.</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/soundsgood._03/?hl=en" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Dimple Suru Instagram">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <defs>
+                    <linearGradient id="ig-gradient-dimple" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#FEDA75"></stop>
+                      <stop offset="0.25" stop-color="#FA7E1E"></stop>
+                      <stop offset="0.5" stop-color="#D62976"></stop>
+                      <stop offset="0.75" stop-color="#962FBF"></stop>
+                      <stop offset="1" stop-color="#4F5BD5"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="url(#ig-gradient-dimple)"></rect>
+                  <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.8"></rect>
+                  <circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"></circle>
+                  <circle cx="17.2" cy="6.9" r="1.2" fill="#fff"></circle>
+                </svg>
+              </a>
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/dimple-suru/" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Dimple Suru LinkedIn">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="4.5" fill="#0A66C2"></rect>
+                  <circle cx="6.4" cy="6.6" r="1.8" fill="#fff"></circle>
+                  <rect x="4.8" y="9.6" width="3.2" height="9.2" fill="#fff"></rect>
+                  <path d="M10.2 9.6h3.05v1.3a3.32 3.32 0 0 1 2.93-1.5c2.2 0 3.62 1.4 3.62 4.05v5.35h-3.2v-4.85c0-1.25-.5-2-1.62-2-1 0-1.58.66-1.58 2v4.85h-3.2Z" fill="#fff"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Founder 2: Vaibhav Chawda -->
+          <article class="flex h-full flex-col justify-between gap-4 rounded-2xl border-2 border-ink bg-cream p-4 shadow-[4px_4px_0_0_#141414] sm:gap-5 sm:rounded-3xl sm:p-5 sm:shadow-[5px_5px_0_0_#141414]">
+            <div>
+              <span class="font-display text-[11px] font-bold text-orange tracking-widest uppercase">BACKEND DEVELOPER &amp; BUSINESS OPERATIONS</span>
+              <h3 class="mt-1 font-display text-lg font-black leading-tight tracking-tight sm:text-xl">VAIBHAV CHAWDA</h3>
+              <p class="mt-2 text-xs font-medium leading-relaxed text-ink/70 sm:text-sm">Building reliable digital systems and driving business operations that turn ideas into scalable, working products.</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/_.vaibhav.______/?hl=en" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Vaibhav Chawda Instagram">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <defs>
+                    <linearGradient id="ig-gradient-vaibhav" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#FEDA75"></stop>
+                      <stop offset="0.25" stop-color="#FA7E1E"></stop>
+                      <stop offset="0.5" stop-color="#D62976"></stop>
+                      <stop offset="0.75" stop-color="#962FBF"></stop>
+                      <stop offset="1" stop-color="#4F5BD5"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="url(#ig-gradient-vaibhav)"></rect>
+                  <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.8"></rect>
+                  <circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"></circle>
+                  <circle cx="17.2" cy="6.9" r="1.2" fill="#fff"></circle>
+                </svg>
+              </a>
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/vaibhav-chawda-542545282/" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Vaibhav Chawda LinkedIn">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="4.5" fill="#0A66C2"></rect>
+                  <circle cx="6.4" cy="6.6" r="1.8" fill="#fff"></circle>
+                  <rect x="4.8" y="9.6" width="3.2" height="9.2" fill="#fff"></rect>
+                  <path d="M10.2 9.6h3.05v1.3a3.32 3.32 0 0 1 2.93-1.5c2.2 0 3.62 1.4 3.62 4.05v5.35h-3.2v-4.85c0-1.25-.5-2-1.62-2-1 0-1.58.66-1.58 2v4.85h-3.2Z" fill="#fff"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Founder 3: Krina Sangani -->
+          <article class="flex h-full flex-col justify-between gap-4 rounded-2xl border-2 border-ink bg-cream p-4 shadow-[4px_4px_0_0_#141414] sm:gap-5 sm:rounded-3xl sm:p-5 sm:shadow-[5px_5px_0_0_#141414]">
+            <div>
+              <span class="font-display text-[11px] font-bold text-orange tracking-widest uppercase">CRM &amp; CLIENT STRATEGY</span>
+              <h3 class="mt-1 font-display text-lg font-black leading-tight tracking-tight sm:text-xl">KRINA SANGANI</h3>
+              <p class="mt-2 text-xs font-medium leading-relaxed text-ink/70 sm:text-sm">Translating client requirements into clear solutions while managing relationships, workflows, and the details that keep projects moving.</p>
+            </div>
+            <div class="flex gap-2 pt-2">
+              <a href="https://www.instagram.com/kriiiiriiiina/?hl=en" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Krina Sangani Instagram">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <defs>
+                    <linearGradient id="ig-gradient-krina" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#FEDA75"></stop>
+                      <stop offset="0.25" stop-color="#FA7E1E"></stop>
+                      <stop offset="0.5" stop-color="#D62976"></stop>
+                      <stop offset="0.75" stop-color="#962FBF"></stop>
+                      <stop offset="1" stop-color="#4F5BD5"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="url(#ig-gradient-krina)"></rect>
+                  <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.8"></rect>
+                  <circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"></circle>
+                  <circle cx="17.2" cy="6.9" r="1.2" fill="#fff"></circle>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/krina-sangani-508b03249/" target="_blank" rel="noopener noreferrer" class="grid size-8 place-items-center rounded-md border-2 border-ink bg-paper transition-transform hover:-translate-y-0.5 sm:size-9" aria-label="Krina Sangani LinkedIn">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="4.5" fill="#0A66C2"></rect>
+                  <circle cx="6.4" cy="6.6" r="1.8" fill="#fff"></circle>
+                  <rect x="4.8" y="9.6" width="3.2" height="9.2" fill="#fff"></rect>
+                  <path d="M10.2 9.6h3.05v1.3a3.32 3.32 0 0 1 2.93-1.5c2.2 0 3.62 1.4 3.62 4.05v5.35h-3.2v-4.85c0-1.25-.5-2-1.62-2-1 0-1.58.66-1.58 2v4.85h-3.2Z" fill="#fff"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BOTTOM CONTACT / CALL TO ACTION ================= -->
+    <section id="contact" class="scroll-mt-20 border-t-2 border-ink bg-ink text-cream">
+      <div class="mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 sm:py-32">
+        <svg viewBox="0 0 64 64" class="mx-auto size-10 text-orange" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round">
+          <line x1="32" y1="10" x2="32" y2="54"></line>
+          <line x1="12.9" y1="21" x2="51.1" y2="43"></line>
+          <line x1="12.9" y1="43" x2="51.1" y2="21"></line>
+        </svg>
+        <h2 class="mt-6 font-display text-[clamp(2.5rem,8vw,6.5rem)] font-black uppercase leading-[0.95] tracking-tight">
+          Got an idea?<span class="block text-orange">Let&#x27;s build it.</span>
+        </h2>
+        <p class="mx-auto mt-6 max-w-md text-base font-medium text-cream/70 sm:text-lg">
+          One message is all it takes. Tell us about your brand and we take it from there.
+        </p>
+        <div class="mt-9 flex flex-wrap justify-center gap-3">
+          <button onclick="openModal()" class="rounded-full bg-orange px-8 py-4 font-display text-sm font-bold text-cream shadow-[5px_5px_0_0_#ffc72e] transition-transform hover:-translate-y-0.5 sm:text-base">
+            START A PROJECT
+          </button>
+          <a href="#work" class="rounded-full border-2 border-cream px-8 py-4 font-display text-sm font-bold transition-colors hover:bg-cream hover:text-ink sm:text-base">
+            SEE OUR WORK
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t-2 border-orange/30 bg-ink text-cream">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <div class="flex flex-col gap-10 md:flex-row md:justify-between">
+        <div>
+          <a href="/" class="flex items-center gap-2.5" aria-label="Builtbyus Homepage">
+            <img src="/logo.png" alt="Builtbyus Studio - Design &amp; Automation" width="40" height="40" loading="lazy" decoding="async" class="size-10 rounded-xl border-2 border-cream/20 bg-paper object-contain p-0.5 shadow-[2px_2px_0_0_#ff4d00]" />
+            <span class="font-display text-xl font-black tracking-tight text-cream">Builtby<span class="text-orange">us</span></span>
+          </a>
+          <nav class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+            <a href="#services" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">SERVICES</a>
+            <a href="#work" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">WORK</a>
+            <a href="#process" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">WHY US</a>
+            <a href="#about" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">ABOUT</a>
+            <a href="/privacy.html" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">PRIVACY</a>
+            <a href="/terms.html" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">TERMS</a>
+            <a href="#contact" class="font-display text-xs font-bold tracking-[0.14em] text-cream/70 transition-colors hover:text-orange">CONTACT</a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="font-display text-[0.6rem] font-black tracking-[0.18em] text-orange">FIND US HERE</p>
+          <div class="mt-3 flex flex-col gap-2.5">
+            <a href="https://www.instagram.com/builtbyus/" target="_blank" rel="noopener noreferrer" class="group inline-flex w-fit items-center gap-2.5 font-display text-xs font-bold tracking-wide text-cream/70 transition-colors hover:text-cream">
+              <span class="grid size-7 place-items-center rounded-md bg-cream/10 transition-colors group-hover:bg-cream/20">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <defs>
+                    <linearGradient id="ig-grad-foot" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#FEDA75"></stop>
+                      <stop offset="0.25" stop-color="#FA7E1E"></stop>
+                      <stop offset="0.5" stop-color="#D62976"></stop>
+                      <stop offset="0.75" stop-color="#962FBF"></stop>
+                      <stop offset="1" stop-color="#4F5BD5"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="url(#ig-grad-foot)"></rect>
+                  <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.8"></rect>
+                  <circle cx="12" cy="12" r="3.3" fill="none" stroke="#fff" stroke-width="1.8"></circle>
+                  <circle cx="17.2" cy="6.9" r="1.2" fill="#fff"></circle>
+                </svg>
+              </span>
+              @builtbyus
+            </a>
+            <a href="https://www.linkedin.com/company/builtbyus/" target="_blank" rel="noopener noreferrer" class="group inline-flex w-fit items-center gap-2.5 font-display text-xs font-bold tracking-wide text-cream/70 transition-colors hover:text-cream">
+              <span class="grid size-7 place-items-center rounded-md bg-cream/10 transition-colors group-hover:bg-cream/20">
+                <svg viewBox="0 0 24 24" class="size-4">
+                  <rect x="1.5" y="1.5" width="21" height="21" rx="4.5" fill="#0A66C2"></rect>
+                  <circle cx="6.4" cy="6.6" r="1.8" fill="#fff"></circle>
+                  <rect x="4.8" y="9.6" width="3.2" height="9.2" fill="#fff"></rect>
+                  <path d="M10.2 9.6h3.05v1.3a3.32 3.32 0 0 1 2.93-1.5c2.2 0 3.62 1.4 3.62 4.05v5.35h-3.2v-4.85c0-1.25-.5-2-1.62-2-1 0-1.58.66-1.58 2v4.85h-3.2Z" fill="#fff"></path>
+                </svg>
+              </span>
+              BUILTBYUS
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-cream/15 py-5 text-center font-display text-[0.7rem] font-bold tracking-[0.14em] text-cream/70 flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
+      <span>© 2026 BUILTBYUS STUDIO — ALL RIGHTS RESERVED</span>
+      <span>•</span>
+      <a href="/privacy.html" class="underline underline-offset-4 hover:text-yellow transition-colors">PRIVACY POLICY</a>
+      <span>•</span>
+      <a href="/terms.html" class="underline underline-offset-4 hover:text-yellow transition-colors">TERMS OF SERVICE</a>
+    </div>
+  </footer>
+  </div> <!-- end #pageWrapper -->
+
+  <!-- ================= MODAL: START A PROJECT (4-STEP FORM) ================= -->
+  <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/65 p-4 backdrop-blur-sm">
+    <div class="relative w-full max-w-lg rounded-[2rem] border-2 border-ink bg-[#FAF3E5] p-6 shadow-[8px_8px_0_0_#141414] sm:p-8">
+      
+      <!-- Close Button (X in top-right circle) -->
+      <button onclick="closeModal()" type="button" class="absolute right-5 top-5 grid size-10 place-items-center rounded-full border-2 border-ink bg-transparent text-ink font-black hover:bg-ink hover:text-cream transition-colors" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+          <line x1="6" y1="18" x2="18" y2="6"></line>
+        </svg>
+      </button>
+
+      <!-- Multi-step Form -->
+      <form id="projectMultiStepForm" onsubmit="handleMultiStepSubmit(event)" novalidate>
+
+        <!-- Hidden Honeypot Field for Bot Spam Protection -->
+        <div class="hidden" style="display:none !important; opacity:0; position:absolute; left:-9999px;" aria-hidden="true">
+          <label for="leadHoneypot">Do not fill this field</label>
+          <input type="text" id="leadHoneypot" name="company_website_url" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- STEP 1 OF 4: NAME -->
+        <div id="modalStep1" class="modal-step">
+          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 1 OF 4</p>
+          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
+            WHAT SHOULD WE CALL<br>YOU?
+          </h3>
+          <p class="mt-1 text-sm font-medium text-ink/80">First name is plenty.</p>
+
+          <div class="mt-6">
+            <input 
+              id="leadName" 
+              type="text" 
+              required 
+              placeholder="e.g. Vaibhav" 
+              autocomplete="name"
+              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3.5 text-base font-bold text-ink outline-none shadow-[3px_3px_0_0_#ff4d00] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
+              onkeydown="if(event.key==='Enter'){event.preventDefault(); goToStep(2);}"
+            />
+            <p id="leadNameError" class="mt-1.5 hidden text-xs font-bold text-orange">Please enter your name (at least 2 letters).</p>
+          </div>
+
+          <button 
+            type="button" 
+            onclick="goToStep(2)" 
+            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            NEXT
+          </button>
+        </div>
+
+        <!-- STEP 2 OF 4: CONTACT INFO -->
+        <div id="modalStep2" class="modal-step hidden">
+          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 2 OF 4</p>
+          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
+            HOW CAN WE REACH YOU?
+          </h3>
+          <p class="mt-1 text-sm font-medium text-ink/80">Phone number so we can text or call. Zero spam.</p>
+
+          <!-- Saved Badges Row -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>NAME:</span>
+              <span id="badgeName1" class="font-bold"></span>
+            </button>
+          </div>
+
+          <!-- Country Code + Phone Input -->
+          <div class="mt-4 flex gap-2">
+            <div class="relative shrink-0">
+              <select id="leadCountryCode" aria-label="Country calling code" class="h-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-3 py-3.5 font-display text-sm font-bold text-ink outline-none shadow-[3px_3px_0_0_#141414] cursor-pointer">
+                <option value="+91" selected>IN +91</option>
+                <option value="+1">US +1</option>
+                <option value="+44">UK +44</option>
+                <option value="+971">UAE +971</option>
+                <option value="+61">AU +61</option>
+                <option value="+1">CA +1</option>
+              </select>
+            </div>
+            <input 
+              id="leadPhone" 
+              type="tel" 
+              required 
+              placeholder="Mobile / WhatsApp number" 
+              autocomplete="tel"
+              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3.5 text-base font-bold text-ink outline-none shadow-[3px_3px_0_0_#ff4d00] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
+              onkeydown="if(event.key==='Enter'){event.preventDefault(); goToStep(3);}"
+            />
+          </div>
+          <p id="leadPhoneError" class="mt-1.5 hidden text-xs font-bold text-orange">Please provide a valid phone number (at least 7 digits).</p>
+
+          <!-- Optional Email -->
+          <div class="mt-3">
+            <input 
+              id="leadEmail" 
+              type="email" 
+              placeholder="Your email (optional)" 
+              autocomplete="email"
+              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3 text-sm font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
+            />
+            <p id="leadEmailError" class="mt-1 hidden text-xs font-bold text-orange">Please enter a valid email address (e.g. name@domain.com).</p>
+          </div>
+
+          <button 
+            type="button" 
+            onclick="goToStep(3)" 
+            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            NEXT
+          </button>
+        </div>
+
+        <!-- STEP 3 OF 4: WHAT ARE YOU LOOKING FOR? -->
+        <div id="modalStep3" class="modal-step hidden">
+          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 3 OF 4</p>
+          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
+            WHAT ARE YOU LOOKING FOR?
+          </h3>
+          <p class="mt-1 text-sm font-medium text-ink/80">Pick as many as you like.</p>
+
+          <!-- Saved Badges Row -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>NAME:</span>
+              <span id="badgeName2" class="font-bold"></span>
+            </button>
+            <button type="button" onclick="goToStep(2)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>PHONE:</span>
+              <span id="badgePhone2" class="font-bold"></span>
+            </button>
+          </div>
+
+          <!-- Selectable Service Pills -->
+          <div class="mt-5 flex flex-wrap gap-2.5">
+            <label class="cursor-pointer inline-flex items-center select-none">
+              <input type="checkbox" name="leadService" value="Website" class="peer sr-only" checked onchange="updateServiceSelection()" />
+              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Website</span>
+            </label>
+            <label class="cursor-pointer inline-flex items-center select-none">
+              <input type="checkbox" name="leadService" value="Meta ads" class="peer sr-only" onchange="updateServiceSelection()" />
+              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Meta ads</span>
+            </label>
+            <label class="cursor-pointer inline-flex items-center select-none">
+              <input type="checkbox" name="leadService" value="Chat bot" class="peer sr-only" onchange="updateServiceSelection()" />
+              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Chat bot</span>
+            </label>
+            <label class="cursor-pointer inline-flex items-center select-none">
+              <input type="checkbox" name="leadService" value="Logo & branding" class="peer sr-only" onchange="updateServiceSelection()" />
+              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Logo & branding</span>
+            </label>
+          </div>
+          <p id="leadServiceError" class="mt-2.5 hidden text-xs font-bold text-orange">Please select at least one service.</p>
+
+          <button 
+            type="button" 
+            onclick="goToStep(4)" 
+            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            NEXT
+          </button>
+        </div>
+
+        <!-- STEP 4 OF 4: TELL US ABOUT YOUR BUSINESS -->
+        <div id="modalStep4" class="modal-step hidden">
+          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 4 OF 4</p>
+          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
+            TELL US ABOUT YOUR BUSINESS <span class="font-sans text-xs font-normal normal-case text-ink/50 align-middle">optional</span>
+          </h3>
+          <p class="mt-1 text-sm font-medium text-ink/80">In short — what you do, and where you want to get to.</p>
+
+          <!-- Saved Badges Row (Exact match to Screenshot 4) -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>NAME:</span>
+              <span id="badgeName3" class="font-bold"></span>
+            </button>
+            <button type="button" onclick="goToStep(2)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>PHONE:</span>
+              <span id="badgePhone3" class="font-bold"></span>
+            </button>
+            <button type="button" onclick="goToStep(3)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
+              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>LOOKING FOR:</span>
+              <span id="badgeService3" class="font-bold"></span>
+            </button>
+          </div>
+
+          <!-- Textarea -->
+          <div class="mt-4">
+            <textarea 
+              id="leadDetails" 
+              rows="4" 
+              placeholder="We sell handmade goods and need a website that converts visitors into customers..."
+              class="w-full resize-none rounded-2xl border-2 border-ink bg-[#FAF3E5] p-4 text-sm font-medium text-ink outline-none shadow-[3px_3px_0_0_#141414] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            SEND IT
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Bottom Step Indicators (Dashes / Pills) -->
+      <div class="mt-6 flex items-center justify-center gap-2">
+        <span id="stepIndicator1" class="h-1.5 w-8 rounded-full bg-orange border border-ink transition-all duration-300"></span>
+        <span id="stepIndicator2" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
+        <span id="stepIndicator3" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
+        <span id="stepIndicator4" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-[110] hidden rounded-2xl border-2 border-ink bg-yellow px-6 py-4 font-display font-black text-ink shadow-[5px_5px_0_0_#141414] max-w-sm">
+    <div class="flex items-center gap-3">
+      <span class="grid size-7 place-items-center rounded-full bg-ink text-cream text-xs font-bold">✓</span>
+      <div>
+        <p class="text-sm font-black uppercase">Project Brief Received!</p>
+        <p class="text-xs font-medium text-ink/80 mt-0.5">We'll review and reply within 2 hours. 🔥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= COOKIE CONSENT BANNER ================= -->
+  <aside id="cookieBanner" role="dialog" aria-labelledby="cookieBannerTitle" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[95] hidden rounded-2xl border-2 border-ink bg-paper p-4 sm:p-5 shadow-[6px_6px_0px_0px_#141414] transition-all duration-300">
+    <div class="flex items-start gap-3.5">
+      <div class="grid size-10 shrink-0 place-items-center rounded-xl border-2 border-ink bg-yellow font-display text-xl shadow-[2px_2px_0px_0px_#141414] select-none">
+        🍪
+      </div>
+      <div class="flex-1">
+        <h4 id="cookieBannerTitle" class="font-display text-sm font-black uppercase tracking-tight text-ink">COOKIE PREFERENCES</h4>
+        <p class="mt-1 text-xs font-medium text-ink/85 leading-relaxed">
+          We use strictly essential cookies for site security and performance. No invasive tracking. Read our <a href="/privacy.html" class="underline font-bold text-orange hover:text-ink">Privacy Policy</a>.
+        </p>
+        <div class="mt-3.5 flex items-center gap-2.5">
+          <button onclick="acceptCookies()" type="button" class="rounded-full border-2 border-ink bg-ink px-4 py-1.5 font-display text-xs font-bold text-cream shadow-[2px_2px_0px_0px_#ff4d00] hover:bg-orange hover:text-cream transition-all">
+            ACCEPT
+          </button>
+          <button onclick="declineCookies()" type="button" class="rounded-full border-2 border-ink bg-paper px-4 py-1.5 font-display text-xs font-bold text-ink shadow-[2px_2px_0px_0px_#141414] hover:bg-yellow transition-all">
+            DECLINE
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // Navbar Scroll Detach Animation
+    const mainHeader = document.getElementById('mainHeader');
+    function handleNavbarDetach() {
+      if (!mainHeader) return;
+      if (window.scrollY > 35) {
+        mainHeader.classList.add('nav-detached');
+      } else {
+        mainHeader.classList.remove('nav-detached');
+      }
+    }
+    window.addEventListener('scroll', handleNavbarDetach, { passive: true });
+    // Run immediately on page load in case page is already scrolled
+    handleNavbarDetach();
+
+    // Mobile Navigation Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+      if (mainHeader) {
+        if (!menu.classList.contains('hidden')) {
+          mainHeader.classList.add('menu-open');
+        } else {
+          mainHeader.classList.remove('menu-open');
+        }
+      }
+    }
+
+    // ================= 4-STEP PROJECT MODAL LOGIC =================
+    let currentStep = 1;
+
+    function getSelectedServices() {
+      const checkedBoxes = document.querySelectorAll('input[name="leadService"]:checked');
+      const services = Array.from(checkedBoxes).map(cb => cb.value);
+      return services.length > 0 ? services.join(', ') : 'Website';
+    }
+
+    function updateServiceSelection() {
+      const selected = getSelectedServices();
+      const badge = document.getElementById('badgeService3');
+      if (badge) badge.textContent = selected;
+    }
+
+    function updateStepIndicators(step) {
+      for (let i = 1; i <= 4; i++) {
+        const ind = document.getElementById(`stepIndicator${i}`);
+        if (!ind) continue;
+        if (i < step) {
+          // Completed step: solid black pill
+          ind.className = 'h-1.5 w-6 rounded-full bg-ink transition-all duration-300';
+        } else if (i === step) {
+          // Current step: wider orange pill with border
+          ind.className = 'h-1.5 w-8 rounded-full bg-orange border border-ink transition-all duration-300';
+        } else {
+          // Future step: hollow outlined pill
+          ind.className = 'h-1.5 w-6 rounded-full border border-ink bg-transparent transition-all duration-300';
+        }
+      }
+    }
+
+    let modalOpenTime = 0;
+
+    function openModal() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modalOpenTime = Date.now();
+      goToStep(1);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function validateStepInput(step) {
+      if (step === 1) {
+        const nameInput = document.getElementById('leadName');
+        const err = document.getElementById('leadNameError');
+        if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
+          nameInput.focus();
+          nameInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+          if (err) err.classList.remove('hidden');
+          return false;
+        }
+        nameInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
+        if (err) err.classList.add('hidden');
+        return true;
+      }
+      if (step === 2) {
+        const phoneInput = document.getElementById('leadPhone');
+        const phoneErr = document.getElementById('leadPhoneError');
+        const cleanPhone = phoneInput.value.replace(/\D/g, '');
+        if (cleanPhone.length < 7) {
+          phoneInput.focus();
+          phoneInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+          if (phoneErr) phoneErr.classList.remove('hidden');
+          return false;
+        }
+        phoneInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
+        if (phoneErr) phoneErr.classList.add('hidden');
+
+        // Optional email format check
+        const emailInput = document.getElementById('leadEmail');
+        const emailErr = document.getElementById('leadEmailError');
+        if (emailInput && emailInput.value.trim()) {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(emailInput.value.trim())) {
+            emailInput.focus();
+            emailInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+            if (emailErr) emailErr.classList.remove('hidden');
+            return false;
+          }
+          emailInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
+          if (emailErr) emailErr.classList.add('hidden');
+        }
+        return true;
+      }
+      if (step === 3) {
+        const checkedBoxes = document.querySelectorAll('input[name="leadService"]:checked');
+        const serviceErr = document.getElementById('leadServiceError');
+        if (checkedBoxes.length === 0) {
+          if (serviceErr) serviceErr.classList.remove('hidden');
+          return false;
+        }
+        if (serviceErr) serviceErr.classList.add('hidden');
+        return true;
+      }
+      return true;
+    }
+
+    function goToStep(step) {
+      const nameInput = document.getElementById('leadName');
+      const phoneInput = document.getElementById('leadPhone');
+      const countryCode = document.getElementById('leadCountryCode');
+
+      // Validation before advancing
+      if (step > 1 && !validateStepInput(1)) return;
+      if (step > 2 && !validateStepInput(2)) return;
+      if (step > 3 && !validateStepInput(3)) return;
+
+      // Update badge text values
+      const nameVal = nameInput.value.trim();
+      const phoneVal = `${countryCode.value} ${phoneInput.value.trim()}`;
+      const serviceVal = getSelectedServices();
+
+      ['badgeName1', 'badgeName2', 'badgeName3'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = nameVal;
+      });
+
+      ['badgePhone2', 'badgePhone3'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = phoneVal;
+      });
+
+      const serviceBadge = document.getElementById('badgeService3');
+      if (serviceBadge) serviceBadge.textContent = serviceVal;
+
+      // Update Step display
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`modalStep${i}`);
+        if (stepEl) {
+          if (i === step) {
+            stepEl.classList.remove('hidden');
+          } else {
+            stepEl.classList.add('hidden');
+          }
+        }
+      }
+
+      updateStepIndicators(step);
+      currentStep = step;
+
+      // Auto-focus relevant field
+      setTimeout(() => {
+        if (step === 1) nameInput.focus();
+        if (step === 2) phoneInput.focus();
+        if (step === 4) document.getElementById('leadDetails')?.focus();
+      }, 50);
+    }
+
+    function handleMultiStepSubmit(e) {
+      e.preventDefault();
+
+      // Bot protection check 1: Honeypot
+      const honeypot = document.getElementById('leadHoneypot')?.value;
+      if (honeypot && honeypot.trim() !== '') {
+        console.warn('Bot blocked by honeypot filter.');
+        closeModal();
+        return;
+      }
+
+      // Bot protection check 2: Timestamp (submissions under 1.5s are automated scripts)
+      const elapsed = Date.now() - modalOpenTime;
+      if (elapsed < 1500) {
+        console.warn('Bot blocked: unnatural completion time.');
+        closeModal();
+        return;
+      }
+
+      if (!validateStepInput(1) || !validateStepInput(2) || !validateStepInput(3)) {
+        return;
+      }
+
+      const name = document.getElementById('leadName').value.trim();
+      const phone = `${document.getElementById('leadCountryCode').value} ${document.getElementById('leadPhone').value.trim()}`;
+      const email = document.getElementById('leadEmail')?.value.trim() || '';
+      const service = getSelectedServices();
+      const details = document.getElementById('leadDetails').value.trim();
+
+      console.log('Project Lead Verified:', { name, phone, email, service, details });
+
+      closeModal();
+      const toast = document.getElementById('toast');
+      if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 5000);
+      }
+
+      // Reset form
+      document.getElementById('projectMultiStepForm').reset();
+      goToStep(1);
+    }
+
+    // Close modal on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ================= DRAGGABLE STICKERS =================
+    document.querySelectorAll('.draggable-sticker').forEach(sticker => {
+      let isDragging = false;
+      let startX, startY;
+      let initialLeft, initialTop;
+
+      sticker.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        sticker.setPointerCapture(e.pointerId);
+        sticker.style.cursor = 'grabbing';
+        sticker.style.zIndex = '40';
+
+        const rect = sticker.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = sticker.offsetLeft;
+        initialTop = sticker.offsetTop;
+      });
+
+      sticker.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        sticker.style.left = `${initialLeft + dx}px`;
+        sticker.style.top = `${initialTop + dy}px`;
+        sticker.style.right = 'auto';
+        sticker.style.bottom = 'auto';
+      });
+
+      const stopDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        sticker.style.cursor = 'grab';
+        try {
+          sticker.releasePointerCapture(e.pointerId);
+        } catch (err) {}
+      };
+
+      sticker.addEventListener('pointerup', stopDrag);
+      sticker.addEventListener('pointercancel', stopDrag);
+    });
+
+    // ================= SCROLL SPLIT CARD IMPLEMENTATION =================
+    // ================= SCROLL SPLIT CARD IMPLEMENTATION =================
+    // Recreates the ScrollSplitCard using GSAP ScrollTrigger with true pinning and comfortable reading ratio
+    function initScrollSplitCard() {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const track = document.getElementById('splitCardTrack');
+      const pinEl = document.getElementById('splitCardPin');
+      const stage = document.getElementById('splitCardsStage');
+      const card0 = document.getElementById('splitCard0');
+      const card1 = document.getElementById('splitCard1');
+      const card2 = document.getElementById('splitCard2');
+      if (!track || !pinEl || !stage || !card0 || !card1 || !card2) return;
+
+      // Clean up previous instance if exists to avoid duplicates
+      if (ScrollTrigger.getById('splitCardTrigger')) {
+        ScrollTrigger.getById('splitCardTrigger').kill();
+      }
+
+      const front0 = card0.querySelector('.split-card-front');
+      const front1 = card1.querySelector('.split-card-front');
+      const front2 = card2.querySelector('.split-card-front');
+      const back0 = card0.querySelector('.split-card-back');
+      const back1 = card1.querySelector('.split-card-back');
+      const back2 = card2.querySelector('.split-card-back');
+
+      const isMobile = window.innerWidth < 640;
+      const isTablet = window.innerWidth < 1024;
+      const spreadX = isMobile ? 8 : (isTablet ? 16 : 24);
+      const overlapX = isMobile ? 4 : 8;
+
+      // Set initial states: unified solid orange card with "SCROLL TO REVEAL"
+      gsap.set(card0, { x: 0, rotateY: 0, rotateZ: 0, transformOrigin: 'center center' });
+      gsap.set(card1, { x: 0, rotateY: 0, rotateZ: 0, transformOrigin: 'center center' });
+      gsap.set(card2, { x: 0, rotateY: 0, rotateZ: 0, transformOrigin: 'center center' });
+      gsap.set(stage, { scale: 1, y: 0 });
+
+      gsap.set(front0, { borderRadius: '20px 0px 0px 20px', boxShadow: 'none', opacity: 1, zIndex: 20 });
+      gsap.set(front1, { borderRadius: '0px 0px 0px 0px', boxShadow: 'none', opacity: 1, zIndex: 20 });
+      gsap.set(front2, { borderRadius: '0px 20px 20px 0px', boxShadow: 'none', opacity: 1, zIndex: 20 });
+
+      gsap.set([back0, back1, back2], { opacity: 0, zIndex: 10 });
+
+      // GSAP Pin Timeline:
+      // Pins the viewport solidly in center of screen with comfortable scroll duration
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          id: 'splitCardTrigger',
+          trigger: track,
+          pin: pinEl,
+          pinSpacing: false,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.4,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      // Phase 1 (0.00 to 0.22): Clean Horizontal Separation
+      // Cards separate slightly so user sees the 3 distinct cards forming
+      tl.to(card0, { x: -spreadX, duration: 0.22, ease: 'power1.inOut' }, 0)
+        .to(card2, { x: spreadX, duration: 0.22, ease: 'power1.inOut' }, 0)
+        .to(stage, { scale: 0.98, duration: 0.22, ease: 'power1.inOut' }, 0)
+        .to(front0, { borderRadius: '18px', boxShadow: '5px 5px 0px 0px #141414', duration: 0.18 }, 0)
+        .to(front1, { borderRadius: '18px', boxShadow: '5px 5px 0px 0px #141414', duration: 0.18 }, 0)
+        .to(front2, { borderRadius: '18px', boxShadow: '5px 5px 0px 0px #141414', duration: 0.18 }, 0);
+
+      // Phase 2 (0.22 to 0.55): 180° 3D Flip
+      // Rotates into the 3 service cards: 01 Branding, 02 Websites, 03 AI Automation
+      tl.to([card0, card1, card2], {
+        rotateY: 180,
+        duration: 0.33,
+        ease: 'power2.inOut',
+      }, 0.22)
+      .to(card0, {
+        x: -overlapX,
+        rotateZ: 1.5,
+        duration: 0.33,
+        ease: 'power2.inOut',
+      }, 0.22)
+      .to(card2, {
+        x: overlapX,
+        rotateZ: -1.5,
+        duration: 0.33,
+        ease: 'power2.inOut',
+      }, 0.22);
+
+      // Halfway flip visibility swap: at 90° rotation, swap zIndex and opacity so back side is 100% visible and front is hidden!
+      tl.set([front0, front1, front2], { opacity: 0, zIndex: 5 }, 0.385);
+      tl.set([back0, back1, back2], { opacity: 1, zIndex: 30 }, 0.385);
+
+      // Phase 3 (0.55 to 1.00): HOLD & READ WINDOW (45% of entire scroll!)
+      // The 3 service cards stay 100% stationary and pinned dead-center in the viewport
+      // giving the user ample time to read all bullets and descriptions!
+      tl.to({}, { duration: 0.45 }, 0.55);
+    }
+
+    // ================= GSAP 3D FLIPPING WORD SWAP ANIMATION =================
+    // Implements FlippingWordSwap character 3D rotationX sequence with auto-loop and user interaction
+    function initFlippingWordSwap() {
+      const container = document.getElementById('flipContainer');
+      const layer0 = document.getElementById('flipLayer0');
+      const layer1 = document.getElementById('flipLayer1');
+      if (!container || !layer0 || !layer1 || typeof gsap === 'undefined') return;
+      if (container.dataset.flipInitialized === 'true') return;
+      container.dataset.flipInitialized = 'true';
+
+      const graphemeSegmenter =
+        typeof Intl.Segmenter === "function"
+          ? new Intl.Segmenter(undefined, { granularity: "grapheme" })
+          : null;
+
+      function segmentCharacters(text) {
+        if (!graphemeSegmenter) return Array.from(text);
+        return Array.from(graphemeSegmenter.segment(text), ({ segment }) => segment);
+      }
+
+      function processLayerCharacters(targetEl, layerName) {
+        function processNode(node) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            if (!text || text.trim() === '') return;
+
+            const fragment = document.createDocumentFragment();
+            const tokens = text.match(/\S+|\s+/g) || [];
+
+            tokens.forEach(token => {
+              if (/^\s+$/.test(token)) {
+                const spaceSpan = document.createElement('span');
+                spaceSpan.className = 'inline-block whitespace-pre leading-[0.92] align-top';
+                spaceSpan.textContent = '\u00a0';
+                fragment.appendChild(spaceSpan);
+              } else {
+                const wordWrapper = document.createElement('span');
+                wordWrapper.className = 'inline-block whitespace-nowrap leading-[0.92] align-top';
+                const chars = segmentCharacters(token);
+                chars.forEach(ch => {
+                  const charSpan = document.createElement('span');
+                  charSpan.setAttribute('data-flip-word', layerName);
+                  charSpan.className = 'char-flip [backface-visibility:hidden] [will-change:transform,opacity]';
+                  charSpan.textContent = ch;
+                  wordWrapper.appendChild(charSpan);
+                });
+                fragment.appendChild(wordWrapper);
+              }
+            });
+
+            node.parentNode.replaceChild(fragment, node);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            Array.from(node.childNodes).forEach(processNode);
+          }
+        }
+        processNode(targetEl);
+      }
+
+      // Prepare characters for both punchlines
+      processLayerCharacters(layer0, 'first');
+      processLayerCharacters(layer1, 'second');
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const duration = 400;
+      const stagger = 36;
+      const resolvedDuration = prefersReducedMotion ? 0 : Math.max(180, duration) / 1000;
+      const resolvedStagger = prefersReducedMotion ? 0 : Math.max(0, stagger) / 1000;
+
+      const firstChars = gsap.utils.toArray('[data-flip-word="first"]', container);
+      const secondChars = gsap.utils.toArray('[data-flip-word="second"]', container);
+
+      gsap.set(firstChars, {
+        rotationX: 0,
+        opacity: 1,
+        transformOrigin: "center top",
+      });
+      gsap.set(secondChars, {
+        rotationX: -82,
+        opacity: 0,
+        transformOrigin: "center bottom",
+      });
+
+      const timeline = gsap.timeline({ paused: true });
+      timeline
+        .to(firstChars, {
+          rotationX: 82,
+          opacity: 0,
+          duration: resolvedDuration,
+          stagger: resolvedStagger,
+          ease: "power2.in",
+        })
+        .to(
+          secondChars,
+          {
+            rotationX: 0,
+            opacity: 1,
+            duration: resolvedDuration,
+            stagger: resolvedStagger,
+            ease: "power2.out",
+          },
+          `<${resolvedDuration * 0.62}`,
+        );
+
+      let isSwapped = false;
+      let isHovered = false;
+      let autoTimer = null;
+      const REST_INTERVAL = 2800;
+
+      function scheduleNextFlip() {
+        clearTimeout(autoTimer);
+        if (isHovered) return;
+        autoTimer = setTimeout(() => {
+          updateSwap(!isSwapped);
+        }, REST_INTERVAL);
+      }
+
+      function updateSwap(next) {
+        if (next === isSwapped) return;
+        isSwapped = next;
+
+        if (next) {
+          timeline.play();
+          layer0.style.pointerEvents = 'none';
+          layer1.style.pointerEvents = 'auto';
+        } else {
+          timeline.reverse();
+          layer0.style.pointerEvents = 'auto';
+          layer1.style.pointerEvents = 'none';
+        }
+      }
+
+      timeline.eventCallback("onComplete", () => {
+        scheduleNextFlip();
+      });
+      timeline.eventCallback("onReverseComplete", () => {
+        scheduleNextFlip();
+      });
+
+      // Hover / Touch / Keyboard interactions
+      container.addEventListener('mouseenter', () => {
+        isHovered = true;
+        clearTimeout(autoTimer);
+        updateSwap(true);
+      });
+
+      container.addEventListener('mouseleave', () => {
+        isHovered = false;
+        updateSwap(false);
+      });
+
+      container.addEventListener('pointerup', (e) => {
+        if (e.pointerType !== 'mouse') {
+          clearTimeout(autoTimer);
+          updateSwap(!isSwapped);
+        }
+      });
+
+      container.addEventListener('click', () => {
+        clearTimeout(autoTimer);
+        updateSwap(!isSwapped);
+      });
+
+      container.addEventListener('focus', () => {
+        isHovered = true;
+        clearTimeout(autoTimer);
+        updateSwap(true);
+      });
+
+      container.addEventListener('blur', () => {
+        isHovered = false;
+        updateSwap(false);
+      });
+
+      // Start initial auto sequence
+      scheduleNextFlip();
+    }
+
+    // ================= PAGE ENTRANCE & CAPSULE DROP ANIMATION =================
+    // Implements right-to-left website entrance followed by physics drop of AI BOTS, LOGOS, WEBSITES capsules
+    function initPageEntranceAnimation() {
+      if (window.__pageEntranceDone) return;
+      window.__pageEntranceDone = true;
+
+      const pageWrapper = document.getElementById('pageWrapper');
+      const mainHeader = document.getElementById('mainHeader');
+      const stickerBots = document.getElementById('sticker-bots');
+      const stickerLogos = document.getElementById('sticker-logos');
+      const stickerWebsites = document.getElementById('sticker-websites');
+
+      if (!pageWrapper || typeof gsap === 'undefined') return;
+
+      // Respect accessibility preferences
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (stickerBots) stickerBots.classList.remove('capsule-hidden-init');
+        if (stickerLogos) stickerLogos.classList.remove('capsule-hidden-init');
+        if (stickerWebsites) stickerWebsites.classList.remove('capsule-hidden-init');
+        initScrollSplitCard();
+        return;
+      }
+
+      // Initial positions:
+      // 1. Website & Navbar start shifted to the right
+      gsap.set(pageWrapper, {
+        x: '100vw',
+        opacity: 1
+      });
+      if (mainHeader) {
+        gsap.set(mainHeader, { x: '100vw' });
+      }
+
+      // 2. The 3 capsules start high above viewport (top-to-bottom drop origin)
+      const dropDistance = -(window.innerHeight + 350);
+      if (stickerBots) {
+        stickerBots.classList.remove('capsule-hidden-init');
+        gsap.set(stickerBots, { y: dropDistance, rotation: -36, opacity: 0 });
+      }
+      if (stickerLogos) {
+        stickerLogos.classList.remove('capsule-hidden-init');
+        gsap.set(stickerLogos, { y: dropDistance - 50, rotation: 38, opacity: 0 });
+      }
+      if (stickerWebsites) {
+        stickerWebsites.classList.remove('capsule-hidden-init');
+        gsap.set(stickerWebsites, { y: dropDistance - 100, rotation: -28, opacity: 0 });
+      }
+
+      // Master Entrance Timeline
+      const entranceTl = gsap.timeline();
+
+      // Phase 1: Website & Navbar enter smoothly from right to left
+      const slideTargets = mainHeader ? [pageWrapper, mainHeader] : pageWrapper;
+      entranceTl.to(slideTargets, {
+        x: 0,
+        duration: 0.85,
+        ease: 'power3.out',
+        onComplete: () => {
+          gsap.set(pageWrapper, { clearProps: 'transform' });
+          if (mainHeader) gsap.set(mainHeader, { clearProps: 'transform' });
+          if (typeof handleNavbarDetach === 'function') handleNavbarDetach();
+          initScrollSplitCard();
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }
+      });
+
+      // Phase 2: As website lands in position, the 3 capsules drop from sky to their exact spots with realistic bounce
+      if (stickerBots) {
+        entranceTl.to(stickerBots, {
+          y: 0,
+          rotation: -12,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'bounce.out',
+          onComplete: () => {
+            gsap.set(stickerBots, { clearProps: 'y,opacity' });
+            stickerBots.style.transform = 'rotate(-12deg)';
+          }
+        }, '-=0.18'); // starts just as website finishes sliding
+      }
+
+      if (stickerLogos) {
+        entranceTl.to(stickerLogos, {
+          y: 0,
+          rotation: 14,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'bounce.out',
+          onComplete: () => {
+            gsap.set(stickerLogos, { clearProps: 'y,opacity' });
+            stickerLogos.style.transform = 'rotate(14deg)';
+          }
+        }, '-=0.68'); // staggered drop
+      }
+
+      if (stickerWebsites) {
+        entranceTl.to(stickerWebsites, {
+          y: 0,
+          rotation: -8,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'bounce.out',
+          onComplete: () => {
+            gsap.set(stickerWebsites, { clearProps: 'y,opacity' });
+            stickerWebsites.style.transform = 'rotate(-8deg)';
+          }
+        }, '-=0.68'); // staggered drop
+      }
+    }
+
+    // ================= COOKIE CONSENT & PRIVACY ANALYTICS =================
+    function initCookieConsent() {
+      const consent = localStorage.getItem('cookie_consent');
+      const banner = document.getElementById('cookieBanner');
+      if (!consent) {
+        setTimeout(() => {
+          if (banner) banner.classList.remove('hidden');
+        }, 1200);
+      } else if (consent === 'accepted') {
+        initAnalytics();
+      }
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('cookie_consent', 'accepted');
+      const banner = document.getElementById('cookieBanner');
+      if (banner) banner.classList.add('hidden');
+      initAnalytics();
+    }
+
+    function declineCookies() {
+      localStorage.setItem('cookie_consent', 'declined');
+      const banner = document.getElementById('cookieBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    function initAnalytics() {
+      if (window.__analyticsActive) return;
+      window.__analyticsActive = true;
+      console.log('Builtbyus Analytics: Enabled with verified consent.');
+      // Drop-in compatible with Google Analytics 4 (gtag) or Plausible Analytics
+      window.dataLayer = window.dataLayer || [];
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initPageEntranceAnimation();
+      initScrollSplitCard();
+      initFlippingWordSwap();
+      initCookieConsent();
+    });
+    // In case DOM is already parsed
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      initPageEntranceAnimation();
+      initScrollSplitCard();
+      setTimeout(initFlippingWordSwap, 50);
+      initCookieConsent();
+    }
+  </script>
+</body>
+</html>

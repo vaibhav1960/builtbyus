@@ -1,0 +1,17 @@
+{
+  "name": "builtbyus",
+  "version": "1.0.0",
+  "description": "Builtbyus - Neo-brutalist design and automation studio website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "neo-brutalist",
+    "tailwind",
+    "ai-automation"
+  ],
+  "author": "Builtbyus",
+  "license": "ISC"
+}

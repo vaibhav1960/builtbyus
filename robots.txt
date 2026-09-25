@@ -1,0 +1,7 @@
+# robots.txt for Builtbyus Studio
+User-agent: *
+Allow: /
+Disallow: /saved_sections/
+Disallow: /api/
+
+Sitemap: https://builtbyus.dev/sitemap.xml

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="dotgrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2" fill="#141414" opacity="0.12"/>
+    </pattern>
+    <style>
+      .font-heavy { font-family: 'Arial Black', sans-serif; font-weight: 900; }
+      .font-mono { font-family: 'Courier New', monospace; font-weight: 700; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#faf3e5"/>
+  <rect width="1200" height="630" fill="url(#dotgrid)"/>
+
+  <!-- Outer Brutalist Border -->
+  <rect x="24" y="24" width="1152" height="582" rx="28" fill="none" stroke="#141414" stroke-width="8"/>
+
+  <!-- Top Bar -->
+  <g transform="translate(60, 60)">
+    <!-- Logo Badge -->
+    <rect x="0" y="0" width="56" height="56" rx="16" fill="#ffc72e" stroke="#141414" stroke-width="4"/>
+    <text x="28" y="38" text-anchor="middle" class="font-heavy" font-size="28" fill="#141414">b</text>
+    <text x="76" y="38" class="font-heavy" font-size="32" fill="#141414" letter-spacing="-1">Builtbyus</text>
+
+    <!-- Top Right Pill -->
+    <g transform="translate(680, 4)">
+      <rect x="0" y="0" width="340" height="46" rx="23" fill="#141414"/>
+      <text x="170" y="29" text-anchor="middle" class="font-mono" font-size="14" fill="#ffc72e" letter-spacing="2">STUDIO FOR REAL COMMERCE</text>
+    </g>
+  </g>
+
+  <!-- Main Hero Card -->
+  <g transform="translate(60, 160)">
+    <!-- Shadow -->
+    <rect x="12" y="12" width="1076" height="340" rx="24" fill="#141414"/>
+    <!-- Card Front -->
+    <rect x="0" y="0" width="1076" height="340" rx="24" fill="#fffcf5" stroke="#141414" stroke-width="6"/>
+
+    <!-- Left Badge -->
+    <g transform="translate(48, 40)">
+      <rect x="0" y="0" width="220" height="34" rx="17" fill="#ff4d00" stroke="#141414" stroke-width="3"/>
+      <text x="110" y="22" text-anchor="middle" class="font-heavy" font-size="13" fill="#fffcf5" letter-spacing="1.5">HIGH-IMPACT STUDIO</text>
+    </g>
+
+    <!-- Big Headline -->
+    <text x="48" y="145" class="font-heavy" font-size="64" fill="#141414" letter-spacing="-2">
+      LOGOS, WEBSITES &amp;
+    </text>
+    <text x="48" y="215" class="font-heavy" font-size="64" fill="#ff4d00" letter-spacing="-2">
+      AI AUTOMATION.
+    </text>
+
+    <!-- Subtitle -->
+    <text x="48" y="275" font-family="Arial, sans-serif" font-weight="600" font-size="22" fill="#141414" opacity="0.8">
+      Made for real businesses, not for design awards.
+    </text>
+
+    <!-- Right Yellow Stamp -->
+    <g transform="translate(860, 70)">
+      <circle cx="90" cy="90" r="85" fill="#ffc72e" stroke="#141414" stroke-width="5"/>
+      <text x="90" y="75" text-anchor="middle" class="font-heavy" font-size="16" fill="#141414" letter-spacing="1">100%</text>
+      <text x="90" y="100" text-anchor="middle" class="font-heavy" font-size="14" fill="#141414" letter-spacing="1">BESPOKE</text>
+      <text x="90" y="125" text-anchor="middle" class="font-heavy" font-size="12" fill="#141414" letter-spacing="1">PRODUCTION</text>
+    </g>
+  </g>
+
+  <!-- Bottom Metric Pills -->
+  <g transform="translate(60, 526)">
+    <!-- Pill 1 -->
+    <rect x="0" y="0" width="240" height="48" rx="24" fill="#ffc72e" stroke="#141414" stroke-width="4"/>
+    <text x="120" y="30" text-anchor="middle" class="font-heavy" font-size="14" fill="#141414">50+ HAPPY CLIENTS</text>
+
+    <!-- Pill 2 -->
+    <rect x="260" y="0" width="270" height="48" rx="24" fill="#faf3e5" stroke="#141414" stroke-width="4"/>
+    <text x="395" y="30" text-anchor="middle" class="font-heavy" font-size="14" fill="#141414">100+ PROJECTS SHIPPED</text>
+
+    <!-- Pill 3 -->
+    <rect x="550" y="0" width="240" height="48" rx="24" fill="#faf3e5" stroke="#141414" stroke-width="4"/>
+    <text x="670" y="30" text-anchor="middle" class="font-heavy" font-size="14" fill="#141414">&lt; 2H RESPONSE TIME</text>
+
+    <!-- URL on right -->
+    <text x="1076" y="32" text-anchor="end" class="font-heavy" font-size="20" fill="#141414" letter-spacing="0.5">builtbyus.dev</text>
+  </g>
+</svg>
