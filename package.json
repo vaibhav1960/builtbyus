@@ -1,17 +1,24 @@
 {
   "name": "builtbyus",
   "version": "1.0.0",
-  "description": "Builtbyus - Neo-brutalist design and automation studio website",
+  "description": "Builtbyus - Neo-brutalist design and social ads studio website",
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test:security": "node security-tests/run-all.js"
   },
   "keywords": [
     "neo-brutalist",
     "tailwind",
-    "ai-automation"
+    "social-ads"
   ],
   "author": "Builtbyus",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "@upstash/redis": "^1.39.0",
+    "puppeteer-core": "^25.12.0",
+    "zod": "^4.6.5"
+  }
 }

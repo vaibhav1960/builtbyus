@@ -1,0 +1,7 @@
+# Supabase Public Publishable Anon Key (Safe by design per Supabase RLS architecture)
+index.html:generic-api-key:1364
+supabase-config.js:generic-api-key:17
+security-tests/test-rls-schema.js:generic-api-key:11
+.env.example:generic-api-key:11
+index.html:generic-api-key:1611
+netlify/functions/submit-lead.js:generic-api-key:13

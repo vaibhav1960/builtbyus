@@ -9,10 +9,10 @@
   <link rel="canonical" href="https://builtbyus.dev/privacy.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <!-- Google Fonts: Archivo & Space Grotesk -->
+  <!-- Google Fonts: Isometra, Lilita One, Archivo & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Isometra&family=Lilita+One&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,14 +21,16 @@
       theme: {
         extend: {
           colors: {
-            cream: '#faf3e5',
-            paper: '#fffcf5',
+            cream: '#e8e6df',
+            paper: '#ffffff',
             ink: '#141414',
             orange: '#ff4d00',
             yellow: '#ffc72e',
           },
           fontFamily: {
-            display: ['Archivo', 'Arial Black', 'sans-serif'],
+            display: ["'Lilita One'", 'Archivo', 'Arial Black', 'sans-serif'],
+            lilita: ["'Lilita One'", 'sans-serif'],
+            isometra: ["'Isometra'", 'serif'],
             body: ['Space Grotesk', 'Arial', 'sans-serif'],
           }
         }
@@ -38,8 +40,8 @@
 
   <style>
     :root {
-      --color-cream: #faf3e5;
-      --color-paper: #fffcf5;
+      --color-cream: #e8e6df;
+      --color-paper: #ffffff;
       --color-ink: #141414;
       --color-orange: #ff4d00;
       --color-yellow: #ffc72e;
@@ -48,6 +50,30 @@
       background-color: var(--color-cream);
       color: var(--color-ink);
       font-family: 'Space Grotesk', sans-serif;
+    }
+    /* User-specified Google Font Classes */
+    .isometra-regular {
+      font-family: "Isometra", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .lilita-one-regular {
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .font-display {
+      font-family: 'Lilita One', 'Archivo', 'Arial Black', sans-serif;
+    }
+
+    .font-lilita {
+      font-family: 'Lilita One', sans-serif;
+    }
+
+    .font-isometra {
+      font-family: 'Isometra', serif;
     }
   </style>
 </head>

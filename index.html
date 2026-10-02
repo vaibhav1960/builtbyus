@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Builtbyus — Logos, Websites &amp; AI Automation Studio</title>
-  <meta name="description" content="Logos, websites and AI automation — made for real businesses, not for design awards. Builtbyus crafts high-converting digital products, brand identities, and intelligent workflows." />
-  <meta name="keywords" content="Builtbyus, logo design, website development, AI automation, branding studio, ecommerce websites, WhatsApp bots, lead generation" />
+  <title>Builtbyus — Logos, Websites &amp; Social Ads Studio</title>
+  <meta name="description" content="Logos, websites and social ads — made for real businesses, not for design awards. Builtbyus crafts high-converting digital products, brand identities, and high-ROI ad campaigns." />
+  <meta name="keywords" content="Builtbyus, logo design, website development, social ads, branding studio, ecommerce websites, Meta ads, Instagram ads, Google ads, lead generation" />
   <meta name="author" content="Builtbyus Studio" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://builtbyus.dev/" />
-  <meta name="theme-color" content="#faf3e5" />
+  <meta name="theme-color" content="#e8e6df" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
   <!-- Favicons -->
@@ -21,8 +21,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://builtbyus.dev/" />
   <meta property="og:site_name" content="Builtbyus Studio" />
-  <meta property="og:title" content="Builtbyus — Logos, Websites &amp; AI Automation Studio" />
-  <meta property="og:description" content="Logos, websites and AI automation — made for real businesses, not for design awards." />
+  <meta property="og:title" content="Builtbyus — Logos, Websites &amp; Social Ads Studio" />
+  <meta property="og:description" content="Logos, websites and social ads — made for real businesses, not for design awards." />
   <meta property="og:image" content="https://builtbyus.dev/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -30,14 +30,17 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://builtbyus.dev/" />
-  <meta name="twitter:title" content="Builtbyus — Logos, Websites &amp; AI Automation Studio" />
-  <meta name="twitter:description" content="Logos, websites and AI automation — made for real businesses, not for design awards." />
+  <meta name="twitter:title" content="Builtbyus — Logos, Websites &amp; Social Ads Studio" />
+  <meta name="twitter:description" content="Logos, websites and social ads — made for real businesses, not for design awards." />
   <meta name="twitter:image" content="https://builtbyus.dev/og-image.png" />
 
-  <!-- Google Fonts: Archivo & Space Grotesk Preconnect -->
+  <!-- Google Fonts: Isometra, Lilita One, Archivo & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Isometra&family=Lilita+One&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Cloudflare Turnstile Bot Protection API -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -46,14 +49,16 @@
       theme: {
         extend: {
           colors: {
-            cream: '#faf3e5',
-            paper: '#fffcf5',
+            cream: '#e8e6df',
+            paper: '#ffffff',
             ink: '#141414',
             orange: '#ff4d00',
             yellow: '#ffc72e',
           },
           fontFamily: {
-            display: ['Archivo', 'Arial Black', 'sans-serif'],
+            display: ["'Lilita One'", 'Archivo', 'Arial Black', 'sans-serif'],
+            lilita: ["'Lilita One'", 'sans-serif'],
+            isometra: ["'Isometra'", 'serif'],
             body: ['Space Grotesk', 'Arial', 'sans-serif'],
             sans: ['Space Grotesk', 'Arial', 'sans-serif'],
           },
@@ -108,12 +113,12 @@
       will-change: transform;
     }
     :root {
-      --color-cream: #faf3e5;
-      --color-paper: #fffcf5;
+      --color-cream: #e8e6df;
+      --color-paper: #ffffff;
       --color-ink: #141414;
       --color-orange: #ff4d00;
       --color-yellow: #ffc72e;
-      --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z' fill='%23141414' stroke='%23fffcf5' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3;
+      --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z' fill='%23141414' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3;
       --cursor-point: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.36Z' fill='%23ff4d00' stroke='%23141414' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3;
     }
 
@@ -140,8 +145,29 @@
       color: var(--color-cream);
     }
 
+    /* User-specified Google Font Classes */
+    .isometra-regular {
+      font-family: "Isometra", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .lilita-one-regular {
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
     .font-display {
-      font-family: 'Archivo', 'Arial Black', sans-serif;
+      font-family: 'Lilita One', 'Archivo', 'Arial Black', sans-serif;
+    }
+
+    .font-lilita {
+      font-family: 'Lilita One', sans-serif;
+    }
+
+    .font-isometra {
+      font-family: 'Isometra', serif;
     }
 
     .dot-grid {
@@ -167,7 +193,7 @@
     .animate-marquee {
       display: flex;
       width: max-content;
-      animation: marquee 24s linear infinite;
+      animation: marquee 30s linear infinite;
     }
     .animate-marquee:hover {
       animation-play-state: paused;
@@ -240,7 +266,7 @@
       border-right: 0px solid transparent;
       border-radius: 0;
       box-shadow: 0 0 0 0 transparent;
-      background-color: rgba(250, 243, 229, 0.92);
+      background-color: rgba(232, 230, 223, 0.92);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -259,7 +285,7 @@
       border: 2px solid var(--color-ink);
       border-radius: 1.25rem;
       box-shadow: 5px 5px 0px 0px var(--color-ink);
-      background-color: rgba(250, 243, 229, 0.96);
+      background-color: rgba(232, 230, 223, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -361,10 +387,10 @@
     <!-- ================= HERO SECTION ================= -->
     <section id="top" class="dot-grid relative flex min-h-[72svh] flex-col justify-center overflow-visible pt-20 md:min-h-svh md:pt-32">
       
-      <!-- DRAGGABLE STICKER 1: AI BOTS (Top-left near headline) -->
+      <!-- DRAGGABLE STICKER 1: SOCIAL ADS (Top-left near headline) -->
       <div id="sticker-bots" class="draggable-sticker capsule-hidden-init absolute z-30 cursor-grab touch-none select-none active:cursor-grabbing left-[3%] sm:left-[4%] top-[11%] sm:top-[13%]" style="transform: rotate(-12deg);">
         <div class="flex items-center rounded-full border-2 border-ink bg-ink px-4 py-2 font-display text-sm font-black tracking-tight text-cream shadow-[4px_4px_0_0_#141414] transition-shadow hover:shadow-[6px_6px_0_0_#141414] sm:px-6 sm:py-3 sm:text-base sm:shadow-[5px_5px_0_0_#141414]">
-          AI BOTS
+          SOCIAL ADS
         </div>
       </div>
 
@@ -410,11 +436,11 @@
           </div>
         </div>
 
-        <!-- Lower Hero Controls & Rotating Stamp -->
+        <!-- Lower Hero Controls -->
         <div class="mt-4 flex flex-col gap-8 sm:mt-8 sm:flex-row sm:items-end sm:justify-between">
           <div class="max-w-xl">
             <p class="text-sm font-medium leading-relaxed sm:text-lg">
-              Logos, websites and AI automation — made for real businesses, not for design awards.
+              Logos, websites and social ads — made for real businesses, not for design awards.
             </p>
             <div class="mt-4 flex flex-wrap items-center gap-3 sm:mt-7">
               <button onclick="openModal()" class="relative group inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden font-display text-xs font-bold text-cream shadow-[5px_5px_0_0_#ff4d00] transition-transform hover:-translate-y-0.5 sm:text-base">
@@ -426,28 +452,6 @@
               <a href="#work" class="rounded-full border-2 border-ink bg-paper px-6 py-3 font-display text-xs font-bold transition-colors hover:bg-yellow sm:px-7 sm:py-3.5 sm:text-base">
                 SEE OUR WORK
               </a>
-            </div>
-          </div>
-
-          <!-- Rotating Circular Stamp Badge -->
-          <div class="hidden shrink-0 sm:block">
-            <div class="relative grid size-28 place-items-center sm:size-32">
-              <svg viewBox="0 0 120 120" class="absolute inset-0 animate-rot size-full">
-                <defs>
-                  <path id="badge-circle" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"></path>
-                </defs>
-                <text class="fill-ink font-display text-[12px] font-bold tracking-[0.18em]">
-                  <textPath href="#badge-circle">DESIGN • BUILD • AUTOMATE • REPEAT •</textPath>
-                </text>
-              </svg>
-              <!-- Center Orange Circle with Asterisk -->
-              <span class="grid size-12 place-items-center rounded-full bg-orange shadow-sm">
-                <svg viewBox="0 0 64 64" class="size-6 text-cream" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round">
-                  <line x1="32" y1="10" x2="32" y2="54"></line>
-                  <line x1="12.9" y1="21" x2="51.1" y2="43"></line>
-                  <line x1="12.9" y1="43" x2="51.1" y2="21"></line>
-                </svg>
-              </span>
             </div>
           </div>
         </div>
@@ -481,7 +485,23 @@
             </svg>
           </span>
           <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
-            AI AUTOMATION
+            GOOGLE ADS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            SOCIAL ADS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            META ADS
             <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
               <line x1="32" y1="8" x2="32" y2="56"></line>
               <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
@@ -505,7 +525,7 @@
             </svg>
           </span>
           <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
-            WHATSAPP BOTS
+            CREATIVE DESIGN
             <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
               <line x1="32" y1="8" x2="32" y2="56"></line>
               <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
@@ -532,7 +552,23 @@
             </svg>
           </span>
           <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
-            AI AUTOMATION
+            GOOGLE ADS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            SOCIAL ADS
+            <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+              <line x1="32" y1="8" x2="32" y2="56"></line>
+              <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
+              <line x1="11.2" y1="44" x2="52.8" y2="20"></line>
+            </svg>
+          </span>
+          <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
+            META ADS
             <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
               <line x1="32" y1="8" x2="32" y2="56"></line>
               <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
@@ -556,7 +592,7 @@
             </svg>
           </span>
           <span class="flex items-center gap-8 font-display text-xl font-black tracking-tight text-cream sm:text-2xl">
-            WHATSAPP BOTS
+            CREATIVE DESIGN
             <svg viewBox="0 0 64 64" class="size-4 text-yellow" stroke="currentColor" stroke-width="10" stroke-linecap="round">
               <line x1="32" y1="8" x2="32" y2="56"></line>
               <line x1="11.2" y1="20" x2="52.8" y2="44"></line>
@@ -671,7 +707,7 @@
 
             </div>
 
-            <!-- CARD 2: Right Segment (Flips to 03 AI Automation) -->
+            <!-- CARD 2: Right Segment (Flips to 03 Social Ads) -->
             <div id="splitCard2" class="split-card-item relative h-full flex-1 [transform-style:preserve-3d] will-change-transform z-30">
               
               <!-- Front Side: Orange Segment 3/3 (Continuous Text Canvas) -->
@@ -691,22 +727,22 @@
                 </div>
               </div>
 
-              <!-- Back Side: 03 AI AUTOMATION -->
+              <!-- Back Side: 03 SOCIAL ADS -->
               <div class="split-card-back absolute inset-0 flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-ink bg-ink p-4 sm:p-5 md:p-6 text-cream shadow-[6px_6px_0_0_#141414] z-10">
                 <div>
                   <span class="font-display text-2xl sm:text-3xl font-black text-orange">03</span>
-                  <h3 class="mt-1.5 sm:mt-2 font-display text-base sm:text-lg md:text-xl font-black tracking-tight text-cream">AI AUTOMATION</h3>
-                  <p class="mt-0.5 text-[0.7rem] sm:text-xs font-medium text-cream/80">Robots for the boring stuff.</p>
+                  <h3 class="mt-1.5 sm:mt-2 font-display text-base sm:text-lg md:text-xl font-black tracking-tight text-cream">SOCIAL ADS</h3>
+                  <p class="mt-0.5 text-[0.7rem] sm:text-xs font-medium text-cream/80">High-ROI campaigns that scale revenue.</p>
                 </div>
                 <ul class="mt-2.5 flex flex-col gap-1.5 border-t-2 border-cream/20 pt-2.5 sm:pt-3">
                   <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
-                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>WHATSAPP BOTS
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>META &amp; INSTAGRAM ADS
                   </li>
                   <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
-                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>LEAD CAPTURE
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>CREATIVE &amp; COPYWRITING
                   </li>
                   <li class="flex items-center gap-2 font-display text-[0.65rem] sm:text-xs md:text-sm font-bold tracking-wide">
-                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>WORKFLOW AUTOMATION
+                    <span class="size-1.5 sm:size-2 rounded-full bg-orange"></span>AUDIENCE TARGETING
                   </li>
                 </ul>
               </div>
@@ -718,7 +754,7 @@
           <!-- Bottom Status Indicator -->
           <div id="splitCardStatus" class="mt-3.5 sm:mt-5 text-center select-none">
             <span class="font-display text-[0.65rem] sm:text-xs font-bold tracking-widest text-ink/50 uppercase">
-              • DESIGN • BUILD • AUTOMATE •
+              • DESIGN • BUILD • SCALE •
             </span>
           </div>
 
@@ -728,17 +764,28 @@
 
     <!-- ================= STATS TICKER ================= -->
     <section class="border-b-2 border-ink bg-yellow">
-      <div class="mx-auto grid max-w-7xl grid-cols-3 divide-x-2 divide-ink border-x-2 border-ink">
-        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
-          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">50+</p>
-          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">HAPPY CLIENTS</p>
+      <div class="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4 border-x-2 border-ink">
+        <!-- 1. Experience -->
+        <div class="border-b-2 border-r-2 border-ink px-2 py-6 text-center sm:px-6 sm:py-12 md:border-b-0">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">1+ Year</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">EXPERIENCE</p>
         </div>
-        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
-          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">100+</p>
-          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">PROJECTS SHIPPED</p>
+
+        <!-- 2. Delivery Time -->
+        <div class="border-b-2 border-ink px-2 py-6 text-center sm:px-6 sm:py-12 md:border-b-0 md:border-r-2">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">7 Days</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">AVG. DELIVERY</p>
         </div>
-        <div class="px-2 py-7 text-center sm:px-6 sm:py-12">
-          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">&lt; 2H</p>
+
+        <!-- 3. Free Demo -->
+        <div class="border-r-2 border-ink px-2 py-6 text-center sm:px-6 sm:py-12 md:border-r-2">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">Free</p>
+          <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">DEMO PREVIEW</p>
+        </div>
+
+        <!-- 4. Response Time -->
+        <div class="px-2 py-6 text-center sm:px-6 sm:py-12">
+          <p class="font-display text-3xl font-black leading-none tracking-tight sm:text-5xl md:text-6xl">&lt; 24H</p>
           <p class="mt-1.5 font-display text-[0.55rem] font-bold leading-tight tracking-[0.14em] text-ink/70 sm:mt-2 sm:text-xs sm:tracking-[0.18em]">RESPONSE TIME</p>
         </div>
       </div>
@@ -752,7 +799,7 @@
             <p class="font-display text-sm font-bold tracking-[0.2em] text-orange">SELECTED WORK</p>
             <h2 class="mt-3 font-display text-4xl font-black uppercase tracking-tight sm:text-6xl">Built by us. Backed by results.</h2>
           </div>
-          <p class="max-w-xs text-sm font-medium text-ink/60">A few of the brands we design, build and automate for.</p>
+          <p class="max-w-xs text-sm font-medium text-ink/60">A few of the brands we design, build and run ads for.</p>
         </div>
 
         <!-- 2-Column Grid (4 Projects) -->
@@ -861,7 +908,7 @@
           <div>
             <h3 class="font-display text-xl font-black uppercase tracking-tight sm:text-2xl">BUILD</h3>
             <p class="mt-1 font-display text-xs font-bold uppercase tracking-wider text-orange">Turn the idea into something real.</p>
-            <p class="mt-2 text-sm font-medium leading-relaxed text-ink/70">Strategy, design, code, AI and automation — our team brings everything together and keeps you in the loop along the way.</p>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-ink/70">Strategy, design, code and high-converting social ads — our team brings everything together and keeps you in the loop along the way.</p>
           </div>
         </div>
 
@@ -1031,6 +1078,9 @@
             SEE OUR WORK
           </a>
         </div>
+        <p class="mt-8 font-display text-[0.65rem] sm:text-xs font-bold uppercase tracking-wider text-cream/60">
+          ⚡ 1+ Year Experience &nbsp;•&nbsp; 🚀 7 Days Delivery &nbsp;•&nbsp; 🎁 Free Demo &nbsp;•&nbsp; ⏱️ &lt; 24H Response
+        </p>
       </div>
     </section>
   </main>
@@ -1041,7 +1091,7 @@
       <div class="flex flex-col gap-10 md:flex-row md:justify-between">
         <div>
           <a href="/" class="flex items-center gap-2.5" aria-label="Builtbyus Homepage">
-            <img src="/logo.png" alt="Builtbyus Studio - Design &amp; Automation" width="40" height="40" loading="lazy" decoding="async" class="size-10 rounded-xl border-2 border-cream/20 bg-paper object-contain p-0.5 shadow-[2px_2px_0_0_#ff4d00]" />
+            <img src="/logo.png" alt="Builtbyus Studio - Design &amp; Social Ads" width="40" height="40" loading="lazy" decoding="async" class="size-10 rounded-xl border-2 border-cream/20 bg-paper object-contain p-0.5 shadow-[2px_2px_0_0_#ff4d00]" />
             <span class="font-display text-xl font-black tracking-tight text-cream">Builtby<span class="text-orange">us</span></span>
           </a>
           <nav class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
@@ -1103,78 +1153,67 @@
   </footer>
   </div> <!-- end #pageWrapper -->
 
-  <!-- ================= MODAL: START A PROJECT (4-STEP FORM) ================= -->
-  <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/65 p-4 backdrop-blur-sm">
-    <div class="relative w-full max-w-lg rounded-[2rem] border-2 border-ink bg-[#FAF3E5] p-6 shadow-[8px_8px_0_0_#141414] sm:p-8">
+  <!-- ================= MODAL: START A PROJECT (ALL-IN-ONE FORM) ================= -->
+  <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/65 p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="relative my-auto w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-[2rem] border-2 border-ink bg-[#e8e6df] p-5 sm:p-7 shadow-[8px_8px_0_0_#141414]">
       
       <!-- Close Button (X in top-right circle) -->
-      <button onclick="closeModal()" type="button" class="absolute right-5 top-5 grid size-10 place-items-center rounded-full border-2 border-ink bg-transparent text-ink font-black hover:bg-ink hover:text-cream transition-colors" aria-label="Close modal">
+      <button onclick="closeModal()" type="button" class="absolute right-4 top-4 sm:right-6 sm:top-6 grid size-9 sm:size-10 place-items-center rounded-full border-2 border-ink bg-paper text-ink font-black hover:bg-ink hover:text-cream transition-colors z-10" aria-label="Close modal">
         <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="6" y1="6" x2="18" y2="18"></line>
           <line x1="6" y1="18" x2="18" y2="6"></line>
         </svg>
       </button>
 
-      <!-- Multi-step Form -->
-      <form id="projectMultiStepForm" onsubmit="handleMultiStepSubmit(event)" novalidate>
+      <!-- Modal Header -->
+      <div class="pr-10">
+        <p class="font-display text-[0.65rem] sm:text-xs font-black tracking-[0.2em] text-orange uppercase">START A PROJECT</p>
+        <h3 class="mt-1 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
+          TELL US ABOUT YOUR PROJECT
+        </h3>
+        <p class="mt-1 text-xs sm:text-sm font-medium text-ink/80">
+          Fill in the details below. We'll review your project and get back within 24 hours.
+        </p>
+      </div>
 
-        <!-- Hidden Honeypot Field for Bot Spam Protection -->
-        <div class="hidden" style="display:none !important; opacity:0; position:absolute; left:-9999px;" aria-hidden="true">
-          <label for="leadHoneypot">Do not fill this field</label>
-          <input type="text" id="leadHoneypot" name="company_website_url" tabindex="-1" autocomplete="off" />
+      <!-- Single-page Form -->
+      <form id="projectForm" onsubmit="handleFormSubmit(event)" novalidate class="mt-5 space-y-4">
+
+        <!-- Anti-bot Honeypot Trap (Hidden from users; bots auto-filling will get silently dropped) -->
+        <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+          <label for="leadBotTrap">Leave this field blank</label>
+          <input type="text" id="leadBotTrap" name="leadBotTrap" tabindex="-1" autocomplete="off" />
         </div>
 
-        <!-- STEP 1 OF 4: NAME -->
-        <div id="modalStep1" class="modal-step">
-          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 1 OF 4</p>
-          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
-            WHAT SHOULD WE CALL<br>YOU?
-          </h3>
-          <p class="mt-1 text-sm font-medium text-ink/80">First name is plenty.</p>
-
-          <div class="mt-6">
+        <!-- 1. NAME -->
+        <div>
+          <label for="leadName" class="block font-display text-[0.7rem] sm:text-xs font-black uppercase tracking-wider text-ink">
+            Your Name <span class="text-orange">*</span>
+          </label>
+          <div class="mt-1.5">
             <input 
               id="leadName" 
               type="text" 
               required 
-              placeholder="e.g. Vaibhav" 
+              minlength="2"
+              maxlength="100"
+              placeholder="e.g. Vaibhav Chawda" 
               autocomplete="name"
-              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3.5 text-base font-bold text-ink outline-none shadow-[3px_3px_0_0_#ff4d00] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
-              onkeydown="if(event.key==='Enter'){event.preventDefault(); goToStep(2);}"
+              class="w-full rounded-xl sm:rounded-2xl border-2 border-ink bg-paper px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] focus:border-orange transition-all placeholder:text-ink/50"
             />
-            <p id="leadNameError" class="mt-1.5 hidden text-xs font-bold text-orange">Please enter your name (at least 2 letters).</p>
+            <p id="leadNameError" class="mt-1 hidden text-xs font-bold text-orange">Please enter your name (at least 2 letters).</p>
           </div>
-
-          <button 
-            type="button" 
-            onclick="goToStep(2)" 
-            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            NEXT
-          </button>
         </div>
 
-        <!-- STEP 2 OF 4: CONTACT INFO -->
-        <div id="modalStep2" class="modal-step hidden">
-          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 2 OF 4</p>
-          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
-            HOW CAN WE REACH YOU?
-          </h3>
-          <p class="mt-1 text-sm font-medium text-ink/80">Phone number so we can text or call. Zero spam.</p>
-
-          <!-- Saved Badges Row -->
-          <div class="mt-4 flex flex-wrap gap-2">
-            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>NAME:</span>
-              <span id="badgeName1" class="font-bold"></span>
-            </button>
-          </div>
-
-          <!-- Country Code + Phone Input -->
-          <div class="mt-4 flex gap-2">
-            <div class="relative shrink-0">
-              <select id="leadCountryCode" aria-label="Country calling code" class="h-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-3 py-3.5 font-display text-sm font-bold text-ink outline-none shadow-[3px_3px_0_0_#141414] cursor-pointer">
+        <!-- 2. CONTACT DETAILS: Phone & Email Grid -->
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <!-- Phone -->
+          <div>
+            <label for="leadPhone" class="block font-display text-[0.7rem] sm:text-xs font-black uppercase tracking-wider text-ink">
+              Phone / WhatsApp <span class="text-orange">*</span>
+            </label>
+            <div class="mt-1.5 flex gap-1.5">
+              <select id="leadCountryCode" aria-label="Country code" class="rounded-xl sm:rounded-2xl border-2 border-ink bg-paper px-2 sm:px-2.5 py-2.5 sm:py-3 font-display text-xs sm:text-sm font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] cursor-pointer shrink-0">
                 <option value="+91" selected>IN +91</option>
                 <option value="+1">US +1</option>
                 <option value="+44">UK +44</option>
@@ -1182,147 +1221,105 @@
                 <option value="+61">AU +61</option>
                 <option value="+1">CA +1</option>
               </select>
+              <input 
+                id="leadPhone" 
+                type="tel" 
+                required 
+                minlength="7"
+                maxlength="30"
+                placeholder="Mobile number" 
+                autocomplete="tel"
+                class="w-full min-w-0 rounded-xl sm:rounded-2xl border-2 border-ink bg-paper px-3 py-2.5 sm:px-3.5 sm:py-3 text-sm sm:text-base font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] focus:border-orange transition-all placeholder:text-ink/50"
+              />
             </div>
-            <input 
-              id="leadPhone" 
-              type="tel" 
-              required 
-              placeholder="Mobile / WhatsApp number" 
-              autocomplete="tel"
-              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3.5 text-base font-bold text-ink outline-none shadow-[3px_3px_0_0_#ff4d00] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
-              onkeydown="if(event.key==='Enter'){event.preventDefault(); goToStep(3);}"
-            />
-          </div>
-          <p id="leadPhoneError" class="mt-1.5 hidden text-xs font-bold text-orange">Please provide a valid phone number (at least 7 digits).</p>
-
-          <!-- Optional Email -->
-          <div class="mt-3">
-            <input 
-              id="leadEmail" 
-              type="email" 
-              placeholder="Your email (optional)" 
-              autocomplete="email"
-              class="w-full rounded-2xl border-2 border-ink bg-[#FAF3E5] px-4 py-3 text-sm font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
-            />
-            <p id="leadEmailError" class="mt-1 hidden text-xs font-bold text-orange">Please enter a valid email address (e.g. name@domain.com).</p>
+            <p id="leadPhoneError" class="mt-1 hidden text-xs font-bold text-orange">Valid phone required (7+ digits).</p>
           </div>
 
-          <button 
-            type="button" 
-            onclick="goToStep(3)" 
-            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            NEXT
-          </button>
+          <!-- Email -->
+          <div>
+            <label for="leadEmail" class="block font-display text-[0.7rem] sm:text-xs font-black uppercase tracking-wider text-ink">
+              Email <span class="font-sans text-[11px] font-normal normal-case text-ink/60">(optional)</span>
+            </label>
+            <div class="mt-1.5">
+              <input 
+                id="leadEmail" 
+                type="email" 
+                maxlength="255"
+                placeholder="name@company.com" 
+                autocomplete="email"
+                class="w-full rounded-xl sm:rounded-2xl border-2 border-ink bg-paper px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base font-bold text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] focus:border-orange transition-all placeholder:text-ink/50"
+              />
+              <p id="leadEmailError" class="mt-1 hidden text-xs font-bold text-orange">Please enter a valid email address.</p>
+            </div>
+          </div>
         </div>
 
-        <!-- STEP 3 OF 4: WHAT ARE YOU LOOKING FOR? -->
-        <div id="modalStep3" class="modal-step hidden">
-          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 3 OF 4</p>
-          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
-            WHAT ARE YOU LOOKING FOR?
-          </h3>
-          <p class="mt-1 text-sm font-medium text-ink/80">Pick as many as you like.</p>
-
-          <!-- Saved Badges Row -->
-          <div class="mt-4 flex flex-wrap gap-2">
-            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>NAME:</span>
-              <span id="badgeName2" class="font-bold"></span>
-            </button>
-            <button type="button" onclick="goToStep(2)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>PHONE:</span>
-              <span id="badgePhone2" class="font-bold"></span>
-            </button>
-          </div>
-
-          <!-- Selectable Service Pills -->
-          <div class="mt-5 flex flex-wrap gap-2.5">
+        <!-- 3. SERVICES (WHAT ARE YOU LOOKING FOR?) -->
+        <div>
+          <label class="block font-display text-[0.7rem] sm:text-xs font-black uppercase tracking-wider text-ink">
+            What are you looking for? <span class="text-orange">*</span>
+          </label>
+          <div class="mt-2 flex flex-wrap gap-2">
             <label class="cursor-pointer inline-flex items-center select-none">
-              <input type="checkbox" name="leadService" value="Website" class="peer sr-only" checked onchange="updateServiceSelection()" />
-              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Website</span>
+              <input type="checkbox" name="leadService" value="Website" class="peer sr-only" checked />
+              <span class="rounded-full border-2 border-ink bg-paper px-4 py-1.5 sm:px-5 sm:py-2 font-display text-xs sm:text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Website</span>
             </label>
             <label class="cursor-pointer inline-flex items-center select-none">
-              <input type="checkbox" name="leadService" value="Meta ads" class="peer sr-only" onchange="updateServiceSelection()" />
-              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Meta ads</span>
+              <input type="checkbox" name="leadService" value="Social ads" class="peer sr-only" />
+              <span class="rounded-full border-2 border-ink bg-paper px-4 py-1.5 sm:px-5 sm:py-2 font-display text-xs sm:text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Social ads</span>
             </label>
             <label class="cursor-pointer inline-flex items-center select-none">
-              <input type="checkbox" name="leadService" value="Chat bot" class="peer sr-only" onchange="updateServiceSelection()" />
-              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Chat bot</span>
+              <input type="checkbox" name="leadService" value="Google ads" class="peer sr-only" />
+              <span class="rounded-full border-2 border-ink bg-paper px-4 py-1.5 sm:px-5 sm:py-2 font-display text-xs sm:text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Google ads</span>
             </label>
             <label class="cursor-pointer inline-flex items-center select-none">
-              <input type="checkbox" name="leadService" value="Logo & branding" class="peer sr-only" onchange="updateServiceSelection()" />
-              <span class="rounded-full border-2 border-ink bg-transparent px-5 py-2 font-display text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Logo & branding</span>
+              <input type="checkbox" name="leadService" value="Logo & branding" class="peer sr-only" />
+              <span class="rounded-full border-2 border-ink bg-paper px-4 py-1.5 sm:px-5 sm:py-2 font-display text-xs sm:text-sm font-black text-ink transition-all peer-checked:bg-yellow peer-checked:shadow-[2px_2px_0_0_#141414] hover:bg-yellow/40">Logo &amp; branding</span>
             </label>
           </div>
-          <p id="leadServiceError" class="mt-2.5 hidden text-xs font-bold text-orange">Please select at least one service.</p>
-
-          <button 
-            type="button" 
-            onclick="goToStep(4)" 
-            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            NEXT
-          </button>
+          <p id="leadServiceError" class="mt-1 hidden text-xs font-bold text-orange">Please pick at least one service.</p>
         </div>
 
-        <!-- STEP 4 OF 4: TELL US ABOUT YOUR BUSINESS -->
-        <div id="modalStep4" class="modal-step hidden">
-          <p class="font-display text-xs font-black tracking-[0.2em] text-orange uppercase">STEP 4 OF 4</p>
-          <h3 class="mt-2 font-display text-2xl font-black uppercase leading-[1.05] tracking-tight sm:text-3xl text-ink">
-            TELL US ABOUT YOUR BUSINESS <span class="font-sans text-xs font-normal normal-case text-ink/50 align-middle">optional</span>
-          </h3>
-          <p class="mt-1 text-sm font-medium text-ink/80">In short — what you do, and where you want to get to.</p>
-
-          <!-- Saved Badges Row (Exact match to Screenshot 4) -->
-          <div class="mt-4 flex flex-wrap gap-2">
-            <button type="button" onclick="goToStep(1)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>NAME:</span>
-              <span id="badgeName3" class="font-bold"></span>
-            </button>
-            <button type="button" onclick="goToStep(2)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>PHONE:</span>
-              <span id="badgePhone3" class="font-bold"></span>
-            </button>
-            <button type="button" onclick="goToStep(3)" class="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-yellow px-3 py-1 font-display text-xs font-bold text-ink shadow-[2px_2px_0_0_#141414] hover:brightness-95 transition-all">
-              <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>LOOKING FOR:</span>
-              <span id="badgeService3" class="font-bold"></span>
-            </button>
-          </div>
-
-          <!-- Textarea -->
-          <div class="mt-4">
+        <!-- 4. ABOUT YOUR PROJECT / BUSINESS -->
+        <div>
+          <label for="leadDetails" class="block font-display text-[0.7rem] sm:text-xs font-black uppercase tracking-wider text-ink">
+            Tell Us About Your Project <span class="font-sans text-[11px] font-normal normal-case text-ink/60">(optional)</span>
+          </label>
+          <div class="mt-1.5">
             <textarea 
               id="leadDetails" 
-              rows="4" 
-              placeholder="We sell handmade goods and need a website that converts visitors into customers..."
-              class="w-full resize-none rounded-2xl border-2 border-ink bg-[#FAF3E5] p-4 text-sm font-medium text-ink outline-none shadow-[3px_3px_0_0_#141414] focus:shadow-[4px_4px_0_0_#ff4d00] transition-shadow placeholder:text-ink/60"
+              rows="3" 
+              maxlength="2000"
+              placeholder="Tell us what you sell, what you want to achieve, any timeline, reference sites..."
+              class="w-full resize-none rounded-xl sm:rounded-2xl border-2 border-ink bg-paper p-3 sm:p-3.5 text-xs sm:text-sm font-medium text-ink outline-none shadow-[2px_2px_0_0_#141414] focus:shadow-[3px_3px_0_0_#ff4d00] focus:border-orange transition-all placeholder:text-ink/50"
             ></textarea>
           </div>
-
-          <button 
-            type="submit" 
-            class="mt-6 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            SEND IT
-          </button>
         </div>
 
+        <!-- 5. CLOUDFLARE TURNSTILE BOT PROTECTION -->
+        <div class="pt-1 flex flex-col items-center justify-center">
+          <div id="cf-turnstile-container" class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+          <p id="leadTurnstileError" class="mt-1.5 hidden text-xs font-bold text-orange">Please complete the security verification.</p>
+        </div>
+
+        <!-- Server/Network Error Banner -->
+        <div id="leadFormSubmitError" class="hidden rounded-xl border-2 border-orange bg-orange/10 p-3 text-xs font-bold text-orange text-center"></div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          id="leadSubmitBtn"
+          class="mt-2 w-full rounded-full border-2 border-ink bg-orange py-3.5 sm:py-4 font-display text-base font-black tracking-wide text-cream shadow-[4px_4px_0_0_#141414] transition-all hover:-translate-y-0.5 hover:bg-orange/95 active:translate-y-0"
+        >
+          SEND PROJECT BRIEF →
+        </button>
+
+        <!-- Trust Note -->
+        <p class="text-center font-display text-[0.62rem] sm:text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">
+          🔒 1+ YEAR EXPERIENCE • 7 DAYS DELIVERY • FREE DEMO • &lt; 24H RESPONSE
+        </p>
+
       </form>
-
-      <!-- Bottom Step Indicators (Dashes / Pills) -->
-      <div class="mt-6 flex items-center justify-center gap-2">
-        <span id="stepIndicator1" class="h-1.5 w-8 rounded-full bg-orange border border-ink transition-all duration-300"></span>
-        <span id="stepIndicator2" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
-        <span id="stepIndicator3" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
-        <span id="stepIndicator4" class="h-1.5 w-5 rounded-full border border-ink bg-transparent transition-all duration-300"></span>
-      </div>
-
     </div>
   </div>
 
@@ -1332,7 +1329,7 @@
       <span class="grid size-7 place-items-center rounded-full bg-ink text-cream text-xs font-bold">✓</span>
       <div>
         <p class="text-sm font-black uppercase">Project Brief Received!</p>
-        <p class="text-xs font-medium text-ink/80 mt-0.5">We'll review and reply within 2 hours. 🔥</p>
+        <p class="text-xs font-medium text-ink/80 mt-0.5">We'll review and reply within 24 hours. 🔥</p>
       </div>
     </div>
   </div>
@@ -1359,6 +1356,17 @@
       </div>
     </div>
   </aside>
+
+  <!-- Supabase Client SDK & Credentials Config -->
+  <script>
+    window.BUILTBYUS_SUPABASE = {
+      url: "https://nirtydxacoujcbrbztyo.supabase.co",
+      anonKey: "sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7",
+      table: "project_leads"
+    };
+  </script>
+  <script src="./supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- ================= JAVASCRIPT ================= -->
   <script>
@@ -1389,205 +1397,363 @@
       }
     }
 
-    // ================= 4-STEP PROJECT MODAL LOGIC =================
-    let currentStep = 1;
+    // ================= PROJECT LEAD MODAL & SUPABASE INTEGRATION =================
+    let modalOpenTime = 0;
+    let supabaseClient = null;
+
+    function getSupabaseClient() {
+      if (supabaseClient) return supabaseClient;
+      if (typeof window.supabase !== 'undefined' && window.BUILTBYUS_SUPABASE) {
+        const { url, anonKey } = window.BUILTBYUS_SUPABASE;
+        if (url && anonKey && !url.includes('YOUR_SUPABASE') && !anonKey.includes('YOUR_SUPABASE')) {
+          try {
+            supabaseClient = window.supabase.createClient(url, anonKey);
+          } catch (err) {
+            console.error('Failed to initialize Supabase client:', err);
+          }
+        }
+      }
+      return supabaseClient;
+    }
 
     function getSelectedServices() {
       const checkedBoxes = document.querySelectorAll('input[name="leadService"]:checked');
       const services = Array.from(checkedBoxes).map(cb => cb.value);
-      return services.length > 0 ? services.join(', ') : 'Website';
+      return services.length > 0 ? services.join(', ') : '';
     }
-
-    function updateServiceSelection() {
-      const selected = getSelectedServices();
-      const badge = document.getElementById('badgeService3');
-      if (badge) badge.textContent = selected;
-    }
-
-    function updateStepIndicators(step) {
-      for (let i = 1; i <= 4; i++) {
-        const ind = document.getElementById(`stepIndicator${i}`);
-        if (!ind) continue;
-        if (i < step) {
-          // Completed step: solid black pill
-          ind.className = 'h-1.5 w-6 rounded-full bg-ink transition-all duration-300';
-        } else if (i === step) {
-          // Current step: wider orange pill with border
-          ind.className = 'h-1.5 w-8 rounded-full bg-orange border border-ink transition-all duration-300';
-        } else {
-          // Future step: hollow outlined pill
-          ind.className = 'h-1.5 w-6 rounded-full border border-ink bg-transparent transition-all duration-300';
-        }
-      }
-    }
-
-    let modalOpenTime = 0;
 
     function openModal() {
       const modal = document.getElementById('projectModal');
+      if (!modal) return;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      modalOpenTime = Date.now();
-      goToStep(1);
+      document.body.style.overflow = 'hidden';
+
+      // Clear any prior error banners and validation states
+      const errBanner = document.getElementById('leadFormSubmitError');
+      if (errBanner) {
+        errBanner.classList.add('hidden');
+        errBanner.textContent = '';
+      }
+
+      ['leadName', 'leadPhone', 'leadEmail'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('border-orange', 'ring-2', 'ring-orange');
+      });
+      ['leadNameError', 'leadPhoneError', 'leadEmailError', 'leadServiceError', 'leadTurnstileError'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+
+      setTimeout(() => {
+        const nameInput = document.getElementById('leadName');
+        if (nameInput) nameInput.focus();
+      }, 100);
     }
 
     function closeModal() {
       const modal = document.getElementById('projectModal');
+      if (!modal) return;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      document.body.style.overflow = '';
     }
 
-    function validateStepInput(step) {
-      if (step === 1) {
-        const nameInput = document.getElementById('leadName');
-        const err = document.getElementById('leadNameError');
-        if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
-          nameInput.focus();
-          nameInput.classList.add('border-orange', 'ring-2', 'ring-orange');
-          if (err) err.classList.remove('hidden');
-          return false;
-        }
+    function validateLeadForm() {
+      let isValid = true;
+      let firstErrorEl = null;
+
+      // 1. Name validation
+      const nameInput = document.getElementById('leadName');
+      const nameErr = document.getElementById('leadNameError');
+      if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
+        nameInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+        if (nameErr) nameErr.classList.remove('hidden');
+        if (!firstErrorEl) firstErrorEl = nameInput;
+        isValid = false;
+      } else {
         nameInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
-        if (err) err.classList.add('hidden');
-        return true;
+        if (nameErr) nameErr.classList.add('hidden');
       }
-      if (step === 2) {
-        const phoneInput = document.getElementById('leadPhone');
-        const phoneErr = document.getElementById('leadPhoneError');
-        const cleanPhone = phoneInput.value.replace(/\D/g, '');
-        if (cleanPhone.length < 7) {
-          phoneInput.focus();
-          phoneInput.classList.add('border-orange', 'ring-2', 'ring-orange');
-          if (phoneErr) phoneErr.classList.remove('hidden');
-          return false;
-        }
+
+      // 2. Phone validation
+      const phoneInput = document.getElementById('leadPhone');
+      const phoneErr = document.getElementById('leadPhoneError');
+      const cleanPhone = phoneInput.value.replace(/\D/g, '');
+      if (cleanPhone.length < 7) {
+        phoneInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+        if (phoneErr) phoneErr.classList.remove('hidden');
+        if (!firstErrorEl) firstErrorEl = phoneInput;
+        isValid = false;
+      } else {
         phoneInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
         if (phoneErr) phoneErr.classList.add('hidden');
+      }
 
-        // Optional email format check
-        const emailInput = document.getElementById('leadEmail');
-        const emailErr = document.getElementById('leadEmailError');
-        if (emailInput && emailInput.value.trim()) {
-          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailPattern.test(emailInput.value.trim())) {
-            emailInput.focus();
-            emailInput.classList.add('border-orange', 'ring-2', 'ring-orange');
-            if (emailErr) emailErr.classList.remove('hidden');
-            return false;
-          }
+      // 3. Email validation (if provided)
+      const emailInput = document.getElementById('leadEmail');
+      const emailErr = document.getElementById('leadEmailError');
+      if (emailInput && emailInput.value.trim()) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+          emailInput.classList.add('border-orange', 'ring-2', 'ring-orange');
+          if (emailErr) emailErr.classList.remove('hidden');
+          if (!firstErrorEl) firstErrorEl = emailInput;
+          isValid = false;
+        } else {
           emailInput.classList.remove('border-orange', 'ring-2', 'ring-orange');
           if (emailErr) emailErr.classList.add('hidden');
         }
-        return true;
       }
-      if (step === 3) {
-        const checkedBoxes = document.querySelectorAll('input[name="leadService"]:checked');
-        const serviceErr = document.getElementById('leadServiceError');
-        if (checkedBoxes.length === 0) {
-          if (serviceErr) serviceErr.classList.remove('hidden');
-          return false;
-        }
+
+      // 4. Services validation
+      const checkedBoxes = document.querySelectorAll('input[name="leadService"]:checked');
+      const serviceErr = document.getElementById('leadServiceError');
+      if (checkedBoxes.length === 0) {
+        if (serviceErr) serviceErr.classList.remove('hidden');
+        isValid = false;
+      } else {
         if (serviceErr) serviceErr.classList.add('hidden');
-        return true;
-      }
-      return true;
-    }
-
-    function goToStep(step) {
-      const nameInput = document.getElementById('leadName');
-      const phoneInput = document.getElementById('leadPhone');
-      const countryCode = document.getElementById('leadCountryCode');
-
-      // Validation before advancing
-      if (step > 1 && !validateStepInput(1)) return;
-      if (step > 2 && !validateStepInput(2)) return;
-      if (step > 3 && !validateStepInput(3)) return;
-
-      // Update badge text values
-      const nameVal = nameInput.value.trim();
-      const phoneVal = `${countryCode.value} ${phoneInput.value.trim()}`;
-      const serviceVal = getSelectedServices();
-
-      ['badgeName1', 'badgeName2', 'badgeName3'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = nameVal;
-      });
-
-      ['badgePhone2', 'badgePhone3'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = phoneVal;
-      });
-
-      const serviceBadge = document.getElementById('badgeService3');
-      if (serviceBadge) serviceBadge.textContent = serviceVal;
-
-      // Update Step display
-      for (let i = 1; i <= 4; i++) {
-        const stepEl = document.getElementById(`modalStep${i}`);
-        if (stepEl) {
-          if (i === step) {
-            stepEl.classList.remove('hidden');
-          } else {
-            stepEl.classList.add('hidden');
-          }
-        }
       }
 
-      updateStepIndicators(step);
-      currentStep = step;
+      if (firstErrorEl) {
+        firstErrorEl.focus();
+      }
 
-      // Auto-focus relevant field
-      setTimeout(() => {
-        if (step === 1) nameInput.focus();
-        if (step === 2) phoneInput.focus();
-        if (step === 4) document.getElementById('leadDetails')?.focus();
-      }, 50);
+      return isValid;
     }
 
-    function handleMultiStepSubmit(e) {
+    async function handleFormSubmit(e) {
       e.preventDefault();
 
-      // Bot protection check 1: Honeypot
-      const honeypot = document.getElementById('leadHoneypot')?.value;
-      if (honeypot && honeypot.trim() !== '') {
-        console.warn('Bot blocked by honeypot filter.');
+      const errBanner = document.getElementById('leadFormSubmitError');
+      if (errBanner) {
+        errBanner.classList.add('hidden');
+        errBanner.textContent = '';
+      }
+
+      // 1. Honeypot Anti-Bot Trap Check
+      const botTrap = document.getElementById('leadBotTrap')?.value || '';
+      if (botTrap.trim() !== '') {
+        // Silently discard spam bots
         closeModal();
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 5000);
+        }
         return;
       }
 
-      // Bot protection check 2: Timestamp (submissions under 1.5s are automated scripts)
-      const elapsed = Date.now() - modalOpenTime;
-      if (elapsed < 1500) {
-        console.warn('Bot blocked: unnatural completion time.');
-        closeModal();
+      // 2. Client-side UX Rate Limiting (Max 5 submissions per 10 mins)
+      const RATE_STORAGE_KEY = 'builtbyus_submit_timestamps';
+      const now = Date.now();
+      let submitHistory = [];
+      try {
+        submitHistory = JSON.parse(sessionStorage.getItem(RATE_STORAGE_KEY) || '[]');
+      } catch (err) {
+        submitHistory = [];
+      }
+      submitHistory = submitHistory.filter(ts => (now - ts) < 10 * 60 * 1000);
+      if (submitHistory.length >= 5) {
+        if (errBanner) {
+          errBanner.classList.remove('hidden');
+          errBanner.textContent = 'Too many submissions recently. Please wait a few minutes before submitting another brief.';
+        }
         return;
       }
 
-      if (!validateStepInput(1) || !validateStepInput(2) || !validateStepInput(3)) {
+      // 3. Client-side validation of inputs
+      if (!validateLeadForm()) {
         return;
+      }
+
+      // 4. Cloudflare Turnstile Verification
+      const turnstileResponse = (document.querySelector('[name="cf-turnstile-response"]') && document.querySelector('[name="cf-turnstile-response"]').value) || '';
+      const turnstileErr = document.getElementById('leadTurnstileError');
+      if (document.getElementById('cf-turnstile-container') && !turnstileResponse && typeof window.turnstile !== 'undefined') {
+        if (turnstileErr) turnstileErr.classList.remove('hidden');
+        return;
+      } else if (turnstileErr) {
+        turnstileErr.classList.add('hidden');
+      }
+
+      const submitBtn = document.getElementById('leadSubmitBtn');
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : 'SEND PROJECT BRIEF →';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'SAVING BRIEF...';
+        submitBtn.classList.add('opacity-75', 'cursor-wait');
       }
 
       const name = document.getElementById('leadName').value.trim();
-      const phone = `${document.getElementById('leadCountryCode').value} ${document.getElementById('leadPhone').value.trim()}`;
-      const email = document.getElementById('leadEmail')?.value.trim() || '';
+      const countryCode = document.getElementById('leadCountryCode')?.value || '+91';
+      const phoneInputVal = document.getElementById('leadPhone').value.trim();
+      const phone = `${countryCode} ${phoneInputVal}`;
+      const email = document.getElementById('leadEmail')?.value.trim() || null;
       const service = getSelectedServices();
-      const details = document.getElementById('leadDetails').value.trim();
+      const details = document.getElementById('leadDetails')?.value.trim() || null;
 
-      console.log('Project Lead Verified:', { name, phone, email, service, details });
+      // Note: PII console logging removed for visitor privacy compliance (SEC-05)
+      const leadData = {
+        name,
+        phone,
+        email,
+        services: service,
+        details,
+        turnstileToken: turnstileResponse || 'local-test-token',
+        botTrap
+      };
 
-      closeModal();
-      const toast = document.getElementById('toast');
-      if (toast) {
-        toast.classList.remove('hidden');
-        setTimeout(() => {
-          toast.classList.add('hidden');
-        }, 5000);
+      const config = window.BUILTBYUS_SUPABASE || {
+        url: "https://nirtydxacoujcbrbztyo.supabase.co",
+        anonKey: "sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7",
+        table: "project_leads"
+      };
+
+      let submitSuccess = false;
+      let errorDetails = '';
+      const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+      // Primary: Netlify Serverless Function (Server-side validation, rate limiting, and Turnstile verify)
+      try {
+        const netlifyEndpoint = '/.netlify/functions/submit-lead';
+        const netlifyRes = await fetch(netlifyEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(leadData)
+        });
+
+        if (netlifyRes.ok || netlifyRes.status === 201 || netlifyRes.status === 200) {
+          submitSuccess = true;
+        } else if (netlifyRes.status === 404 && isLocalDev) {
+          // Local development fallback ONLY when running on localhost/127.0.0.1 without Netlify CLI
+          const restEndpoint = `${config.url}/rest/v1/${config.table}`;
+          const dbPayload = {
+            name,
+            phone,
+            email,
+            services: service,
+            details
+          };
+          const response = await fetch(restEndpoint, {
+            method: 'POST',
+            headers: {
+              'apikey': config.anonKey,
+              'Authorization': `Bearer ${config.anonKey}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(dbPayload)
+          });
+
+          if (response.ok || response.status === 201 || response.status === 200) {
+            submitSuccess = true;
+          } else {
+            const respText = await response.text();
+            errorDetails = `Local database fallback error (${response.status}): ${respText}`;
+          }
+        } else {
+          const resJson = await netlifyRes.json().catch(() => ({}));
+          errorDetails = resJson.error || `Submission error (${netlifyRes.status})`;
+        }
+      } catch (fetchErr) {
+        if (isLocalDev) {
+          // Local offline fallback
+          try {
+            const restEndpoint = `${config.url}/rest/v1/${config.table}`;
+            const dbPayload = { name, phone, email, services: service, details };
+            const response = await fetch(restEndpoint, {
+              method: 'POST',
+              headers: {
+                'apikey': config.anonKey,
+                'Authorization': `Bearer ${config.anonKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+              },
+              body: JSON.stringify(dbPayload)
+            });
+            if (response.ok || response.status === 201 || response.status === 200) {
+              submitSuccess = true;
+            } else {
+              errorDetails = fetchErr.message || 'Network connection failed';
+            }
+          } catch (fbErr) {
+            errorDetails = fbErr.message || 'Submission failed';
+          }
+        } else {
+          // Production: Strictly NO direct Supabase insert path! Always report service error.
+          errorDetails = 'Unable to submit your brief right now. Please check your internet connection or email us directly.';
+        }
       }
 
-      // Reset form
-      document.getElementById('projectMultiStepForm').reset();
-      goToStep(1);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.classList.remove('opacity-75', 'cursor-wait');
+      }
+
+      if (submitSuccess) {
+        // Record timestamp for client-side rate limiting
+        submitHistory.push(Date.now());
+        try {
+          sessionStorage.setItem(RATE_STORAGE_KEY, JSON.stringify(submitHistory));
+        } catch (e) {}
+
+        closeModal();
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+          }, 6000);
+        }
+
+        // Reset form and turnstile
+        const form = document.getElementById('projectForm');
+        if (form) {
+          form.reset();
+          const defaultSite = form.querySelector('input[name="leadService"][value="Website"]');
+          if (defaultSite) defaultSite.checked = true;
+        }
+        if (typeof window.turnstile !== 'undefined' && window.turnstile.reset) {
+          try {
+            window.turnstile.reset('#cf-turnstile-container');
+          } catch (tErr) {}
+        }
+      } else {
+        if (errBanner) {
+          errBanner.classList.remove('hidden');
+          errBanner.textContent = 'Submission error: ' + (errorDetails || 'Could not connect. Please retry or contact us directly.');
+        } else {
+          alert('Submission error: ' + (errorDetails || 'Could not connect. Please retry.'));
+        }
+      }
     }
+
+    // Real-time validation clearance on typing
+    ['leadName', 'leadPhone', 'leadEmail'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => {
+          el.classList.remove('border-orange', 'ring-2', 'ring-orange');
+          const err = document.getElementById(`${id}Error`);
+          if (err) err.classList.add('hidden');
+        });
+      }
+    });
+
+    document.querySelectorAll('input[name="leadService"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const err = document.getElementById('leadServiceError');
+        if (err && document.querySelectorAll('input[name="leadService"]:checked').length > 0) {
+          err.classList.add('hidden');
+        }
+      });
+    });
 
     // Close modal on Escape
     window.addEventListener('keydown', (e) => {
@@ -1705,7 +1871,7 @@
         .to(front2, { borderRadius: '18px', boxShadow: '5px 5px 0px 0px #141414', duration: 0.18 }, 0);
 
       // Phase 2 (0.22 to 0.55): 180° 3D Flip
-      // Rotates into the 3 service cards: 01 Branding, 02 Websites, 03 AI Automation
+      // Rotates into the 3 service cards: 01 Branding, 02 Websites, 03 Social Ads
       tl.to([card0, card1, card2], {
         rotateY: 180,
         duration: 0.33,
@@ -1912,7 +2078,7 @@
     }
 
     // ================= PAGE ENTRANCE & CAPSULE DROP ANIMATION =================
-    // Implements right-to-left website entrance followed by physics drop of AI BOTS, LOGOS, WEBSITES capsules
+    // Implements right-to-left website entrance followed by physics drop of SOCIAL ADS, LOGOS, WEBSITES capsules
     function initPageEntranceAnimation() {
       if (window.__pageEntranceDone) return;
       window.__pageEntranceDone = true;

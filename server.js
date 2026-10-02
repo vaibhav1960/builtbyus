@@ -16,6 +16,9 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.otf': 'font/otf',
+  '.ttf': 'font/ttf',
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
 };
@@ -24,19 +27,36 @@ const MIME_TYPES = {
 function setSecurityHeaders(res, isHtml = false) {
   // Force HTTPS & Transport Security
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  
+  // Content Security Policy (Strict, Whitelisted Supabase endpoint & Turnstile, No wildcard)
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://challenges.cloudflare.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com data:",
+    "img-src 'self' data: https://builtbyus.dev",
+    "connect-src 'self' https://nirtydxacoujcbrbztyo.supabase.co https://challenges.cloudflare.com",
+    "frame-src 'self' https://challenges.cloudflare.com",
+    "frame-ancestors 'self'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'"
+  ].join('; ');
+  res.setHeader('Content-Security-Policy', csp);
+
   // Security hygiene headers
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
 
-  if (isHtml) {
-    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-  } else {
-    // 1-day client cache for static media & fonts with 7-day stale revalidation
-    res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
-  }
+  // Disable aggressive caching in local development so updates take effect immediately
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
 }
 
 // Serve custom 404 page
