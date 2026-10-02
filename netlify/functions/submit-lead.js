@@ -5,16 +5,19 @@ const { Redis } = require('@upstash/redis');
 // ====================================================================
 // Builtbyus Studio: Serverless Lead Submission Handler
 // Location: netlify/functions/submit-lead.js
+//
+// Architecture:
+// Browser -> Netlify CDN -> Netlify Function -> Upstash Redis (Sliding Window)
+// -> Cloudflare Turnstile -> Supabase (service_role exclusively) -> Postgres
 // ====================================================================
 
-// Configuration with safe staging/test defaults
+// Configuration from Environment Variables
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://nirtydxacoujcbrbztyo.supabase.co';
-// Prefer service_role key; fallback to anon key until service_role is added in Netlify
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7';
-// Cloudflare Turnstile Secret Key (Default: Cloudflare Official Always-Passes Test Key)
+// Cloudflare Turnstile Secret Key (Default: Cloudflare Official Test Secret Key)
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
 
-// Upstash Redis Durable Rate Limiter (Required env vars: UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN)
+// Upstash Redis Durable Rate Limiter
+// Required env vars: UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN
 let upstashRedis = null;
 if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
   try {
@@ -27,16 +30,18 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
   }
 }
 
-// Rate Limiting Policy: Max 5 submissions per 10 minutes
+// Rate Limiting Policy: Max 5 submissions per 10 minutes (600 seconds)
 const RATE_LIMIT_WINDOW_SECS = 10 * 60;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+
+// In-Memory Sliding Window Fallback (used when Redis is not configured or unreachable)
 const ipRequestHistory = new Map();
 
 function isInMemoryRateLimited(ip) {
   const now = Date.now();
   const windowStart = now - (RATE_LIMIT_WINDOW_SECS * 1000);
 
-  // Clean up stale IPs periodically
+  // Periodic pruning of stale IPs if map grows large
   if (ipRequestHistory.size > 2000) {
     for (const [trackedIp, timestamps] of ipRequestHistory.entries()) {
       const active = timestamps.filter(ts => ts > windowStart);
@@ -48,74 +53,126 @@ function isInMemoryRateLimited(ip) {
     }
   }
 
-  const timestamps = (ipRequestHistory.get(ip) || []).filter(ts => ts > windowStart);
-  if (timestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+  const existingTimestamps = ipRequestHistory.get(ip) || [];
+  const activeTimestamps = existingTimestamps.filter(ts => ts > windowStart);
+
+  if (activeTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
     return true;
   }
 
-  timestamps.push(now);
-  ipRequestHistory.set(ip, timestamps);
+  activeTimestamps.push(now);
+  ipRequestHistory.set(ip, activeTimestamps);
   return false;
 }
 
+// Durable Sliding Window Rate Limiter
 async function isRateLimited(ip) {
+  if (ip === 'unknown') {
+    return false;
+  }
+
   if (upstashRedis) {
     try {
       const key = `ratelimit:lead:${ip}`;
-      const count = await upstashRedis.incr(key);
-      if (count === 1) {
-        await upstashRedis.expire(key, RATE_LIMIT_WINDOW_SECS);
-      }
-      return count > RATE_LIMIT_MAX_REQUESTS;
+      const now = Date.now();
+      const windowStart = now - (RATE_LIMIT_WINDOW_SECS * 1000);
+      const member = `${now}:${Math.random().toString(36).slice(2, 9)}`;
+
+      // Atomic sliding window pipeline via Redis Sorted Set
+      const pipeline = upstashRedis.pipeline();
+      // 1. Remove timestamps outside the current sliding 10-minute window
+      pipeline.zremrangebyscore(key, 0, windowStart);
+      // 2. Add current submission timestamp
+      pipeline.zadd(key, { score: now, member });
+      // 3. Count total active submissions within the window
+      pipeline.zcard(key);
+      // 4. Reset key TTL to ensure automatic cleanup
+      pipeline.expire(key, RATE_LIMIT_WINDOW_SECS);
+
+      const results = await pipeline.exec();
+      const currentCount = typeof results[2] === 'number' ? results[2] : (Array.isArray(results) ? results[2] : 1);
+
+      return currentCount > RATE_LIMIT_MAX_REQUESTS;
     } catch (err) {
-      console.warn('Upstash Redis check failed, falling back to local memory limiter:', err.message);
+      console.warn('Upstash Redis rate limiter error (falling back to memory):', err.message);
     }
   }
+
   return isInMemoryRateLimited(ip);
 }
 
-// Zod Input Validation Schema matching Step 3 DB constraints
+// Allowed Enums for Budget and Timeline
+const ALLOWED_BUDGETS = ['Under $5,000', '$5,000 - $10,000', '$10,000 - $25,000', '$25,000+'];
+const ALLOWED_TIMELINES = ['ASAP', '1-3 months', '3-6 months', 'Flexible'];
+
+// Zod Input Validation Schema with Strict Boundaries
 const LeadSchema = z.object({
-  name: z.string({ message: 'Name is required' })
+  name: z.string({ required_error: 'Name is required' })
     .trim()
-    .min(2, 'Name must be at least 2 characters')
+    .min(1, 'Name must be at least 1 character')
     .max(100, 'Name must not exceed 100 characters'),
-  phone: z.string({ message: 'Phone number is required' })
-    .trim()
-    .min(7, 'Phone number must be at least 7 characters')
-    .max(30, 'Phone number must not exceed 30 characters'),
-  email: z.string()
-    .trim()
-    .max(255, 'Email cannot exceed 255 characters')
-    .email('Invalid email address format')
-    .optional()
-    .nullable()
-    .or(z.literal('')),
-  services: z.string()
-    .trim()
-    .max(200, 'Services string must not exceed 200 characters')
-    .optional()
-    .nullable()
-    .or(z.literal('')),
-  details: z.string()
-    .trim()
-    .max(2000, 'Details must not exceed 2000 characters')
-    .optional()
-    .nullable()
-    .or(z.literal('')),
-  turnstileToken: z.string({ message: 'Turnstile verification token is required' })
-    .min(1, 'Security verification required'),
-  botTrap: z.string().optional() // Honeypot field
+  email: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.string()
+      .trim()
+      .max(255, 'Email cannot exceed 255 characters')
+      .email('Invalid email address format')
+      .transform(val => val.toLowerCase())
+      .optional()
+      .nullable()
+  ),
+  phone: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.string()
+      .trim()
+      .min(7, 'Phone number must be at least 7 characters')
+      .max(30, 'Phone number must not exceed 30 characters')
+      .optional()
+      .nullable()
+  ),
+  budget: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.enum(ALLOWED_BUDGETS, {
+      errorMap: () => ({ message: 'Budget must be one of the allowed options' })
+    }).optional().nullable()
+  ),
+  timeline: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.enum(ALLOWED_TIMELINES, {
+      errorMap: () => ({ message: 'Timeline must be one of the allowed options' })
+    }).optional().nullable()
+  ),
+  message: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.string().trim().max(2000, 'Message must not exceed 2000 characters').optional().nullable()
+  ),
+  details: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.string().trim().max(2000, 'Details must not exceed 2000 characters').optional().nullable()
+  ),
+  services: z.preprocess(
+    val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
+    z.string().trim().max(200, 'Services must not exceed 200 characters').optional().nullable()
+  ),
+  token: z.string().min(1, 'Turnstile token is required').optional(),
+  turnstileToken: z.string().min(1, 'Turnstile token is required').optional(),
+  botTrap: z.string().optional(),
+  website_url: z.string().optional()
+}).strict().refine(data => Boolean(data.token || data.turnstileToken), {
+  message: 'Turnstile verification token is required',
+  path: ['token']
+}).refine(data => Boolean((data.email && data.email.trim() !== '') || (data.phone && data.phone.trim() !== '')), {
+  message: 'At least one contact method (email or phone) is required',
+  path: ['email']
 });
 
 // Cloudflare Turnstile Token Verification
 async function verifyTurnstile(token, remoteIp) {
   return new Promise((resolve) => {
-    // If running in development/test with test key, bypass network if desired or query siteverify
     const postData = new URLSearchParams({
       secret: TURNSTILE_SECRET_KEY,
       response: token,
-      ...(remoteIp ? { remoteip: remoteIp } : {})
+      ...(remoteIp && remoteIp !== 'unknown' ? { remoteip: remoteIp } : {})
     }).toString();
 
     const options = {
@@ -144,7 +201,7 @@ async function verifyTurnstile(token, remoteIp) {
     });
 
     req.on('error', (err) => {
-      console.error('Turnstile verification error:', err);
+      console.error('Turnstile verification error:', err.message);
       // Fail closed on security verification
       resolve({ success: false, 'error-codes': ['network_error'] });
     });
@@ -159,8 +216,8 @@ async function verifyTurnstile(token, remoteIp) {
   });
 }
 
-// Supabase Lead Insertion
-async function insertLeadToSupabase(leadRecord) {
+// Supabase Lead Insertion via service_role key exclusively
+async function insertLeadToSupabase(leadRecord, serviceRoleKey) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(leadRecord);
     const parsedUrl = new URL(`${SUPABASE_URL}/rest/v1/project_leads`);
@@ -171,8 +228,8 @@ async function insertLeadToSupabase(leadRecord) {
       path: parsedUrl.pathname,
       method: 'POST',
       headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'apikey': serviceRoleKey,
+        'Authorization': `Bearer ${serviceRoleKey}`,
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal',
         'Content-Length': Buffer.byteLength(postData)
@@ -185,7 +242,7 @@ async function insertLeadToSupabase(leadRecord) {
       res.on('data', chunk => body += chunk);
       res.on('end', () => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve({ success: true });
+          resolve({ success: true, statusCode: res.statusCode });
         } else {
           resolve({ success: false, statusCode: res.statusCode, error: body });
         }
@@ -219,24 +276,43 @@ function createResponse(statusCode, body) {
 }
 
 exports.handler = async (event) => {
-  // Only allow POST
+  // 1. Method check: Only allow POST
   if (event.httpMethod !== 'POST') {
     return createResponse(405, { error: 'Method Not Allowed. Only POST is supported.' });
   }
 
-  // 1. IP extraction & Rate Limiting
-  // Read client IP strictly from Netlify's trusted proxy header (x-nf-client-connection-ip).
-  // NEVER read X-Forwarded-For to prevent IP spoofing!
-  const clientIp = event.headers['x-nf-client-connection-ip'] ||
-                   (process.env.NODE_ENV === 'test' ? (event.headers['x-test-client-ip'] || event.headers['client-ip'] || '127.0.0.1') : 'unknown');
+  // 2. Strict Service Role Key Check
+  // The function MUST use ONLY SUPABASE_SERVICE_ROLE_KEY.
+  // If not configured, fail immediately with 500 Server Configuration Error.
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceRoleKey) {
+    console.error('CRITICAL SECURITY CONFIGURATION ERROR: SUPABASE_SERVICE_ROLE_KEY is missing.');
+    return createResponse(500, {
+      error: 'Server configuration error: Database access key is missing.'
+    });
+  }
 
-  if (clientIp !== 'unknown' && (await isRateLimited(clientIp))) {
+  // 3. Client IP Extraction & Sliding Window Rate Limiting
+  // Authoritative Netlify connection IP header (x-nf-client-connection-ip).
+  // NEVER read X-Forwarded-For to prevent IP spoofing!
+  const headers = event.headers || {};
+  let clientIp = headers['x-nf-client-connection-ip'];
+
+  // Test environment fallback only
+  if (!clientIp && process.env.NODE_ENV === 'test') {
+    clientIp = headers['x-test-client-ip'] || headers['client-ip'] || '127.0.0.1';
+  }
+  if (!clientIp) {
+    clientIp = 'unknown';
+  }
+
+  if (await isRateLimited(clientIp)) {
     return createResponse(429, {
       error: 'Too many requests. Please wait a few minutes before submitting another brief.'
     });
   }
 
-  // 2. Parse JSON body
+  // 4. Parse JSON body
   let rawBody;
   try {
     rawBody = JSON.parse(event.body || '{}');
@@ -244,13 +320,14 @@ exports.handler = async (event) => {
     return createResponse(400, { error: 'Malformed JSON payload.' });
   }
 
-  // 3. Honeypot check (Silent rejection if filled by automated spam bots)
-  if (rawBody.botTrap && rawBody.botTrap.trim() !== '') {
-    // Return fake success to confuse the bot without writing to DB
+  // 5. Anti-Bot Honeypot Trap
+  // Silently drop spam submissions without writing to the database
+  if ((rawBody.botTrap && String(rawBody.botTrap).trim() !== '') ||
+      (rawBody.website_url && String(rawBody.website_url).trim() !== '')) {
     return createResponse(200, { success: true, message: 'Received' });
   }
 
-  // 4. Validate schema with Zod
+  // 6. Server-Side Input Validation (Zod Schema)
   const validationResult = LeadSchema.safeParse(rawBody);
   if (!validationResult.success) {
     const issues = validationResult.error.issues || validationResult.error.errors || [];
@@ -260,8 +337,9 @@ exports.handler = async (event) => {
 
   const validated = validationResult.data;
 
-  // 5. Verify Cloudflare Turnstile token
-  const turnstileCheck = await verifyTurnstile(validated.turnstileToken, clientIp);
+  // 7. Cloudflare Turnstile Verification
+  const token = validated.token || validated.turnstileToken;
+  const turnstileCheck = await verifyTurnstile(token, clientIp);
   if (!turnstileCheck.success) {
     return createResponse(403, {
       error: 'Security verification failed. Please refresh and try again.',
@@ -269,17 +347,20 @@ exports.handler = async (event) => {
     });
   }
 
-  // 6. Insert lead into Supabase
+  // 8. Insert Lead into Supabase via service_role key exclusively
   try {
     const dbPayload = {
       name: validated.name,
-      phone: validated.phone,
       email: validated.email ? validated.email : null,
+      phone: validated.phone ? validated.phone : null,
       services: validated.services ? validated.services : null,
-      details: validated.details ? validated.details : null
+      details: validated.details || validated.message || null,
+      message: validated.message || validated.details || null,
+      budget: validated.budget || null,
+      timeline: validated.timeline || null
     };
 
-    const dbResult = await insertLeadToSupabase(dbPayload);
+    const dbResult = await insertLeadToSupabase(dbPayload, serviceRoleKey);
     if (!dbResult.success) {
       console.error('Supabase DB error:', dbResult.statusCode, dbResult.error);
       return createResponse(502, {
@@ -292,7 +373,7 @@ exports.handler = async (event) => {
       message: 'Project brief submitted successfully.'
     });
   } catch (dbErr) {
-    console.error('Backend submission exception:', dbErr);
+    console.error('Backend submission exception:', dbErr.message);
     return createResponse(500, {
       error: 'Internal service error while processing submission.'
     });

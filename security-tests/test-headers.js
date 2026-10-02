@@ -49,7 +49,7 @@ async function run() {
       assert(headers['content-security-policy'], 'CSP header must be set');
       const csp = headers['content-security-policy'];
       assert(csp.includes("default-src 'self'"), 'CSP must specify default-src');
-      assert(csp.includes('https://nirtydxacoujcbrbztyo.supabase.co'), 'CSP connect-src must allow Supabase project');
+      assert(csp.includes('connect-src \'self\' https://challenges.cloudflare.com'), 'CSP connect-src must allow self and Turnstile only');
       assert(!csp.includes('*.supabase.co'), 'CSP connect-src must NOT contain wildcard *.supabase.co');
       assert(csp.includes('https://challenges.cloudflare.com'), 'CSP must whitelist Turnstile');
       assert(csp.includes("frame-ancestors 'self'"), 'CSP must include frame-ancestors');
@@ -94,7 +94,7 @@ async function run() {
 
   test('netlify.toml defines Content-Security-Policy', () => {
     assert(toml.includes('Content-Security-Policy'), 'netlify.toml must define CSP');
-    assert(toml.includes('https://nirtydxacoujcbrbztyo.supabase.co'), 'netlify.toml CSP must specify exact Supabase URL');
+    assert(toml.includes("connect-src 'self' https://challenges.cloudflare.com"), 'netlify.toml connect-src must allow self and Turnstile only');
     assert(!toml.includes('*.supabase.co'), 'netlify.toml must NOT use wildcard *.supabase.co in connect-src');
     assert(toml.includes('https://challenges.cloudflare.com'), 'netlify.toml must whitelist Turnstile');
   });

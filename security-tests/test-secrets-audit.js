@@ -99,22 +99,31 @@ function run() {
     });
   }
 
-  // 3. Client-side Code PII & Secret Scan
-  test('Client-side files do not log PII or expose service_role key', () => {
+  // 4. Client-side Code PII & Secret Scan
+  test('Client-side files do not expose service_role or publishable keys', () => {
     const indexPath = path.join(__dirname, '..', 'index.html');
     const indexContent = fs.readFileSync(indexPath, 'utf8');
 
     assert(!indexContent.includes("console.log('Submitting Project Lead:'"), 'Must not log leadData PII in console');
     assert(!indexContent.includes('SUPABASE_SERVICE_ROLE_KEY'), 'Client HTML must never reference service_role key');
     assert(!indexContent.includes('service_role'), 'Client HTML must never contain service_role token');
+    assert(!indexContent.includes('sb_publishable_'), 'Client HTML must never contain hardcoded Supabase keys');
+    assert(!indexContent.includes('supabase.co'), 'Client HTML must not directly reference Supabase endpoints');
+
+    const configPath = path.join(__dirname, '..', 'supabase-config.js');
+    if (fs.existsSync(configPath)) {
+      const configContent = fs.readFileSync(configPath, 'utf8');
+      assert(!configContent.includes('sb_publishable_'), 'supabase-config.js must not contain keys');
+    }
   });
 
-  // 4. .env.example contains placeholders only, no real secrets
+  // 5. .env.example contains placeholders only, no real secrets
   test('.env.example contains only dummy placeholders', () => {
     const envPath = path.join(__dirname, '..', '.env.example');
     const envContent = fs.readFileSync(envPath, 'utf8');
 
     assert(envContent.includes('SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here'), 'service_role key must be placeholder in .env.example');
+    assert(!envContent.includes('sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7'), '.env.example must not contain real publishable keys');
     assert(envContent.includes('1x00000000000000000000AA'), 'Turnstile key must be official test key');
   });
 

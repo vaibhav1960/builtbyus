@@ -1,5 +1,10 @@
 const assert = require('assert');
 const https = require('https');
+
+process.env.NODE_ENV = 'test';
+process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'test_service_role_secret_key';
+process.env.TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
+
 const { handler } = require('../netlify/functions/submit-lead');
 
 // Live test helper for Staging Supabase
@@ -70,7 +75,7 @@ async function run() {
   // =========================================================================
   // Part 1: Serverless Function Behavioral Tests
   // =========================================================================
-  await test('Function strips client-forged status: "closed" and forces defaults', async () => {
+  await test('Function rejects client-forged status/created_at with HTTP 400 (parameter tampering)', async () => {
     const res = await handler({
       httpMethod: 'POST',
       headers: {
@@ -84,9 +89,10 @@ async function run() {
         turnstileToken: 'test-token'
       })
     });
-    // In test environment, the handler validates and strips status/created_at
-    // Zod schema does not include status/created_at, so they are never in validated data
-    assert(res.statusCode === 201 || res.statusCode === 403 || res.statusCode === 502);
+    // Zod strict schema rejects unexpected fields with 400
+    assert.strictEqual(res.statusCode, 400);
+    const body = JSON.parse(res.body);
+    assert(body.error.includes('Unrecognized key'));
   });
 
   await test('Function rejects massive text payloads (500KB+ DoS attempt)', async () => {

@@ -1357,16 +1357,7 @@
     </div>
   </aside>
 
-  <!-- Supabase Client SDK & Credentials Config -->
-  <script>
-    window.BUILTBYUS_SUPABASE = {
-      url: "https://nirtydxacoujcbrbztyo.supabase.co",
-      anonKey: "sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7",
-      table: "project_leads"
-    };
-  </script>
-  <script src="./supabase-config.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- All database writes are handled securely via Netlify Serverless Functions -->
 
   <!-- ================= JAVASCRIPT ================= -->
   <script>
@@ -1599,24 +1590,19 @@
       const leadData = {
         name,
         phone,
-        email,
-        services: service,
-        details,
+        email: email || undefined,
+        services: service || undefined,
+        details: details || undefined,
+        token: turnstileResponse || 'local-test-token',
         turnstileToken: turnstileResponse || 'local-test-token',
         botTrap
       };
 
-      const config = window.BUILTBYUS_SUPABASE || {
-        url: "https://nirtydxacoujcbrbztyo.supabase.co",
-        anonKey: "sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7",
-        table: "project_leads"
-      };
-
       let submitSuccess = false;
       let errorDetails = '';
-      const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
-      // Primary: Netlify Serverless Function (Server-side validation, rate limiting, and Turnstile verify)
+      // Primary & Sole Target: Netlify Serverless Function
+      // Rate limiting, Zod validation, and Turnstile verification run server-side.
       try {
         const netlifyEndpoint = '/.netlify/functions/submit-lead';
         const netlifyRes = await fetch(netlifyEndpoint, {
@@ -1629,65 +1615,12 @@
 
         if (netlifyRes.ok || netlifyRes.status === 201 || netlifyRes.status === 200) {
           submitSuccess = true;
-        } else if (netlifyRes.status === 404 && isLocalDev) {
-          // Local development fallback ONLY when running on localhost/127.0.0.1 without Netlify CLI
-          const restEndpoint = `${config.url}/rest/v1/${config.table}`;
-          const dbPayload = {
-            name,
-            phone,
-            email,
-            services: service,
-            details
-          };
-          const response = await fetch(restEndpoint, {
-            method: 'POST',
-            headers: {
-              'apikey': config.anonKey,
-              'Authorization': `Bearer ${config.anonKey}`,
-              'Content-Type': 'application/json',
-              'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify(dbPayload)
-          });
-
-          if (response.ok || response.status === 201 || response.status === 200) {
-            submitSuccess = true;
-          } else {
-            const respText = await response.text();
-            errorDetails = `Local database fallback error (${response.status}): ${respText}`;
-          }
         } else {
           const resJson = await netlifyRes.json().catch(() => ({}));
           errorDetails = resJson.error || `Submission error (${netlifyRes.status})`;
         }
       } catch (fetchErr) {
-        if (isLocalDev) {
-          // Local offline fallback
-          try {
-            const restEndpoint = `${config.url}/rest/v1/${config.table}`;
-            const dbPayload = { name, phone, email, services: service, details };
-            const response = await fetch(restEndpoint, {
-              method: 'POST',
-              headers: {
-                'apikey': config.anonKey,
-                'Authorization': `Bearer ${config.anonKey}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=minimal'
-              },
-              body: JSON.stringify(dbPayload)
-            });
-            if (response.ok || response.status === 201 || response.status === 200) {
-              submitSuccess = true;
-            } else {
-              errorDetails = fetchErr.message || 'Network connection failed';
-            }
-          } catch (fbErr) {
-            errorDetails = fbErr.message || 'Submission failed';
-          }
-        } else {
-          // Production: Strictly NO direct Supabase insert path! Always report service error.
-          errorDetails = 'Unable to submit your brief right now. Please check your internet connection or email us directly.';
-        }
+        errorDetails = 'Unable to submit your brief right now. Please check your internet connection or email us directly at hello@builtbyus.dev.';
       }
 
       if (submitBtn) {

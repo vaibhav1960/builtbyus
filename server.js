@@ -28,14 +28,14 @@ function setSecurityHeaders(res, isHtml = false) {
   // Force HTTPS & Transport Security
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   
-  // Content Security Policy (Strict, Whitelisted Supabase endpoint & Turnstile, No wildcard)
+  // Content Security Policy (Strict, Whitelisted Turnstile, Browser connects ONLY to self and Turnstile)
   const csp = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://challenges.cloudflare.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: https://builtbyus.dev",
-    "connect-src 'self' https://nirtydxacoujcbrbztyo.supabase.co https://challenges.cloudflare.com",
+    "connect-src 'self' https://challenges.cloudflare.com",
     "frame-src 'self' https://challenges.cloudflare.com",
     "frame-ancestors 'self'",
     "base-uri 'self'",
@@ -82,6 +82,30 @@ const server = http.createServer((req, res) => {
       Location: `https://${host}${req.url}`
     });
     return res.end();
+  }
+
+  // 2. Local Route for Netlify Serverless Function
+  if (req.url.startsWith('/.netlify/functions/submit-lead')) {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        const { handler } = require('./netlify/functions/submit-lead');
+        const event = {
+          httpMethod: req.method,
+          headers: req.headers,
+          body: body
+        };
+        const result = await handler(event);
+        res.writeHead(result.statusCode, result.headers);
+        res.end(result.body);
+      } catch (err) {
+        setSecurityHeaders(res, false);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
   }
 
   // Parse path & sanitize
@@ -137,6 +161,7 @@ server.listen(PORT, () => {
   console.log(`🚀 Builtbyus is running locally!`);
   console.log(`👉 Local:   http://localhost:${PORT}`);
   console.log(`🔒 Security headers & HTTPS ready`);
+  console.log(`⚡ Netlify Function local router ready`);
   console.log(`📄 404 fallback configured`);
   console.log(`========================================\n`);
 });

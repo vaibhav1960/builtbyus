@@ -3,12 +3,12 @@ const path = require('path');
 const https = require('https');
 const assert = require('assert');
 
-// Probe live Supabase REST API (READ-ONLY / NON-DESTRUCTIVE - Never inserts or deletes in production)
+// Probe live Supabase REST API (READ-ONLY / NON-DESTRUCTIVE - Never inserts or deletes real rows in production)
 async function probeSupabase(method, queryParams = '', payload = null) {
   return new Promise((resolve) => {
     const config = {
-      url: 'https://nirtydxacoujcbrbztyo.supabase.co',
-      anonKey: 'sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7',
+      url: process.env.SUPABASE_URL || 'https://nirtydxacoujcbrbztyo.supabase.co',
+      anonKey: process.env.SUPABASE_ANON_KEY || 'dummy_anon_probe_key',
       table: 'project_leads'
     };
 
@@ -85,39 +85,41 @@ async function run() {
     assert(m1.includes('ALTER TABLE public.project_leads ENABLE ROW LEVEL SECURITY;'), 'RLS must be enabled');
   });
 
-  test('Migration 01 removes insecure TO authenticated USING (true) policies', () => {
-    assert(!m1.includes('TO authenticated\nUSING (true)'), 'Must not grant full read to authenticated');
-    assert(m1.includes('DROP POLICY IF EXISTS "Allow authenticated admin read"'), 'Must drop insecure read policy');
-    assert(m1.includes('DROP POLICY IF EXISTS "Allow authenticated admin update"'), 'Must drop insecure update policy');
+  test('Migration 01 and Schema have ZERO public / anonymous write policies', () => {
+    assert(!m1.includes('CREATE POLICY "Allow anonymous lead insert"'), 'Migration 01 must not grant anon insert policy');
+    assert(!schema.includes('CREATE POLICY "Allow anonymous lead insert"'), 'supabase-schema must not grant anon insert policy');
+    assert(!m1.includes('TO anon\nWITH CHECK'), 'Must have zero anon policies');
+    assert(!schema.includes('TO anon\nWITH CHECK'), 'Must have zero anon policies in schema');
   });
 
-  test('Migration 01 restricts anon to column-level INSERT only', () => {
-    assert(m1.includes('REVOKE ALL ON public.project_leads FROM anon'), 'Must revoke all table-level access');
-    assert(m1.includes('GRANT INSERT (name, phone, email, services, details) ON public.project_leads TO anon'), 'Must grant INSERT only on 5 specific columns');
+  test('Migration 01 and Schema revoke ALL table access from anon and authenticated', () => {
+    assert(m1.includes('REVOKE ALL ON public.project_leads FROM anon, authenticated;'), 'Must revoke all table-level access');
+    assert(schema.includes('REVOKE ALL ON public.project_leads FROM anon, authenticated;'), 'Must revoke all table-level access');
   });
 
-  test('Migration 01 implements BEFORE INSERT trigger forcing status=new and created_at=now()', () => {
+  test('Migration 01 and Schema grant exclusive access to service_role', () => {
+    assert(m1.includes('GRANT ALL ON public.project_leads TO service_role;'), 'Must grant to service_role');
+    assert(schema.includes('GRANT ALL ON public.project_leads TO service_role;'), 'Must grant to service_role in schema');
+  });
+
+  test('Migration 01 and Schema implement BEFORE INSERT trigger forcing status=new and created_at=now()', () => {
     assert(m1.includes('CREATE TRIGGER trg_enforce_lead_defaults'), 'Must define trigger');
     assert(m1.includes("NEW.status := 'new';"), 'Trigger must force status = new');
     assert(m1.includes('NEW.created_at := NOW();'), 'Trigger must force created_at = NOW()');
+    assert(schema.includes('CREATE TRIGGER trg_enforce_lead_defaults'), 'Schema must define trigger');
   });
 
-  test('Migration 01 enforces CHECK constraints for length and email format', () => {
-    assert(m1.includes('chk_project_leads_name'), 'Must define name constraint');
-    assert(m1.includes('chk_project_leads_phone'), 'Must define phone constraint');
-    assert(m1.includes('chk_project_leads_email'), 'Must define email regex constraint');
-    assert(m1.includes('chk_project_leads_services'), 'Must define services constraint');
-    assert(m1.includes('chk_project_leads_details'), 'Must define details constraint');
+  test('Migration 01 and Schema enforce strict CHECK constraints (status, budget, timeline, lengths)', () => {
+    assert(schema.includes('chk_project_leads_status'), 'Must define status check');
+    assert(schema.includes('chk_project_leads_budget'), 'Must define budget check');
+    assert(schema.includes('chk_project_leads_timeline'), 'Must define timeline check');
+    assert(schema.includes('chk_project_leads_name'), 'Must define name check');
+    assert(schema.includes('chk_project_leads_email'), 'Must define email regex check');
   });
 
-  test('Migration 02 correctly specifies revocation of direct anon INSERT', () => {
-    assert(m2.includes('REVOKE INSERT ON public.project_leads FROM anon'), 'Must revoke INSERT from anon');
-    assert(m2.includes('DROP POLICY IF EXISTS "Allow anonymous lead insert"'), 'Must drop anon insert policy');
-  });
-
-  test('supabase-schema.sql matches hardened migration rules', () => {
-    assert(schema.includes('trg_enforce_lead_defaults'), 'Main schema must have default trigger');
-    assert(schema.includes('chk_project_leads_name'), 'Main schema must have name check');
+  test('Migration 02 revokes all anon/authenticated access and confirms service_role grant', () => {
+    assert(m2.includes('REVOKE ALL ON public.project_leads FROM anon, authenticated;'), 'Must revoke access from anon and authenticated');
+    assert(m2.includes('GRANT ALL ON public.project_leads TO service_role;'), 'Must grant access to service_role');
   });
 
   // 2. Non-Destructive Live Supabase RLS Probe

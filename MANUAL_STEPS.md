@@ -1,161 +1,140 @@
-# 📋 Manual Security Checklist & Dashboard Action Items
+# 📋 Builtbyus Studio — Security Architecture & Manual Deployment Checklist
 
-Follow this checklist in the **exact order** below. All automated code changes, input validation, serverless functions, security headers, and tests have already been implemented and verified locally.
+All automated code fixes, serverless functions, input validation, rate limiting, and test suites are implemented in this repository.
+
+This checklist outlines the deployment configuration and manual Supabase dashboard operations required to match the hardened production architecture.
 
 ---
 
-## 1. Cloudflare Turnstile Keys (Step 1)
+## Architecture Overview
+
+```
+Browser (Static HTML / Tailwind / GSAP)
+   │
+   ▼ HTTPS POST /.netlify/functions/submit-lead
+Netlify CDN Edge (Authoritative IP: x-nf-client-connection-ip, Strict CSP)
+   │
+   ▼
+Netlify Serverless Function (Node.js runtime)
+   ├─► 1. HTTP Method Gate (POST only)
+   ├─► 2. Strict Service Role Key Check (fails 500 if missing)
+   ├─► 3. Upstash Redis Sliding-Window Rate Limiter (5 requests / 10 min window per IP)
+   ├─► 4. Anti-Bot Honeypot Trap (botTrap & website_url silent drop)
+   ├─► 5. Zod Strict Schema Validation (name, email, phone, budget, timeline, message)
+   ├─► 6. Cloudflare Turnstile Server-to-Server Siteverify (fails 403 on invalid token)
+   │
+   ▼ Direct REST API via SUPABASE_SERVICE_ROLE_KEY exclusively (Bypasses RLS)
+Supabase PostgreSQL Database
+   ├─► Row Level Security (RLS) ENABLED (ZERO public policies)
+   ├─► Permissions: REVOKE ALL from anon, authenticated; GRANT to service_role
+   ├─► Trigger: enforce_lead_defaults() (forces status='new' and created_at=NOW())
+   └─► CHECK Constraints: status, budget, timeline, name, email, phone, details
+```
+
+> **CRITICAL SECURITY GUARANTEE:**
+> The browser has **ZERO** direct database read or write access. No Supabase publishable or service role keys exist in the frontend bundle. All writes flow strictly through the serverless function.
+
+---
+
+## 1. Cloudflare Turnstile Setup
+
 Obtain your bot-protection keys from Cloudflare:
 
 1. Log into the **[Cloudflare Dashboard](https://dash.cloudflare.com/)** ➔ Select **Turnstile** from the sidebar.
 2. Click **Add Site**.
-3. Fill in the site details:
+3. Fill in details:
    - **Site name:** `Builtbyus Studio`
-   - **Domain:** `builtbyus.dev` (also add `localhost` for local dev testing)
-   - **Widget Mode:** Managed (interactive challenge only when suspicious)
-4. Click **Create**.
-5. Copy your **Site Key** and **Secret Key**.
-6. In `index.html`, replace the test key `1x00000000000000000000AA` with your real **Site Key**:
+   - **Domain:** `builtbyus.dev` (also add `localhost` for local dev)
+   - **Widget Mode:** Managed
+4. Copy your **Site Key** and **Secret Key**.
+5. In `index.html`, replace the test key `1x00000000000000000000AA` with your real **Site Key**:
    ```html
    <div id="cf-turnstile-container" class="cf-turnstile" data-sitekey="YOUR_PRODUCTION_SITE_KEY" data-theme="light"></div>
    ```
 
 ---
 
-## 2. Netlify Environment Variables (Step 2)
-Add your private backend keys to Netlify so your serverless functions can connect to Supabase, verify Turnstile, and apply durable rate limiting:
+## 2. Netlify Environment Variables Configuration
 
-1. Go to the **[Netlify Dashboard](https://app.netlify.com/)** ➔ Select your site (`builtbyus`).
-2. Click **Site configuration** in the sidebar ➔ Click **Environment variables**.
-3. Click **Add a variable** (or **Import from .env**) and set the following:
+Set these environment variables in your Netlify dashboard (**Site configuration** ➔ **Environment variables**):
 
-| Variable Name | Value / Instructions |
-| :--- | :--- |
-| `SUPABASE_URL` | `https://nirtydxacoujcbrbztyo.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | *(From Supabase: Project Settings ➔ API ➔ Project API keys ➔ `service_role` secret)* |
-| `TURNSTILE_SITE_KEY` | *(Your Cloudflare Turnstile Site Key from Step 1)* |
-| `TURNSTILE_SECRET_KEY` | *(Your Cloudflare Turnstile Secret Key from Step 1)* |
-| `UPSTASH_REDIS_REST_URL` | *(Optional but recommended: Free Redis at [upstash.com](https://upstash.com) for durable IP rate limiting across serverless instances)* |
-| `UPSTASH_REDIS_REST_TOKEN` | *(Your Upstash Redis REST Token)* |
+| Variable Name | Required | Description |
+| :--- | :--- | :--- |
+| `SUPABASE_URL` | **YES** | `https://nirtydxacoujcbrbztyo.supabase.co` |
+| `SUPABASE_SERVICE_ROLE_KEY` | **YES** | Secret key from Supabase Dashboard (Project Settings ➔ API ➔ `service_role` secret). Function returns 500 if missing. |
+| `TURNSTILE_SITE_KEY` | **YES** | Your Cloudflare Turnstile Site Key |
+| `TURNSTILE_SECRET_KEY` | **YES** | Your Cloudflare Turnstile Secret Key (used server-side for siteverify) |
+| `UPSTASH_REDIS_REST_URL` | **YES** | Free Redis database URL from [upstash.com](https://upstash.com) for durable sliding-window rate limiting |
+| `UPSTASH_REDIS_REST_TOKEN` | **YES** | Upstash Redis REST access token |
 
 ---
 
-## 3. Apply Migration 01: Database Hardening (Step 3)
-Enforce database-level check constraints, defaults trigger, and column-level grants:
+## 3. Database Schema Application (Supabase SQL Editor)
 
-1. Go to the **[Supabase Dashboard](https://supabase.com/dashboard)** ➔ Select your project (`nirtydxacoujcbrbztyo`).
-2. Click **SQL Editor** in the left sidebar ➔ Click **New query**.
-3. Copy and paste the entire contents of `migrations/01_harden_project_leads.sql` into the editor:
-4. Click **Run**.
-5. **What this enforces:**
-   - Adds `CHECK` constraints on `name` (2–100 chars), `phone` (7–30 chars), `email` (valid regex), `services` (≤200 chars), and `details` (≤2000 chars).
-   - Installs `BEFORE INSERT` trigger forcing `status = 'new'` and `created_at = NOW()` (preventing status/date manipulation).
-   - Drops insecure permissive policies (`TO authenticated USING (true)`).
-   - Restricts `anon` role to column-level `INSERT` grants strictly on `(name, phone, email, services, details)`.
+Run the consolidated schema script in your Supabase Project (**SQL Editor** ➔ **New Query**):
 
----
-
-## 4. Deploy + Live Test (Step 4)
-Deploy your changes to Netlify and test lead submission end-to-end:
-
-1. Push your updated code to GitHub (`master` branch). Netlify will automatically trigger a build and deploy.
-2. Open your live website: `https://builtbyus.dev`.
-3. Click **SEND PROJECT BRIEF**, fill in your own name and phone number, complete the Turnstile challenge, and submit.
-4. Verify you receive the green success toast ("Project Brief Received!").
-5. Check your **Supabase Table Editor** ➔ `project_leads` table to confirm the new lead appeared with `status: 'new'`.
+1. Copy and paste the entire contents of `supabase-schema.sql` (or `migrations/01_harden_project_leads.sql`).
+2. Click **Run**.
+3. **What this enforces:**
+   - Table `public.project_leads` created with integrity defaults.
+   - `CHECK` constraints on status (`new`, `contacted`, `qualified`, `converted`, `archived`), budget, timeline, name (1–100 chars), phone (7–30 chars), email (regex), and message/details (≤2000 chars).
+   - `BEFORE INSERT` trigger forcing `status = 'new'`, `created_at = NOW()`, trimmed strings, and lowercased email.
+   - `ALTER TABLE public.project_leads ENABLE ROW LEVEL SECURITY;`
+   - Drops all public/anon insert, read, and update policies. **Zero public policies exist.**
+   - `REVOKE ALL ON public.project_leads FROM anon, authenticated;`
+   - `GRANT ALL ON public.project_leads TO service_role;`
 
 ---
 
-## 5. Apply Migration 02: Revoke Anon Direct Insert (Step 5)
-> ⚠️ **IMPORTANT:** Only run this after completing Step 4 (verifying the live form submitted successfully).
+## 4. Post-Deployment Migration (If Table Already Existed with Anon Policies)
 
-Now that your serverless function is handling live form submissions via `SUPABASE_SERVICE_ROLE_KEY`, lock down direct REST inserts:
+If your database previously had an `Allow anonymous lead insert` policy, run `migrations/02_revoke_anon_direct_insert.sql` to permanently revoke it:
 
-1. In Supabase Dashboard, click **SQL Editor** ➔ Click **New query**.
-2. Copy and paste the contents of `migrations/02_revoke_anon_direct_insert.sql`:
+```sql
+DROP POLICY IF EXISTS "Allow anonymous lead insert" ON public.project_leads;
+DROP POLICY IF EXISTS "Allow anonymous lead submission" ON public.project_leads;
+
+REVOKE ALL ON public.project_leads FROM anon, authenticated;
+REVOKE USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public FROM anon, authenticated;
+
+GRANT ALL ON public.project_leads TO service_role;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO service_role;
+```
+
+---
+
+## 5. Clean Up Audit Test Rows
+
+Delete any junk test records inserted during the earlier security audit:
+
+1. In Supabase Dashboard, click **SQL Editor** ➔ **New query**.
+2. Run `cleanup.sql`:
    ```sql
-   DROP POLICY IF EXISTS "Allow anonymous lead insert" ON public.project_leads;
-   REVOKE INSERT ON public.project_leads FROM anon;
-   GRANT ALL ON public.project_leads TO service_role;
-   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO service_role;
-   ```
-3. Click **Run**.
-4. Direct inserts using the public anon key are now completely disabled; only your Netlify Function can write to `project_leads`.
-
----
-
-## 6. Clean Up Production Test Rows (Step 6)
-Delete the test records inserted during the earlier security audit:
-
-1. In Supabase Dashboard, click **SQL Editor** ➔ Click **New query**.
-2. Copy and paste `cleanup.sql` (or the snippet below):
-   ```sql
-   -- 1. PREVIEW MATCHING TEST ROWS
-   SELECT id, created_at, name, phone, email, status
-   FROM public.project_leads
-   WHERE name = 'Security Test Auditor'
-      OR name LIKE '''; DROP TABLE%'
-      OR LENGTH(name) > 1000
-      OR email = 'audit@security.test';
-
-   -- 2. DELETE ONLY THE MATCHING TEST ROWS
    DELETE FROM public.project_leads
    WHERE name = 'Security Test Auditor'
       OR name LIKE '''; DROP TABLE%'
       OR LENGTH(name) > 1000
       OR email = 'audit@security.test';
-
-   -- 3. VERIFY DELETION (Should return 0)
-   SELECT COUNT(*) AS remaining_test_rows
-   FROM public.project_leads
-   WHERE name = 'Security Test Auditor'
-      OR name LIKE '''; DROP TABLE%'
-      OR LENGTH(name) > 1000
-      OR email = 'audit@security.test';
    ```
-3. Click **Run**.
 
 ---
 
-## 7. Supabase Auth Settings (Step 7)
-Lock down user registration and enable password protections:
+## 6. Supabase Authentication Hardening
 
-1. In Supabase Dashboard, click **Authentication** (padlock icon in the sidebar).
-2. Under **Configuration**, click **Providers** ➔ Click on **Email**.
-3. Toggle **"Allow new users to sign up"** to **OFF** (disabled).
+Since Builtbyus Studio does not require customer login:
+
+1. In Supabase Dashboard, click **Authentication** (padlock icon).
+2. Under **Configuration** ➔ **Providers** ➔ **Email**:
+   - Toggle **"Allow new users to sign up"** to **OFF** (prevents open user creation).
+3. Under **Attack Protection**:
+   - Toggle **"Enable leaked password protection"** to **ON**.
 4. Click **Save**.
-5. Under **Authentication** ➔ **Attack Protection**, toggle **"Enable leaked password protection"** to **ON**.
-6. Under **Authentication** ➔ **Email Auth**, set **"OTP expiry"** to `300` seconds (5 minutes).
-7. Click **Save**.
 
 ---
 
-## 8. Two-Factor Authentication (2FA) (Step 8)
-Protect all developer and admin accounts from credential takeover:
+## 7. Account Security (2FA)
 
-- **Supabase:** Profile Avatar (top right) ➔ **Account** ➔ **Security** ➔ **Two-Factor Authentication** ➔ Enable with an Authenticator App.
-- **GitHub:** Profile ➔ **Settings** ➔ **Password and authentication** ➔ **Two-factor authentication** ➔ Enable.
-- **Netlify:** User Settings ➔ **Security** ➔ **Two-factor authentication** ➔ Enable.
-
----
-
-## 9. Tailwind CSS Self-Hosting (Plan to Remove 'unsafe-inline' in CSP)
-
-### Why `'unsafe-inline'` exists today:
-The page currently loads Tailwind CSS via CDN (`https://cdn.tailwindcss.com`). The CDN script inspects classes in the DOM at runtime and generates dynamic `<style>` elements into the `<head>`, which necessitates `'unsafe-inline'` in `style-src`.
-
-### Plan to remove `'unsafe-inline'`:
-1. Generate static compiled CSS using Tailwind CLI:
-   ```bash
-   npx tailwindcss -i ./input.css -o ./output.css --minify
-   ```
-2. In `index.html`, replace `<script src="https://cdn.tailwindcss.com"></script>` with:
-   ```html
-   <link rel="stylesheet" href="/output.css" />
-   ```
-3. In `server.js` and `netlify.toml`, update `style-src` in `Content-Security-Policy`:
-   Change:
-   `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`
-   To:
-   `style-src 'self' https://fonts.googleapis.com;`
-This completely removes `'unsafe-inline'`, maximizing CSP protection against DOM injection.
+Ensure Two-Factor Authentication (2FA) is enabled on:
+- **Supabase Account:** Avatar ➔ Account ➔ Security ➔ 2FA.
+- **GitHub Account:** Settings ➔ Password & authentication ➔ 2FA.
+- **Netlify Account:** User Settings ➔ Security ➔ 2FA.
