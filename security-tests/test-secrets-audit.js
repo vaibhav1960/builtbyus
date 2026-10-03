@@ -124,7 +124,7 @@ function run() {
 
     assert(envContent.includes('SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here'), 'service_role key must be placeholder in .env.example');
     assert(!envContent.includes('sb_publishable_jx24CpGpzelYvZ8PeKHmiA_N5a1FWp7'), '.env.example must not contain real publishable keys');
-    assert(envContent.includes('1x00000000000000000000AA'), 'Turnstile key must be official test key');
+    assert(!envContent.includes('TURNSTILE_'), '.env.example must not contain Turnstile keys');
   });
 
   if (failed > 0) {

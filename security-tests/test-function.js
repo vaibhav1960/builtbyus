@@ -3,7 +3,6 @@ const assert = require('assert');
 // Ensure test environment variables are established
 process.env.NODE_ENV = 'test';
 process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'test_service_role_secret_key';
-process.env.TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
 
 const { handler } = require('../netlify/functions/submit-lead');
 
@@ -68,8 +67,7 @@ async function run() {
       httpMethod: 'POST',
       headers: { 'x-nf-client-connection-ip': '127.0.0.2' },
       body: JSON.stringify({
-        email: 'test@example.com',
-        token: 'dummy'
+        email: 'test@example.com'
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -84,8 +82,7 @@ async function run() {
       headers: { 'x-nf-client-connection-ip': '127.0.0.3' },
       body: JSON.stringify({
         name: 'A'.repeat(101),
-        phone: '+91 9876543210',
-        token: 'dummy'
+        phone: '+91 9876543210'
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -100,8 +97,7 @@ async function run() {
       body: JSON.stringify({
         name: 'Valid Name',
         email: 'valid@example.com',
-        message: 'M'.repeat(2001),
-        token: 'dummy'
+        message: 'M'.repeat(2001)
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -117,8 +113,7 @@ async function run() {
       body: JSON.stringify({
         name: 'Valid Name',
         phone: '+91 9876543210',
-        email: 'invalid-email-format',
-        token: 'dummy'
+        email: 'invalid-email-format'
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -134,8 +129,7 @@ async function run() {
       body: JSON.stringify({
         name: 'Valid Name',
         email: 'valid@example.com',
-        budget: '$1,000,000+', // Not in allowed set
-        token: 'dummy'
+        budget: '$1,000,000+' // Not in allowed set
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -143,6 +137,7 @@ async function run() {
     assert(body.error.includes('Validation error'));
   });
 
+  // 7b. Timeline enum validation
   await test('Rejects unapproved timeline option with HTTP 400', async () => {
     const res = await handler({
       httpMethod: 'POST',
@@ -150,8 +145,7 @@ async function run() {
       body: JSON.stringify({
         name: 'Valid Name',
         email: 'valid@example.com',
-        timeline: 'Yesterday', // Not in allowed set
-        token: 'dummy'
+        timeline: 'Yesterday' // Not in allowed set
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -167,7 +161,6 @@ async function run() {
       body: JSON.stringify({
         name: 'Valid Name',
         email: 'valid@example.com',
-        token: 'dummy',
         unrecognized_malicious_field: 'exploit_attempt'
       })
     });
@@ -176,41 +169,8 @@ async function run() {
     assert(body.error.includes('Unrecognized key'));
   });
 
-  // 9. Anti-bot honeypot trap
-  await test('Honeypot trap (botTrap) silently returns HTTP 200 without saving', async () => {
-    const res = await handler({
-      httpMethod: 'POST',
-      headers: { 'x-nf-client-connection-ip': '127.0.0.9' },
-      body: JSON.stringify({
-        name: 'Spam Bot',
-        phone: '+1 5550199',
-        botTrap: 'http://spam-link.ru'
-      })
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = JSON.parse(res.body);
-    assert.strictEqual(body.success, true);
-    assert.strictEqual(body.message, 'Received');
-  });
-
-  await test('Honeypot trap (website_url) silently returns HTTP 200 without saving', async () => {
-    const res = await handler({
-      httpMethod: 'POST',
-      headers: { 'x-nf-client-connection-ip': '127.0.0.10' },
-      body: JSON.stringify({
-        name: 'Spam Bot',
-        email: 'bot@spam.com',
-        website_url: 'http://spam-link.ru'
-      })
-    });
-    assert.strictEqual(res.statusCode, 200);
-    const body = JSON.parse(res.body);
-    assert.strictEqual(body.success, true);
-    assert.strictEqual(body.message, 'Received');
-  });
-
-  // 10. Missing Turnstile token
-  await test('Rejects missing Turnstile verification token with HTTP 400', async () => {
+  // 9. Valid lead submission
+  await test('Accepts valid lead submission without Turnstile or honeypot', async () => {
     const res = await handler({
       httpMethod: 'POST',
       headers: { 'x-nf-client-connection-ip': '127.0.0.11' },
@@ -219,67 +179,11 @@ async function run() {
         email: 'test@example.com'
       })
     });
-    assert.strictEqual(res.statusCode, 400);
-    const body = JSON.parse(res.body);
-    assert(body.error.includes('Turnstile verification token is required'));
+    // Successfully passes Zod validation, attempts Supabase insert
+    assert(res.statusCode === 201 || res.statusCode === 502);
   });
 
-  // 11. Sliding Window IP Rate Limiting check
-  await test('Enforces IP rate limit: returns HTTP 429 on 6th request within window', async () => {
-    const testIp = '198.51.100.77';
-    let hit429 = false;
-
-    // Send 6 rapid requests from the same IP (threshold is 5)
-    for (let i = 0; i < 6; i++) {
-      const res = await handler({
-        httpMethod: 'POST',
-        headers: { 'x-nf-client-connection-ip': testIp },
-        body: JSON.stringify({
-          name: `Rate Limit Test ${i}`,
-          email: 'ratelimit@example.com',
-          token: 'dummy-token'
-        })
-      });
-
-      if (res.statusCode === 429) {
-        hit429 = true;
-        const body = JSON.parse(res.body);
-        assert(body.error.includes('Too many requests'));
-        break;
-      }
-    }
-    assert.strictEqual(hit429, true, 'Rate limiter should have triggered HTTP 429 on 6th attempt');
-  });
-
-  // 12. Spoofed X-Forwarded-For IP header is ignored
-  await test('Ignores client-supplied X-Forwarded-For and strictly enforces rate limit on connection IP', async () => {
-    const realIp = '198.51.100.88';
-    let hit429 = false;
-
-    for (let i = 0; i < 6; i++) {
-      const res = await handler({
-        httpMethod: 'POST',
-        headers: {
-          'x-nf-client-connection-ip': realIp,
-          // Attacker attempts to rotate X-Forwarded-For on every request to bypass rate limiter
-          'x-forwarded-for': `203.0.113.${i + 1}`
-        },
-        body: JSON.stringify({
-          name: `Spoof Test ${i}`,
-          email: 'spoof@example.com',
-          token: 'dummy-token'
-        })
-      });
-
-      if (res.statusCode === 429) {
-        hit429 = true;
-        break;
-      }
-    }
-    assert.strictEqual(hit429, true, 'Spoofed X-Forwarded-For must NOT bypass rate limiter');
-  });
-
-  // 13. XSS / SQLi payloads safely handled by validation & schema
+  // 10. XSS / SQLi payloads safely handled by validation & schema
   await test('XSS and SQL injection payloads are strictly validated without execution', async () => {
     const sqliName = "'; DROP TABLE project_leads; --";
     const xssDetails = "<script>alert('xss')</script>";
@@ -290,13 +194,12 @@ async function run() {
       body: JSON.stringify({
         name: sqliName,
         phone: '+91 9876543210',
-        details: xssDetails,
-        token: 'dummy-token'
+        details: xssDetails
       })
     });
 
-    // Treated as plain data, validated within boundaries, reaches Turnstile verification
-    assert(res.statusCode === 403 || res.statusCode === 201 || res.statusCode === 502);
+    // Treated as plain data, validated within boundaries, reaches Supabase insert
+    assert(res.statusCode === 201 || res.statusCode === 502);
   });
 
   if (failed > 0) {

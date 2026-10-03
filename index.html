@@ -39,8 +39,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Isometra&family=Lilita+One&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Cloudflare Turnstile Bot Protection API -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1179,11 +1177,7 @@
       <!-- Single-page Form -->
       <form id="projectForm" onsubmit="handleFormSubmit(event)" novalidate class="mt-5 space-y-4">
 
-        <!-- Anti-bot Honeypot Trap (Hidden from users; bots auto-filling will get silently dropped) -->
-        <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
-          <label for="leadBotTrap">Leave this field blank</label>
-          <input type="text" id="leadBotTrap" name="leadBotTrap" tabindex="-1" autocomplete="off" />
-        </div>
+
 
         <!-- 1. NAME -->
         <div>
@@ -1296,11 +1290,6 @@
           </div>
         </div>
 
-        <!-- 5. CLOUDFLARE TURNSTILE BOT PROTECTION -->
-        <div class="pt-1 flex flex-col items-center justify-center">
-          <div id="cf-turnstile-container" class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
-          <p id="leadTurnstileError" class="mt-1.5 hidden text-xs font-bold text-orange">Please complete the security verification.</p>
-        </div>
 
         <!-- Server/Network Error Banner -->
         <div id="leadFormSubmitError" class="hidden rounded-xl border-2 border-orange bg-orange/10 p-3 text-xs font-bold text-orange text-center"></div>
@@ -1431,7 +1420,7 @@
         const el = document.getElementById(id);
         if (el) el.classList.remove('border-orange', 'ring-2', 'ring-orange');
       });
-      ['leadNameError', 'leadPhoneError', 'leadEmailError', 'leadServiceError', 'leadTurnstileError'].forEach(id => {
+      ['leadNameError', 'leadPhoneError', 'leadEmailError', 'leadServiceError'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
       });
@@ -1523,51 +1512,12 @@
         errBanner.textContent = '';
       }
 
-      // 1. Honeypot Anti-Bot Trap Check
-      const botTrap = document.getElementById('leadBotTrap')?.value || '';
-      if (botTrap.trim() !== '') {
-        // Silently discard spam bots
-        closeModal();
-        const toast = document.getElementById('toast');
-        if (toast) {
-          toast.classList.remove('hidden');
-          setTimeout(() => toast.classList.add('hidden'), 5000);
-        }
-        return;
-      }
-
-      // 2. Client-side UX Rate Limiting (Max 5 submissions per 10 mins)
-      const RATE_STORAGE_KEY = 'builtbyus_submit_timestamps';
-      const now = Date.now();
-      let submitHistory = [];
-      try {
-        submitHistory = JSON.parse(sessionStorage.getItem(RATE_STORAGE_KEY) || '[]');
-      } catch (err) {
-        submitHistory = [];
-      }
-      submitHistory = submitHistory.filter(ts => (now - ts) < 10 * 60 * 1000);
-      if (submitHistory.length >= 5) {
-        if (errBanner) {
-          errBanner.classList.remove('hidden');
-          errBanner.textContent = 'Too many submissions recently. Please wait a few minutes before submitting another brief.';
-        }
-        return;
-      }
-
-      // 3. Client-side validation of inputs
+      // 1. Client-side validation of inputs
       if (!validateLeadForm()) {
         return;
       }
 
-      // 4. Cloudflare Turnstile Verification
-      const turnstileResponse = (document.querySelector('[name="cf-turnstile-response"]') && document.querySelector('[name="cf-turnstile-response"]').value) || '';
-      const turnstileErr = document.getElementById('leadTurnstileError');
-      if (document.getElementById('cf-turnstile-container') && !turnstileResponse && typeof window.turnstile !== 'undefined') {
-        if (turnstileErr) turnstileErr.classList.remove('hidden');
-        return;
-      } else if (turnstileErr) {
-        turnstileErr.classList.add('hidden');
-      }
+
 
       const submitBtn = document.getElementById('leadSubmitBtn');
       const originalBtnText = submitBtn ? submitBtn.innerHTML : 'SEND PROJECT BRIEF →';
@@ -1592,17 +1542,14 @@
         phone,
         email: email || undefined,
         services: service || undefined,
-        details: details || undefined,
-        token: turnstileResponse || 'local-test-token',
-        turnstileToken: turnstileResponse || 'local-test-token',
-        botTrap
+        details: details || undefined
       };
 
       let submitSuccess = false;
       let errorDetails = '';
 
       // Primary & Sole Target: Netlify Serverless Function
-      // Rate limiting, Zod validation, and Turnstile verification run server-side.
+      // Input validation and secure backend insertion run server-side.
       try {
         const netlifyEndpoint = '/.netlify/functions/submit-lead';
         const netlifyRes = await fetch(netlifyEndpoint, {
@@ -1630,12 +1577,6 @@
       }
 
       if (submitSuccess) {
-        // Record timestamp for client-side rate limiting
-        submitHistory.push(Date.now());
-        try {
-          sessionStorage.setItem(RATE_STORAGE_KEY, JSON.stringify(submitHistory));
-        } catch (e) {}
-
         closeModal();
         const toast = document.getElementById('toast');
         if (toast) {
@@ -1645,17 +1586,12 @@
           }, 6000);
         }
 
-        // Reset form and turnstile
+        // Reset form
         const form = document.getElementById('projectForm');
         if (form) {
           form.reset();
           const defaultSite = form.querySelector('input[name="leadService"][value="Website"]');
           if (defaultSite) defaultSite.checked = true;
-        }
-        if (typeof window.turnstile !== 'undefined' && window.turnstile.reset) {
-          try {
-            window.turnstile.reset('#cf-turnstile-container');
-          } catch (tErr) {}
         }
       } else {
         if (errBanner) {

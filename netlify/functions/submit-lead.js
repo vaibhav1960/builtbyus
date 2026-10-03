@@ -1,105 +1,16 @@
 const { z } = require('zod');
 const https = require('https');
-const { Redis } = require('@upstash/redis');
 
 // ====================================================================
 // Builtbyus Studio: Serverless Lead Submission Handler
 // Location: netlify/functions/submit-lead.js
 //
-// Architecture:
-// Browser -> Netlify CDN -> Netlify Function -> Upstash Redis (Sliding Window)
-// -> Cloudflare Turnstile -> Supabase (service_role exclusively) -> Postgres
+// Flow:
+// Customer -> Lead Form -> Netlify Function -> Zod Validation -> Supabase (service_role exclusively) -> Postgres
 // ====================================================================
 
 // Configuration from Environment Variables
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://nirtydxacoujcbrbztyo.supabase.co';
-// Cloudflare Turnstile Secret Key (Default: Cloudflare Official Test Secret Key)
-const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
-
-// Upstash Redis Durable Rate Limiter
-// Required env vars: UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN
-let upstashRedis = null;
-if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-  try {
-    upstashRedis = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN
-    });
-  } catch (err) {
-    console.error('Failed to initialize Upstash Redis client:', err.message);
-  }
-}
-
-// Rate Limiting Policy: Max 5 submissions per 10 minutes (600 seconds)
-const RATE_LIMIT_WINDOW_SECS = 10 * 60;
-const RATE_LIMIT_MAX_REQUESTS = 5;
-
-// In-Memory Sliding Window Fallback (used when Redis is not configured or unreachable)
-const ipRequestHistory = new Map();
-
-function isInMemoryRateLimited(ip) {
-  const now = Date.now();
-  const windowStart = now - (RATE_LIMIT_WINDOW_SECS * 1000);
-
-  // Periodic pruning of stale IPs if map grows large
-  if (ipRequestHistory.size > 2000) {
-    for (const [trackedIp, timestamps] of ipRequestHistory.entries()) {
-      const active = timestamps.filter(ts => ts > windowStart);
-      if (active.length === 0) {
-        ipRequestHistory.delete(trackedIp);
-      } else {
-        ipRequestHistory.set(trackedIp, active);
-      }
-    }
-  }
-
-  const existingTimestamps = ipRequestHistory.get(ip) || [];
-  const activeTimestamps = existingTimestamps.filter(ts => ts > windowStart);
-
-  if (activeTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
-    return true;
-  }
-
-  activeTimestamps.push(now);
-  ipRequestHistory.set(ip, activeTimestamps);
-  return false;
-}
-
-// Durable Sliding Window Rate Limiter
-async function isRateLimited(ip) {
-  if (ip === 'unknown') {
-    return false;
-  }
-
-  if (upstashRedis) {
-    try {
-      const key = `ratelimit:lead:${ip}`;
-      const now = Date.now();
-      const windowStart = now - (RATE_LIMIT_WINDOW_SECS * 1000);
-      const member = `${now}:${Math.random().toString(36).slice(2, 9)}`;
-
-      // Atomic sliding window pipeline via Redis Sorted Set
-      const pipeline = upstashRedis.pipeline();
-      // 1. Remove timestamps outside the current sliding 10-minute window
-      pipeline.zremrangebyscore(key, 0, windowStart);
-      // 2. Add current submission timestamp
-      pipeline.zadd(key, { score: now, member });
-      // 3. Count total active submissions within the window
-      pipeline.zcard(key);
-      // 4. Reset key TTL to ensure automatic cleanup
-      pipeline.expire(key, RATE_LIMIT_WINDOW_SECS);
-
-      const results = await pipeline.exec();
-      const currentCount = typeof results[2] === 'number' ? results[2] : (Array.isArray(results) ? results[2] : 1);
-
-      return currentCount > RATE_LIMIT_MAX_REQUESTS;
-    } catch (err) {
-      console.warn('Upstash Redis rate limiter error (falling back to memory):', err.message);
-    }
-  }
-
-  return isInMemoryRateLimited(ip);
-}
 
 // Allowed Enums for Budget and Timeline
 const ALLOWED_BUDGETS = ['Under $5,000', '$5,000 - $10,000', '$10,000 - $25,000', '$25,000+'];
@@ -153,68 +64,11 @@ const LeadSchema = z.object({
   services: z.preprocess(
     val => (typeof val === 'string' && val.trim() === '' ? undefined : val),
     z.string().trim().max(200, 'Services must not exceed 200 characters').optional().nullable()
-  ),
-  token: z.string().min(1, 'Turnstile token is required').optional(),
-  turnstileToken: z.string().min(1, 'Turnstile token is required').optional(),
-  botTrap: z.string().optional(),
-  website_url: z.string().optional()
-}).strict().refine(data => Boolean(data.token || data.turnstileToken), {
-  message: 'Turnstile verification token is required',
-  path: ['token']
-}).refine(data => Boolean((data.email && data.email.trim() !== '') || (data.phone && data.phone.trim() !== '')), {
+  )
+}).strict().refine(data => Boolean((data.email && data.email.trim() !== '') || (data.phone && data.phone.trim() !== '')), {
   message: 'At least one contact method (email or phone) is required',
   path: ['email']
 });
-
-// Cloudflare Turnstile Token Verification
-async function verifyTurnstile(token, remoteIp) {
-  return new Promise((resolve) => {
-    const postData = new URLSearchParams({
-      secret: TURNSTILE_SECRET_KEY,
-      response: token,
-      ...(remoteIp && remoteIp !== 'unknown' ? { remoteip: remoteIp } : {})
-    }).toString();
-
-    const options = {
-      hostname: 'challenges.cloudflare.com',
-      port: 443,
-      path: '/turnstile/v0/siteverify',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(postData)
-      },
-      timeout: 5000
-    };
-
-    const req = https.request(options, (res) => {
-      let body = '';
-      res.on('data', chunk => body += chunk);
-      res.on('end', () => {
-        try {
-          const parsed = JSON.parse(body);
-          resolve(parsed);
-        } catch (e) {
-          resolve({ success: false, 'error-codes': ['parse_error'] });
-        }
-      });
-    });
-
-    req.on('error', (err) => {
-      console.error('Turnstile verification error:', err.message);
-      // Fail closed on security verification
-      resolve({ success: false, 'error-codes': ['network_error'] });
-    });
-
-    req.on('timeout', () => {
-      req.destroy();
-      resolve({ success: false, 'error-codes': ['timeout'] });
-    });
-
-    req.write(postData);
-    req.end();
-  });
-}
 
 // Supabase Lead Insertion via service_role key exclusively
 async function insertLeadToSupabase(leadRecord, serviceRoleKey) {
@@ -292,27 +146,7 @@ exports.handler = async (event) => {
     });
   }
 
-  // 3. Client IP Extraction & Sliding Window Rate Limiting
-  // Authoritative Netlify connection IP header (x-nf-client-connection-ip).
-  // NEVER read X-Forwarded-For to prevent IP spoofing!
-  const headers = event.headers || {};
-  let clientIp = headers['x-nf-client-connection-ip'];
-
-  // Test environment fallback only
-  if (!clientIp && process.env.NODE_ENV === 'test') {
-    clientIp = headers['x-test-client-ip'] || headers['client-ip'] || '127.0.0.1';
-  }
-  if (!clientIp) {
-    clientIp = 'unknown';
-  }
-
-  if (await isRateLimited(clientIp)) {
-    return createResponse(429, {
-      error: 'Too many requests. Please wait a few minutes before submitting another brief.'
-    });
-  }
-
-  // 4. Parse JSON body
+  // 3. Parse JSON body
   let rawBody;
   try {
     rawBody = JSON.parse(event.body || '{}');
@@ -320,14 +154,7 @@ exports.handler = async (event) => {
     return createResponse(400, { error: 'Malformed JSON payload.' });
   }
 
-  // 5. Anti-Bot Honeypot Trap
-  // Silently drop spam submissions without writing to the database
-  if ((rawBody.botTrap && String(rawBody.botTrap).trim() !== '') ||
-      (rawBody.website_url && String(rawBody.website_url).trim() !== '')) {
-    return createResponse(200, { success: true, message: 'Received' });
-  }
-
-  // 6. Server-Side Input Validation (Zod Schema)
+  // 4. Server-Side Input Validation (Zod Schema)
   const validationResult = LeadSchema.safeParse(rawBody);
   if (!validationResult.success) {
     const issues = validationResult.error.issues || validationResult.error.errors || [];
@@ -337,28 +164,25 @@ exports.handler = async (event) => {
 
   const validated = validationResult.data;
 
-  // 7. Cloudflare Turnstile Verification
-  const token = validated.token || validated.turnstileToken;
-  const turnstileCheck = await verifyTurnstile(token, clientIp);
-  if (!turnstileCheck.success) {
-    return createResponse(403, {
-      error: 'Security verification failed. Please refresh and try again.',
-      details: turnstileCheck['error-codes']
-    });
-  }
-
-  // 8. Insert Lead into Supabase via service_role key exclusively
+  // 5. Insert Lead into Supabase via service_role key exclusively
   try {
     const dbPayload = {
       name: validated.name,
       email: validated.email ? validated.email : null,
       phone: validated.phone ? validated.phone : null,
       services: validated.services ? validated.services : null,
-      details: validated.details || validated.message || null,
-      message: validated.message || validated.details || null,
-      budget: validated.budget || null,
-      timeline: validated.timeline || null
+      details: validated.details || validated.message || null
     };
+
+    if (validated.message) {
+      dbPayload.message = validated.message;
+    }
+    if (validated.budget) {
+      dbPayload.budget = validated.budget;
+    }
+    if (validated.timeline) {
+      dbPayload.timeline = validated.timeline;
+    }
 
     const dbResult = await insertLeadToSupabase(dbPayload, serviceRoleKey);
     if (!dbResult.success) {

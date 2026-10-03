@@ -3,7 +3,6 @@ const https = require('https');
 
 process.env.NODE_ENV = 'test';
 process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'test_service_role_secret_key';
-process.env.TURNSTILE_SECRET_KEY = '1x0000000000000000000000000000000AA';
 
 const { handler } = require('../netlify/functions/submit-lead');
 
@@ -85,8 +84,7 @@ async function run() {
         name: 'Honest User',
         phone: '+91 9876543210',
         status: 'closed', // Attacker attempt to mark lead as closed
-        created_at: '2020-01-01T00:00:00Z', // Attacker attempt to backdate
-        turnstileToken: 'test-token'
+        created_at: '2020-01-01T00:00:00Z' // Attacker attempt to backdate
       })
     });
     // Zod strict schema rejects unexpected fields with 400
@@ -105,8 +103,7 @@ async function run() {
       body: JSON.stringify({
         name: 'DoS Attacker',
         phone: '+91 9876543210',
-        details: hugePayload,
-        turnstileToken: 'test-token'
+        details: hugePayload
       })
     });
     assert.strictEqual(res.statusCode, 400);
@@ -123,8 +120,7 @@ async function run() {
       body: JSON.stringify({
         name: 'User',
         phone: '+91 9876543210',
-        email: 'invalid@nonexistent',
-        turnstileToken: 'test-token'
+        email: 'invalid@nonexistent'
       })
     });
     assert.strictEqual(res.statusCode, 400);

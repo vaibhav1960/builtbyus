@@ -109,8 +109,8 @@ async function run() {
       assert(pageMetrics.hasGsap, 'GSAP should be present and initialized');
     });
 
-    test('Cloudflare Turnstile script loads under CSP whitelist', () => {
-      assert(pageMetrics.hasTurnstileScript, 'Turnstile script tag should be present and loaded');
+    test('Cloudflare Turnstile script is removed from DOM', () => {
+      assert(!pageMetrics.hasTurnstileScript, 'Turnstile script tag should NOT be present');
     });
 
     test('Zero securitypolicyviolation DOM events triggered', () => {
