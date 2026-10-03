@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://builtbyus.dev/</loc>
-    <lastmod>2026-09-25</lastmod>
+    <loc>https://builtbyus.co.in/</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Privacy Policy -->
   <url>
-    <loc>https://builtbyus.dev/privacy.html</loc>
-    <lastmod>2026-09-25</lastmod>
+    <loc>https://builtbyus.co.in/privacy.html</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <!-- Terms & Conditions -->
   <url>
-    <loc>https://builtbyus.dev/terms.html</loc>
-    <lastmod>2026-09-25</lastmod>
+    <loc>https://builtbyus.co.in/terms.html</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
